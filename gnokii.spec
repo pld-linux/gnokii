@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for Nokia mobile phones
 Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych Nokia
 Name:		gnokii
 Version:	0.5.5
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
