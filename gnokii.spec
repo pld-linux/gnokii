@@ -35,7 +35,10 @@ Summary:	Graphical Linux/Unix tool suite for Nokia mobile phones.
 Summary(pl):	Zestaw narzêdzi z graficznym interfejsem dla telefonów komórkowych Nokia.
 Group:		X11/Applications
 Group(de):	X11/Applikationen
+Group(es):	X11/Aplicaciones
 Group(pl):	X11/Aplikacje
+Group(pt_BR):	X11/Aplicações
+Group(pt):	X11/Aplicações
 Requires:	%{name} = %{version}
 
 %description X11
