@@ -22,7 +22,7 @@ BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel >= 1.2
 BuildRequires:	libtool
-Requires:	libgnikii = %{epoch}:%{version}-%{release}
+Requires:	libgnokii = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -37,7 +37,7 @@ modemu/faxu dla telefonów komórkowych.
 Summary:	%{name} heades files
 Summary(pl):	Pliki nag³ówkowe gnokii
 Group:		Development/Libraries
-Requires:	libgnikii = %{epoch}:%{version}-%{release}
+Requires:	libgnokii = %{epoch}:%{version}-%{release}
 
 %description devel
 gnokii header files.
