@@ -11,7 +11,7 @@ Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-pld.patch
-Patch1:		%{name}-pic.patch
+Patch1:		%{name}-libtool.patch
 URL:		http://www.gnokii.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
@@ -20,6 +20,7 @@ BuildRequires:	bluez-libs-devel
 BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel >= 1.2
+BuildRequires:	libtool
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -67,6 +68,7 @@ Pliki nag³ówkowe gnokii.
 
 %build
 %{__gettextize}
+%{__libtoolize}
 %{__autoheader}
 %{__aclocal}
 %{__autoconf}
