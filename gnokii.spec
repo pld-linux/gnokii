@@ -1,5 +1,5 @@
-Summary:	Linux/Unix tool suite for Nokia mobile phones
-Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych Nokia
+Summary:	Linux/Unix tool suite for mobile phones
+Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.5.9
 Release:	0.1
@@ -26,27 +26,26 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Gnokii is a Linux/Unix tool suite and (eventually) modem/fax driver
-for Nokia's mobile phones, released under the GPL.
+for mobile phones.
 
 %description -l pl
-Gnokii jest zestawem narzêdzi dla Linuksa/Uniksa, oraz (ewentualnie)
-sterownikiem modemu/faxu dla telefonów komórkowych Nokia, dostêpnym na
-licencji GPL.
+Gnokii jest zestawem narzêdzi dla Linuksa/Uniksa, oraz sterownikiem
+modemu/faxu dla telefonów komórkowych.
 
 %package X11
-Summary:	Graphical Linux/Unix tool suite for Nokia mobile phones
-Summary(pl):	Zestaw narzêdzi z graficznym interfejsem dla telefonów komórkowych Nokia
+Summary:	Graphical Linux/Unix tool suite for mobile phones
+Summary(pl):	Zestaw narzêdzi z graficznym interfejsem dla telefonów komórkowych
 Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}
 
 %description X11
-Xgnokii is graphical Linux/Unix tool suite for Nokia's mobile phones.
+Xgnokii is graphical Linux/Unix tool suite for mobile phones.
 It allows you to edit your contacts book, send/read SMS's from/in
 computer and more other features.
 
 %description X11 -l pl
-Gnokii-X11 jest zestawem narzêdzi z graficznym interfejsem u¿ytkownika
-do pracy z telefonami komórkowymi Nokia. Pozwalaj± one na edytowanie
+Xgnokii jest zestawem narzêdzi z graficznym interfejsem u¿ytkownika
+do pracy z telefonami komórkowymi. Pozwalaj± one na edytowanie
 spisu telefonów, wysy³anie/czytanie wiadomo¶ci SMS i wiele innych
 rzeczy.
 
