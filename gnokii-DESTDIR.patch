@@ -1,6 +1,6 @@
-diff -urN gnokii-20020412.org/Docs/sample/gnokiirc gnokii-20020412/Docs/sample/gnokiirc
---- gnokii-20020412.org/Docs/sample/gnokiirc	Fri Apr 12 17:00:25 2002
-+++ gnokii-20020412/Docs/sample/gnokiirc	Sat Apr 13 22:34:29 2002
+diff -ruN gnokii-0.4.0.org/Docs/sample/gnokiirc gnokii-0.4.0/Docs/sample/gnokiirc
+--- gnokii-0.4.0.org/Docs/sample/gnokiirc	Wed Jul 10 00:49:13 2002
++++ gnokii-0.4.0/Docs/sample/gnokiirc	Thu Jul 11 21:22:05 2002
 @@ -31,7 +31,7 @@
  # In particular ensure that mgnokiidev is in this location, with
  # permissions 4750, owned by root, group gnokii.  Ensure you
@@ -10,9 +10,9 @@ diff -urN gnokii-20020412.org/Docs/sample/gnokiirc gnokii-20020412/Docs/sample/g
  
  # Set this to 'yes' if you want gnokii to set and check the lock file in
  # /var/lock directory. It avoids potential conflicts with other serial
-diff -urN gnokii-20020412.org/Makefile gnokii-20020412/Makefile
---- gnokii-20020412.org/Makefile	Fri Apr 12 17:00:25 2002
-+++ gnokii-20020412/Makefile	Sat Apr 13 22:05:08 2002
+diff -ruN gnokii-0.4.0.org/Makefile gnokii-0.4.0/Makefile
+--- gnokii-0.4.0.org/Makefile	Wed Jul 10 00:49:13 2002
++++ gnokii-0.4.0/Makefile	Thu Jul 11 21:22:05 2002
 @@ -8,12 +8,12 @@
  #               2000 Karel Zak
  #
@@ -28,9 +28,9 @@ diff -urN gnokii-20020412.org/Makefile gnokii-20020412/Makefile
  
  BIN_DIRS = gnokii
  
-diff -urN gnokii-20020412.org/Makefile.global.in gnokii-20020412/Makefile.global.in
---- gnokii-20020412.org/Makefile.global.in	Fri Apr 12 17:00:25 2002
-+++ gnokii-20020412/Makefile.global.in	Sat Apr 13 22:30:25 2002
+diff -ruN gnokii-0.4.0.org/Makefile.global.in gnokii-0.4.0/Makefile.global.in
+--- gnokii-0.4.0.org/Makefile.global.in	Wed Jul 10 00:49:13 2002
++++ gnokii-0.4.0/Makefile.global.in	Thu Jul 11 21:22:05 2002
 @@ -24,7 +24,7 @@
  sbindir        = @sbindir@
  xbindir        = ${prefix}/X11R6/bin/
@@ -40,9 +40,9 @@ diff -urN gnokii-20020412.org/Makefile.global.in gnokii-20020412/Makefile.global
  man1dir        = @mandir@/man1/
  man8dir        = @mandir@/man8/
  xmandir        = ${prefix}/X11R6/man/man1/
-diff -urN gnokii-20020412.org/configure.in gnokii-20020412/configure.in
---- gnokii-20020412.org/configure.in	Fri Apr 12 17:00:25 2002
-+++ gnokii-20020412/configure.in	Sat Apr 13 22:33:20 2002
+diff -ruN gnokii-0.4.0.org/configure.in gnokii-0.4.0/configure.in
+--- gnokii-0.4.0.org/configure.in	Wed Jul 10 00:49:13 2002
++++ gnokii-0.4.0/configure.in	Thu Jul 11 21:22:05 2002
 @@ -16,7 +16,6 @@
  AC_PREFIX_DEFAULT("/usr/local")
  
@@ -50,8 +50,8 @@ diff -urN gnokii-20020412.org/configure.in gnokii-20020412/configure.in
 -CFLAGS="-O2 -Wall"
  ALL_LINGUAS="cs de et fi nl sk pl it sl"
  
- dnl ======================== Checks for programs.
-@@ -34,7 +33,7 @@
+ dnl ======================== Check for include/config.h.in
+@@ -47,7 +46,7 @@
  AC_ARG_ENABLE(debug, 
  	[  --enable-debug          compile with debug code],
  	[ if test "x$GCC" = "xyes"; then
@@ -60,222 +60,40 @@ diff -urN gnokii-20020412.org/configure.in gnokii-20020412/configure.in
  	  fi
  	  AC_DEFINE(DEBUG)
  	  debug="yes" ],
-diff -urN gnokii-20020412.org/gnokii/Makefile gnokii-20020412/gnokii/Makefile
---- gnokii-20020412.org/gnokii/Makefile	Fri Apr 12 17:00:26 2002
-+++ gnokii-20020412/gnokii/Makefile	Sat Apr 13 22:05:08 2002
-@@ -39,28 +39,28 @@
- 	$(RM) $(OBJS) *~ depend gnokii *.exe core *.bak
- 
- install: all
--	$(INSTALL) -d $(bindir)
--	$(INSTALL) gnokii $(bindir)
-+	$(INSTALL) -d $(DESTDIR)$(bindir)
-+	$(INSTALL) gnokii $(DESTDIR)$(bindir)
- 
- install-strip: all
--	$(INSTALL) -d $(bindir)
--	$(INSTALL) -s gnokii $(bindir)
-+	$(INSTALL) -d $(DESTDIR)$(bindir)
-+	$(INSTALL) -s gnokii $(DESTDIR)$(bindir)
- 	@echo "done"
- 
- install-suid: all
- 	@if [ -z "/bin/grep -e '^gnokii:' /etc/group" ]; then \
- 		/usr/sbin/groupadd gnokii; \
- 	fi
--	$(INSTALL) -d $(bindir)
--	$(INSTALL) -o root -g gnokii -m 0750 gnokii $(bindir)
-+	$(INSTALL) -d $(DESTDIR)$(bindir)
-+	$(INSTALL) -o root -g gnokii -m 0750 gnokii $(DESTDIR)$(bindir)
- 	@echo
- 
- install-ss: all
- 	@if [ -z "/bin/grep -e '^gnokii:' /etc/group" ]; then \
- 		/usr/sbin/groupadd gnokii; \
- 	fi
--	$(INSTALL) -d $(bindir)
--	$(INSTALL) -o root -g gnokii -m 0750 -s gnokii $(bindir)
-+	$(INSTALL) -d $(DESTDIR)$(bindir)
-+	$(INSTALL) -o root -g gnokii -m 0750 -s gnokii $(DESTDIR)$(bindir)
- 	@echo
- 
- depend dep:
-diff -urN gnokii-20020412.org/gnokiid/Makefile gnokii-20020412/gnokiid/Makefile
---- gnokii-20020412.org/gnokiid/Makefile	Fri Apr 12 17:00:26 2002
-+++ gnokii-20020412/gnokiid/Makefile	Sat Apr 13 22:05:08 2002
-@@ -31,28 +31,28 @@
- 	$(RM) $(OBJS) *~ depend gnokiid *.exe core *.bak
- 
- install: all
--	$(INSTALL) -d $(sbindir)
--	$(INSTALL) gnokiid $(sbindir)
-+	$(INSTALL) -d $(DESTDIR)$(sbindir)
-+	$(INSTALL) gnokiid $(DESTDIR)$(sbindir)
- 
- install-strip: all
--	$(INSTALL) -d $(sbindir)
--	$(INSTALL) -s gnokiid $(sbindir)
-+	$(INSTALL) -d $(DESTDIR)$(sbindir)
-+	$(INSTALL) -s gnokiid $(DESTDIR)$(sbindir)
- 	@echo "done"
- 
- install-suid: all
- 	@if [ -z "/bin/grep -e '^gnokii:' /etc/group" ]; then \
- 		/usr/sbin/groupadd gnokii; \
- 	fi
--	$(INSTALL) -d $(sbindir)
--	$(INSTALL) -o root -g gnokii -m 4750 gnokiid $(sbindir)
-+	$(INSTALL) -d $(DESTDIR)$(sbindir)
-+	$(INSTALL) -o root -g gnokii -m 4750 gnokiid $(DESTDIR)$(sbindir)
- 	@echo "done"
- 
- install-ss: all
- 	@if [ -z "/bin/grep -e '^gnokii:' /etc/group" ]; then \
- 		/usr/sbin/groupadd gnokii; \
- 	fi
--	$(INSTALL) -d $(sbindir)
--	$(INSTALL) -o root -g gnokii -m 4750 -s gnokiid $(sbindir)
-+	$(INSTALL) -d $(DESTDIR)$(sbindir)
-+	$(INSTALL) -o root -g gnokii -m 4750 -s gnokiid $(DESTDIR)$(sbindir)
- 	@echo "done"
- 
- depend dep:
-diff -urN gnokii-20020412.org/po/Makefile.in.in gnokii-20020412/po/Makefile.in.in
---- gnokii-20020412.org/po/Makefile.in.in	Fri Apr 12 17:00:25 2002
-+++ gnokii-20020412/po/Makefile.in.in	Sat Apr 13 22:05:08 2002
-@@ -107,7 +107,7 @@
- install-data: install-data-@USE_NLS@
- install-data-no: all
- install-data-yes: all
--	${SHELL} $(top_srcdir)/mkinstalldirs $(datadir); \
-+	${SHELL} $(top_srcdir)/mkinstalldirs $(DESTDIR)$(datadir); \
- 	catalogs='$(CATALOGS)'; \
- 	for cat in $$catalogs; do \
- 	  case "$$cat" in \
+diff -ruN gnokii-0.4.0.org/po/Makefile.in.in gnokii-0.4.0/po/Makefile.in.in
+--- gnokii-0.4.0.org/po/Makefile.in.in	Wed Jul 10 00:49:13 2002
++++ gnokii-0.4.0/po/Makefile.in.in	Thu Jul 11 21:43:18 2002
 @@ -116,24 +116,24 @@
  	  esac; \
  	  lang=`echo $$cat | sed 's/$(CATOBJEXT)$$//'`; \
- 	  dir=$$destdir/$$lang/LC_MESSAGES; \
+ 	  dir=$(DESTDIR)/$$destdir/$$lang/LC_MESSAGES; \
 -	  ${SHELL} $(top_srcdir)/mkinstalldirs $$dir; \
 +	  ${SHELL} $(top_srcdir)/mkinstalldirs $(DESTDIR)$$dir; \
  	  if test -r $$cat; then \
 -	    $(INSTALL_DATA) $$cat $$dir/$(PACKAGE)$(INSTOBJEXT); \
+-	    echo "installing $$cat as $$dir/$(PACKAGE)$(INSTOBJEXT)"; \
 +	    $(INSTALL_DATA) $$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
- 	    echo "installing $$cat as $$dir/$(PACKAGE)$(INSTOBJEXT)"; \
++	    echo "installing $$cat as $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
  	  else \
 -	    $(INSTALL_DATA) $(srcdir)/$$cat $$dir/$(PACKAGE)$(INSTOBJEXT); \
-+		$(INSTALL_DATA) $(srcdir)/$$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
++	    $(INSTALL_DATA) $(srcdir)/$$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
  	    echo "installing $(srcdir)/$$cat as" \
- 		 "$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
+-		 "$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
++		 "$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
  	  fi; \
  	  if test -r $$cat.m; then \
 -	    $(INSTALL_DATA) $$cat.m $$dir/$(PACKAGE)$(INSTOBJEXT).m; \
-+		$(INSTALL_DATA) $$cat.m $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
- 	    echo "installing $$cat.m as $$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
+-	    echo "installing $$cat.m as $$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
++	    $(INSTALL_DATA) $$cat.m $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
++	    echo "installing $$cat.m as $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
  	  else \
  	    if test -r $(srcdir)/$$cat.m ; then \
  	      $(INSTALL_DATA) $(srcdir)/$$cat.m \
- 		$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
+-		$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
++		$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
  	      echo "installing $(srcdir)/$$cat as" \
 -		   "$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
-+		$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
++		   "$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
  	    else \
  	      true; \
  	    fi; \
-diff -urN gnokii-20020412.org/utils/Makefile gnokii-20020412/utils/Makefile
---- gnokii-20020412.org/utils/Makefile	Fri Apr 12 17:00:26 2002
-+++ gnokii-20020412/utils/Makefile	Sat Apr 13 22:05:08 2002
-@@ -19,24 +19,24 @@
- 	$(RM) $(OBJS) *~ depend mgnokiidev *.exe core *.bak
- 
- install:
--	$(INSTALL) -d $(sbindir)
--	$(INSTALL) mgnokiidev $(sbindir)
--	$(INSTALL) todologo $(bindir)
-+	$(INSTALL) -d $(DESTDIR)$(sbindir)
-+	$(INSTALL) mgnokiidev $(DESTDIR)$(sbindir)
-+	$(INSTALL) todologo $(DESTDIR)$(bindir)
- 
- install-strip:
--	$(INSTALL) -d $(sbindir)
--	$(INSTALL) -s mgnokiidev $(sbindir)
--	$(INSTALL) todologo $(bindir)
-+	$(INSTALL) -d $(DESTDIR)$(sbindir)
-+	$(INSTALL) -s mgnokiidev $(DESTDIR)$(sbindir)
-+	$(INSTALL) todologo $(DESTDIR)$(bindir)
- 
- install-suid:
--	$(INSTALL) -d $(sbindir)
--	$(INSTALL) -o root -g gnokii -m 4750 mgnokiidev $(sbindir)
--	$(INSTALL) todologo $(bindir)
-+	$(INSTALL) -d $(DESTDIR)$(sbindir)
-+	$(INSTALL) -o root -g gnokii -m 4750 mgnokiidev $(DESTDIR)$(sbindir)
-+	$(INSTALL) todologo $(DESTDIR)$(bindir)
- 
- install-ss:
--	$(INSTALL) -d $(sbindir)
--	$(INSTALL) -o root -g gnokii -m 4750 -s mgnokiidev $(sbindir)
--	$(INSTALL) todologo $(bindir)
-+	$(INSTALL) -d $(DESTDIR)$(sbindir)
-+	$(INSTALL) -o root -g gnokii -m 4750 -s mgnokiidev $(DESTDIR)$(sbindir)
-+	$(INSTALL) todologo $(DESTDIR)$(bindir)
- 
- depend dep:
- 	$(CC) $(CFLAGS) -MM *.c >depend
-diff -urN gnokii-20020412.org/xgnokii/Makefile gnokii-20020412/xgnokii/Makefile
---- gnokii-20020412.org/xgnokii/Makefile	Fri Apr 12 17:00:27 2002
-+++ gnokii-20020412/xgnokii/Makefile	Sat Apr 13 22:05:08 2002
-@@ -57,32 +57,32 @@
- 	$(RM) $(OBJS) *~ xpm/*~ depend xgnokii
- 
- install: all
--	$(INSTALL) -d $(xbindir)
--	$(INSTALL) xgnokii $(xbindir)
--	$(INSTALL) -d $(xgnokii_libdir)/help
-+	$(INSTALL) -d $(DESTDIR)$(prefix)/X11R6/bin
-+	$(INSTALL) -s xgnokii $(DESTDIR)$(prefix)/X11R6/bin
-+	$(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/help
- 	( cd $(HELP_DIR); \
- 	  $(FIND) . -type d \! -path "*CVS*" \
--	       -exec $(INSTALL) -d $(xgnokii_libdir)/help/{} \; ; \
-+	       -exec $(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/help/{} \; ; \
- 	  $(FIND) . -type f \! -path "*CVS*" \
--	       -exec $(INSTALL) -m 0444 {} $(xgnokii_libdir)/help/{} \; \
-+		-exec $(INSTALL) {} $(DESTDIR)$(xgnokii_libdir)/help/{} \; \
- 	)
--	$(INSTALL) -m 0444 ../Docs/CREDITS $(xgnokii_libdir)/help/en_US
--	$(INSTALL) -m 0444 ../COPYING $(xgnokii_libdir)/help/en_US
--	$(INSTALL) -d $(xgnokii_libdir)/help/en_US/sample
--	$(INSTALL) -m 0444 ../Docs/sample/gnokiirc $(xgnokii_libdir)/help/en_US/sample
-+	$(INSTALL) ../Docs/CREDITS $(DESTDIR)$(xgnokii_libdir)/help/en_US
-+	$(INSTALL) ../COPYING $(DESTDIR)$(xgnokii_libdir)/help/en_US
-+	$(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/help/en_US/sample
-+	$(INSTALL) ../Docs/sample/gnokiirc $(DESTDIR)$(xgnokii_libdir)/help/en_US/sample
- 	(cd $(xgnokii_libdir)/help; ln -sf en_US C; ln -sf en_US POSIX)
--	$(INSTALL) -d $(xgnokii_libdir)/xpm
--	$(INSTALL) -m 0444 xpm/6110.xpm $(xgnokii_libdir)/xpm
--	$(INSTALL) -m 0444 xpm/6150.xpm $(xgnokii_libdir)/xpm
--	$(INSTALL) -m 0444 xpm/5110.xpm $(xgnokii_libdir)/xpm
--	$(INSTALL) -m 0444 xpm/Preview_6110.xpm $(xgnokii_libdir)/xpm
--	$(INSTALL) -m 0444 xpm/Preview_6150.xpm $(xgnokii_libdir)/xpm
--	$(INSTALL) -m 0444 xpm/Preview_6210.xpm $(xgnokii_libdir)/xpm
--	$(INSTALL) -m 0444 xpm/Preview_3310.xpm $(xgnokii_libdir)/xpm
--	$(INSTALL) -m 0444 xpm/Preview_5110.xpm $(xgnokii_libdir)/xpm
--	$(INSTALL) -m 0444 xpm/Preview_3210.xpm $(xgnokii_libdir)/xpm
--	$(INSTALL) -m 0444 xpm/Preview_6250.xpm $(xgnokii_libdir)/xpm
--	$(INSTALL) -m 0444 xpm/Preview_7110.xpm $(xgnokii_libdir)/xpm
-+	$(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) -m 0444 xpm/6110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) -m 0444 xpm/6150.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) -m 0444 xpm/5110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) -m 0444 xpm/Preview_6110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) -m 0444 xpm/Preview_6150.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) -m 0444 xpm/Preview_6210.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) -m 0444 xpm/Preview_3310.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) -m 0444 xpm/Preview_5110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) -m 0444 xpm/Preview_3210.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) -m 0444 xpm/Preview_6250.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) -m 0444 xpm/Preview_7110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
- 
- install-strip: all
- 	$(INSTALL) -d $(xbindir)

@@ -1,6 +1,6 @@
-diff -urN gnokii-20020412.org/Makefile gnokii-20020412/Makefile
---- gnokii-20020412.org/Makefile	Sat Apr 13 22:42:56 2002
-+++ gnokii-20020412/Makefile	Sat Apr 13 22:47:40 2002
+diff -ruN gnokii-0.4.0.org/Makefile gnokii-0.4.0/Makefile
+--- gnokii-0.4.0.org/Makefile	Thu Jul 11 21:53:50 2002
++++ gnokii-0.4.0/Makefile	Thu Jul 11 21:56:11 2002
 @@ -25,19 +25,15 @@
  	common/links \
  	common/devices \
@@ -41,10 +41,10 @@ diff -urN gnokii-20020412.org/Makefile gnokii-20020412/Makefile
 -	fi
  	$(RM) Makefile.global config.cache config.log config.status \
  		include/config.h \
- 		include/config.h.in \
-@@ -115,9 +105,6 @@
- 		$(MAKE) -C $$dir install; \
- 	    fi; \
+ 		packaging/RedHat/gnokii.spec \
+@@ -117,9 +107,6 @@
+ 			$(MAKE) -C $$dir install; \
+ 		fi; \
  	done
 -	@if [ "x$(USE_NLS)" = xyes ]; then \
 -		$(MAKE) -C $(PO_DIR) install; \
@@ -52,18 +52,18 @@ diff -urN gnokii-20020412.org/Makefile gnokii-20020412/Makefile
  
  	@if [ "$(GTK_LIBS)" ]; then \
  		for dir in $(GTK_DIRS); do \
-diff -urN gnokii-20020412.org/configure.in gnokii-20020412/configure.in
---- gnokii-20020412.org/configure.in	Sat Apr 13 22:42:56 2002
-+++ gnokii-20020412/configure.in	Sat Apr 13 22:45:49 2002
+diff -ruN gnokii-0.4.0.org/configure.in gnokii-0.4.0/configure.in
+--- gnokii-0.4.0.org/configure.in	Thu Jul 11 21:53:50 2002
++++ gnokii-0.4.0/configure.in	Thu Jul 11 22:04:27 2002
 @@ -17,6 +17,7 @@
  
  dnl ======================== Default setting
  ALL_LINGUAS="cs de et fi nl sk pl it sl"
 +AM_GNU_GETTEXT
  
- dnl ======================== Checks for programs.
- AC_PROG_CC
-@@ -54,146 +55,6 @@
+ dnl ======================== Check for include/config.h.in
+ AC_MSG_CHECKING([for include/config.h.in])
+@@ -67,141 +68,6 @@
  	[ rlpdebug="no"  ]
  )
  
@@ -97,12 +97,7 @@ diff -urN gnokii-20020412.org/configure.in gnokii-20020412/configure.in
 -	AC_SUBST(HAVE_LOCALE_H)  
 -
 -	CPPFLAGS="$CPPFLAGS $NLS_CFLAGS"
--	AC_TRY_CPP([#include <libintl.h>],
--		   [ AC_DEFINE(HAVE_LIBINTL_H)
--		     AC_MSG_RESULT([checking for libintl.h... yes]) ],
--		   [ AC_MSG_WARN(not found header file: libintl.h !!!)
--		     USE_NLS=no ]
--	)
+-	AC_CHECK_HEADERS(libintl.h,, USE_NLS=no)
 -fi
 -
 -if test "$USE_NLS" = "yes"; then
@@ -210,7 +205,7 @@ diff -urN gnokii-20020412.org/configure.in gnokii-20020412/configure.in
  dnl ======================== Checks for libraries.
  
  AC_ARG_WITH(libpthread, 
-@@ -554,7 +415,6 @@
+@@ -570,7 +436,6 @@
  AC_SUBST(XGNOKIIDIR)
  AC_SUBST(XGNOKIIPATH)
  AC_SUBST(exec_prefix)
@@ -218,7 +213,7 @@ diff -urN gnokii-20020412.org/configure.in gnokii-20020412/configure.in
  AC_SUBST(GTK_CFLAGS)
  AC_SUBST(GTK_LIBS)
  AC_SUBST(PTHREAD_CFLAGS)
-@@ -573,8 +433,7 @@
+@@ -588,8 +453,7 @@
     Makefile.global
     po/Makefile.in
     packaging/RedHat/gnokii.spec
@@ -228,7 +223,7 @@ diff -urN gnokii-20020412.org/configure.in gnokii-20020412/configure.in
     )
  
  
-@@ -602,7 +461,6 @@
+@@ -617,7 +481,6 @@
      Debug:              $debug
      XDebug:             $xdebug
      RLPDebug:           $rlpdebug
