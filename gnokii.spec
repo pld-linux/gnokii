@@ -1,14 +1,14 @@
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
-Version:	0.5.10
-Release:	0.4
+Version:	0.6.0
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
 #Source0:	http://savannah.nongnu.org/download/gnokii/%{name}-%{version}.tar.bz2
 Source0:	ftp://urtica.linuxnews.pl/pub/people/pkot/gnokii/%{name}-%{version}.tar.bz2
-# Source0-md5:	2c1919774f5948b8d291d32267df70e2
+# Source0-md5:	7b0a47b47fc1fc30da2b95183955fd0a
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-pld.patch
@@ -39,21 +39,20 @@ Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description X11
-Xgnokii is graphical Linux/Unix tool suite for mobile phones.
-It allows you to edit your contacts book, send/read SMS's from/in
+Xgnokii is graphical Linux/Unix tool suite for mobile phones. It
+allows you to edit your contacts book, send/read SMS's from/in
 computer and more other features.
 
 %description X11 -l pl
-Xgnokii jest zestawem narzêdzi z graficznym interfejsem u¿ytkownika
-do pracy z telefonami komórkowymi. Pozwalaj± one na edytowanie
-spisu telefonów, wysy³anie/czytanie wiadomo¶ci SMS i wiele innych
-rzeczy.
+Xgnokii jest zestawem narzêdzi z graficznym interfejsem u¿ytkownika do
+pracy z telefonami komórkowymi. Pozwalaj± one na edytowanie spisu
+telefonów, wysy³anie/czytanie wiadomo¶ci SMS i wiele innych rzeczy.
 
 %package -n libgnokii
 Summary:	A gnokii shared library
 Summary(pl):	Biblioteka wspó³dzielona gnokii
 Group:		Libraries
-Conflicts:	gnokii < 1:0.5.10-0.2 
+Conflicts:	gnokii < 1:0.5.10-0.2
 
 %description -n libgnokii
 A gnokii shared library
