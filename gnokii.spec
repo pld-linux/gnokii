@@ -1,9 +1,9 @@
-%define	_pre	pre9
+%define	_pre	rc1
 Summary:	Linux/Unix tool suite for Nokia mobile phones
 Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych Nokia
 Name:		gnokii
 Version:	0.5.0
-Release:	0.%{_pre}.3
+Release:	1
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}%{_pre}.tar.gz
@@ -45,6 +45,19 @@ Gnokii-X11 jest zestawem narzêdzi z graficznym interfejsem u¿ytkownika
 do pracy z telefonami komórkowymi Nokia. Pozwalaj± one na edytowanie
 spisu telefonów, wysy³anie/czytanie wiadomo¶ci SMS i wiele innych
 rzeczy.
+
+
+%package %{name}-devel
+Summary:        %{name} heades files
+Summary(pl):    %{name} pliki nag³ówkowe
+Group:          Development/Libraries
+Requires:       %{name} = %{version}
+
+%description %{name}-devel
+Header files
+
+%description %{name}-devel -l pl
+Pliki nag³ówkowe
 
 %prep
 %setup -q -n %{name}-%{version}%{_pre}
@@ -103,3 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_datadir}/xgnokii
 %{_datadir}/xgnokii/xpm
 %{_datadir}/xgnokii/help
+
+%files %{name}-devel
+%{_includedir}/%{name}/*.h
+%{_includedir}/*.h
