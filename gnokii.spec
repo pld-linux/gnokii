@@ -32,7 +32,7 @@ for mobile phones.
 
 %description -l pl
 Gnokii jest zestawem narzêdzi dla Linuksa/Uniksa, oraz sterownikiem
-modemu/faxu dla telefonów komórkowych.
+modemu/faksu dla telefonów komórkowych.
 
 %package X11
 Summary:	Graphical Linux/Unix tool suite for mobile phones
@@ -47,7 +47,7 @@ computer and more other features.
 
 %description X11 -l pl
 Xgnokii jest zestawem narzêdzi z graficznym interfejsem u¿ytkownika do
-pracy z telefonami komórkowymi. Pozwalaj± one na edytowanie spisu
+pracy z telefonami komórkowymi. Pozwalaj± one na modyfikowanie spisu
 telefonów, wysy³anie/czytanie wiadomo¶ci SMS i wiele innych rzeczy.
 
 %package -n libgnokii
@@ -57,10 +57,10 @@ Group:		Libraries
 Conflicts:	gnokii < 1:0.5.10-0.2
 
 %description -n libgnokii
-A gnokii shared library
+A gnokii shared library.
 
 %description -n libgnokii -l pl
-Biblioteka wspó³dzielona gnokii
+Biblioteka wspó³dzielona gnokii.
 
 %package -n libgnokii-devel
 Summary:	libgnokii heades files
