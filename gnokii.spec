@@ -10,7 +10,6 @@ Source0:	ftp://ftp.linux.cz/pub/linux/people/pavel_janik/Gnokii/%{name}-%{versio
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://www.gnokii.org
 BuildRequires:	XFree86-devel
-BuildRequires:	xpm-devel
 BuildRequires:	gtk+-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
