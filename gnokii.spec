@@ -63,26 +63,31 @@ A gnokii shared library
 Biblioteka wspó³dzielona gnokii
 
 %package -n libgnokii-devel
-Summary:	%{name} heades files
-Summary(pl):	Pliki nag³ówkowe gnokii
+Summary:	libgnokii heades files
+Summary(pl):	Pliki nag³ówkowe biblioteki libgnokii
 Group:		Development/Libraries
 Requires:	libgnokii = %{epoch}:%{version}-%{release}
 Obsoletes:	gnokii-devel
 
 %description -n libgnokii-devel
-gnokii header files.
+libgnokii header files.
 
 %description -n libgnokii-devel -l pl
-Pliki nag³ówkowe gnokii.
+Pliki nag³ówkowe biblioteki libgnokii.
 
 %package -n libgnokii-static
-Summary:	Static %{name} library
+Summary:	Static libgnoki library
+Summary(pl):	Statyczna biblioteka libgnokii
 Group:		Development/Libraries
 Requires:	libgnokii-devel = %{epoch}:%{version}-%{release}
 Obsoletes:	gnokii-devel
 
 %description -n libgnokii-static
-Static version of gnokii library.
+Static version of libgnokii library.
+
+%description -n libgnokii-static -l pl
+Statyczna wersja biblioteki libgnokii.
+
 
 %prep
 %setup -q
@@ -119,8 +124,8 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post	-p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	-n libgnokii -p /sbin/ldconfig
+%postun -n libgnokii -p /sbin/ldconfig
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -151,10 +156,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n libgnokii-devel
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libgnokii.so
+%{_libdir}/libgnokii.la
 %{_includedir}/*.h
 %{_includedir}/%{name}
-%attr(755,root,root) %{_libdir}/libgnokii.so
-%attr(755,root,root) %{_libdir}/libgnokii.la
 %{_pkgconfigdir}/*.pc
 
 %files -n libgnokii-static
