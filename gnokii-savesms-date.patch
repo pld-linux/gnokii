@@ -1,11 +1,32 @@
+diff -burN gnokii-0.6.3.orig/Docs/man/gnokii.1 gnokii-0.6.3-savesms-date/Docs/man/gnokii.1
+--- gnokii-0.6.3.orig/Docs/man/gnokii.1	2004-09-29 19:39:06.000000000 +0200
++++ gnokii-0.6.3-savesms-date/Docs/man/gnokii.1	2004-09-30 20:41:32.000000000 +0200
+@@ -129,7 +129,7 @@
+ echo "This is a test message" | gnokii \-\-sendsms +48501123456 \-r
+ 
+ .TP 
+-.BR "\-\-savesms [\-\-sender \fIfrom\fP] [\-\-smsc \fImessage_center_number\fP | \-\-smscno \fImessage_center_index\fP] [\-\-folder \fIfolder_id\fP] [\-\-location \fInumber\fP] [\-\-sent | \-\-read] [\-\-deliver]"
++.BR "\-\-savesms [\-\-sender \fIfrom\fP] [\-\-smsc \fImessage_center_number\fP | \-\-smscno \fImessage_center_index\fP] [\-\-folder \fIfolder_id\fP] [\-\-location \fInumber\fP] [\-\-sent | \-\-read] [\-\-deliver] [\-\-datetime \fIYYMMDDHHMMSS\fP]"
+ saves SMS messages to phone. Messages are read from STDIN. You can specify the following optional arguments:
+ .PP 
+ \-\-sender \- set the sender number (only \fI\-\-deliver\fP)
+@@ -145,6 +145,8 @@
+ \-\-sent | \-\-read \- mark the message saved/read depending on \fI\-\-deliver\fP
+ .PP 
+ \-\-deliver \- set the message type to SMS_Deliver
++.PP
++\-\-datetime \fIYYMMDDHHMMSS\fR \- sets datetime of delivery, i.e. 031123185713 would set message delivery time to 23rd November 2003, 6:57:13 PM
+ 
+ .TP 
+ .BR "\-\-getsmsc \fInumber\fP"
 diff -burN gnokii-0.6.3.orig/gnokii/gnokii.c gnokii-0.6.3-savesms-date/gnokii/gnokii.c
 --- gnokii-0.6.3.orig/gnokii/gnokii.c	2004-09-29 19:39:06.000000000 +0200
-+++ gnokii-0.6.3-savesms-date/gnokii/gnokii.c	2004-09-29 23:16:56.311424728 +0200
++++ gnokii-0.6.3-savesms-date/gnokii/gnokii.c	2004-09-30 21:23:57.628144736 +0200
 @@ -287,6 +287,7 @@
  		     "          gnokii --savesms [--sender from] [--smsc message_center_number |\n"
  		     "                 --smscno message_center_index] [--folder folder_id]\n"
  		     "                 [--location number] [--sent | --read] [--deliver] \n"
-+		     "                 [---datetime YYMMDDHHMMSS] \n"
++		     "                 [--datetime YYMMDDHHMMSS] \n"
  		     "          gnokii --getsmsc [start_number [end_number]] [-r|--raw]\n"
  		     "          gnokii --setsmsc\n"
  		     "          gnokii --createsmsfolder name\n"
@@ -26,7 +47,7 @@ diff -burN gnokii-0.6.3.orig/gnokii/gnokii.c gnokii-0.6.3-savesms-date/gnokii/gn
  		switch (i) {
  		case '0': /* SMSC number */
  			snprintf(sms.smsc.number, sizeof(sms.smsc.number) - 1, "%s", optarg);
-@@ -869,6 +871,42 @@
+@@ -869,6 +871,43 @@
  		case 'd': /* type Deliver */
  			sms.type = GN_SMS_MT_Deliver;
  			break;
@@ -43,7 +64,7 @@ diff -burN gnokii-0.6.3.orig/gnokii/gnokii.c gnokii-0.6.3-savesms-date/gnokii/gn
 +				};
 +			c=optarg[2];
 +			optarg[2]=0;
-+			sms.smsc_time.year	= atoi(optarg);
++			sms.smsc_time.year	= atoi(optarg)+1900;
 +			optarg[2]=c;
 +			c=optarg[4];
 +			optarg[4]=0;
@@ -65,7 +86,8 @@ diff -burN gnokii-0.6.3.orig/gnokii/gnokii.c gnokii-0.6.3-savesms-date/gnokii/gn
 +			optarg[12]=0;
 +			sms.smsc_time.second	= atoi(optarg+10);
 +			optarg[12]=c;
-+			break; }
++			break;
++		       }
  		default:
  			usage(stderr, -1);
  			return -1;
