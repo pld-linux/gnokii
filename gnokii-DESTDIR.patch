@@ -1,13 +1,145 @@
---- ./Docs/sample/gnokiirc.orig	Sun Jul  1 14:03:23 2001
-+++ ./Docs/sample/gnokiirc	Sun Jul  1 14:03:44 2001
+diff -urN gnokii-0.3.3.org/Docs/sample/gnokiirc gnokii-0.3.3/Docs/sample/gnokiirc
+--- gnokii-0.3.3.org/Docs/sample/gnokiirc	Fri Sep 28 02:07:58 2001
++++ gnokii-0.3.3/Docs/sample/gnokiirc	Fri Sep 28 19:43:54 2001
 @@ -28,4 +28,4 @@
  # In particular ensure that mgnokiidev is in this location, with
  # permissions 4750, owned by root, group gnokii.  Ensure you
  # are in the gnokii group and that the group exists...
 -bindir = /usr/local/sbin/
 +bindir = /usr/sbin/
---- ./po/Makefile.in.in.orig	Sun Jul  1 14:10:49 2001
-+++ ./po/Makefile.in.in	Sun Jul  1 14:13:27 2001
+diff -urN gnokii-0.3.3.org/Makefile gnokii-0.3.3/Makefile
+--- gnokii-0.3.3.org/Makefile	Fri Sep 28 02:07:58 2001
++++ gnokii-0.3.3/Makefile	Fri Sep 28 20:03:04 2001
+@@ -8,12 +8,12 @@
+ #               2000 Karel Zak
+ #
+ 
+-TOPDIR=.
++DESTDIR=
+ 
+ #
+ # Makefile.global contains gnokii global settings
+ #
+-include ${TOPDIR}/Makefile.global
++include ./Makefile.global
+ 
+ BIN_DIRS = gnokii
+ 
+diff -urN gnokii-0.3.3.org/Makefile.global.in gnokii-0.3.3/Makefile.global.in
+--- gnokii-0.3.3.org/Makefile.global.in	Fri Sep 28 02:07:58 2001
++++ gnokii-0.3.3/Makefile.global.in	Fri Sep 28 20:03:34 2001
+@@ -24,7 +24,7 @@
+ sbindir        = @sbindir@
+ xbindir        = ${prefix}/X11R6/bin/
+ libdir         = @libdir@/${PACKAGE}
+-xgnokii_libdir = @XGNOKIIDIR@/@XPACKAGE@
++xgnokii_libdir = ${prefix}/X11R6/lib/@XPACKAGE@
+ man1dir        = @mandir@/man1/
+ man8dir        = @mandir@/man8/
+ xmandir        = ${prefix}/X11R6/man/man1/
+diff -urN gnokii-0.3.3.org/configure.in gnokii-0.3.3/configure.in
+--- gnokii-0.3.3.org/configure.in	Fri Sep 28 02:07:58 2001
++++ gnokii-0.3.3/configure.in	Fri Sep 28 20:04:24 2001
+@@ -15,7 +15,6 @@
+ AC_PREFIX_DEFAULT("/usr/local")
+ 
+ dnl ======================== Default setting
+-CFLAGS="-O2 -Wall"
+ ALL_LINGUAS="cs de et fi nl sk pl it sl"
+ 
+ dnl ======================== Checks for programs.
+@@ -32,7 +31,7 @@
+ 
+ AC_ARG_ENABLE(debug, 
+    [  --enable-debug          compile with debug code],
+-   [ CFLAGS="-g -Wall"
++   [ CFLAGS="$CFLAGS -g -Wall"
+      AC_DEFINE(DEBUG)
+      debug="yes" ],
+    [ debug="no"  ]
+diff -urN gnokii-0.3.3.org/gnokii/Makefile gnokii-0.3.3/gnokii/Makefile
+--- gnokii-0.3.3.org/gnokii/Makefile	Fri Sep 28 02:07:58 2001
++++ gnokii-0.3.3/gnokii/Makefile	Fri Sep 28 19:53:34 2001
+@@ -40,28 +40,28 @@
+ 	$(RM) $(OBJS) *~ depend gnokii *.exe core *.bak
+ 
+ install: all
+-	$(INSTALL) -d $(bindir)
+-	$(INSTALL) gnokii $(bindir)
++	$(INSTALL) -d $(DESTDIR)$(bindir)
++	$(INSTALL) gnokii $(DESTDIR)$(bindir)
+ 
+ install-strip: all
+-	$(INSTALL) -d $(bindir)
+-	$(INSTALL) -s gnokii $(bindir)
++	$(INSTALL) -d $(DESTDIR)$(bindir)
++	$(INSTALL) -s gnokii $(DESTDIR)$(bindir)
+ 	@echo "done"
+ 
+ install-suid: all
+ 	@if [ -z "/bin/grep -e '^gnokii:' /etc/group" ]; then \
+ 		/usr/sbin/groupadd gnokii; \
+ 	fi
+-	$(INSTALL) -d $(bindir)
+-	$(INSTALL) -o root -g gnokii -m 0750 gnokii $(bindir)
++	$(INSTALL) -d $(DESTDIR)$(bindir)
++	$(INSTALL) -o root -g gnokii -m 0750 gnokii $(DESTDIR)$(bindir)
+ 	@echo
+ 
+ install-ss: all
+ 	@if [ -z "/bin/grep -e '^gnokii:' /etc/group" ]; then \
+ 		/usr/sbin/groupadd gnokii; \
+ 	fi
+-	$(INSTALL) -d $(bindir)
+-	$(INSTALL) -o root -g gnokii -m 0750 -s gnokii $(bindir)
++	$(INSTALL) -d $(DESTDIR)$(bindir)
++	$(INSTALL) -o root -g gnokii -m 0750 -s gnokii $(DESTDIR)$(bindir)
+ 	@echo
+ 
+ depend dep:
+diff -urN gnokii-0.3.3.org/gnokiid/Makefile gnokii-0.3.3/gnokiid/Makefile
+--- gnokii-0.3.3.org/gnokiid/Makefile	Fri Sep 28 02:07:58 2001
++++ gnokii-0.3.3/gnokiid/Makefile	Fri Sep 28 20:17:56 2001
+@@ -28,28 +28,28 @@
+ 	$(RM) $(OBJS) *~ depend gnokiid *.exe core *.bak
+ 
+ install: all
+-	$(INSTALL) -d $(sbindir)
+-	$(INSTALL) gnokiid $(sbindir)
++	$(INSTALL) -d $(DESTDIR)$(sbindir)
++	$(INSTALL) gnokiid $(DESTDIR)$(sbindir)
+ 
+ install-strip: all
+-	$(INSTALL) -d $(sbindir)
+-	$(INSTALL) -s gnokiid $(sbindir)
++	$(INSTALL) -d $(DESTDIR)$(sbindir)
++	$(INSTALL) -s gnokiid $(DESTDIR)$(sbindir)
+ 	@echo "done"
+ 
+ install-suid: all
+ 	@if [ -z "/bin/grep -e '^gnokii:' /etc/group" ]; then \
+ 		/usr/sbin/groupadd gnokii; \
+ 	fi
+-	$(INSTALL) -d $(sbindir)
+-	$(INSTALL) -o root -g gnokii -m 4750 gnokiid $(sbindir)
++	$(INSTALL) -d $(DESTDIR)$(sbindir)
++	$(INSTALL) -o root -g gnokii -m 4750 gnokiid $(DESTDIR)$(sbindir)
+ 	@echo "done"
+ 
+ install-ss: all
+ 	@if [ -z "/bin/grep -e '^gnokii:' /etc/group" ]; then \
+ 		/usr/sbin/groupadd gnokii; \
+ 	fi
+-	$(INSTALL) -d $(sbindir)
+-	$(INSTALL) -o root -g gnokii -m 4750 -s gnokiid $(sbindir)
++	$(INSTALL) -d $(DESTDIR)$(sbindir)
++	$(INSTALL) -o root -g gnokii -m 4750 -s gnokiid $(DESTDIR)$(sbindir)
+ 	@echo "done"
+ 
+ depend dep:
+diff -urN gnokii-0.3.3.org/po/Makefile.in.in gnokii-0.3.3/po/Makefile.in.in
+--- gnokii-0.3.3.org/po/Makefile.in.in	Fri Sep 28 02:07:58 2001
++++ gnokii-0.3.3/po/Makefile.in.in	Fri Sep 28 19:47:47 2001
 @@ -107,7 +107,7 @@
  install-data: install-data-@USE_NLS@
  install-data-no: all
@@ -17,7 +149,7 @@
  	catalogs='$(CATALOGS)'; \
  	for cat in $$catalogs; do \
  	  case "$$cat" in \
-@@ -116,22 +116,22 @@
+@@ -116,24 +116,24 @@
  	  esac; \
  	  lang=`echo $$cat | sed 's/$(CATOBJEXT)$$//'`; \
  	  dir=$$destdir/$$lang/LC_MESSAGES; \
@@ -29,71 +161,73 @@
  	    echo "installing $$cat as $$dir/$(PACKAGE)$(INSTOBJEXT)"; \
  	  else \
 -	    $(INSTALL_DATA) $(srcdir)/$$cat $$dir/$(PACKAGE)$(INSTOBJEXT); \
-+	    $(INSTALL_DATA) $(srcdir)/$$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
++		$(INSTALL_DATA) $(srcdir)/$$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
  	    echo "installing $(srcdir)/$$cat as" \
  		 "$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
  	  fi; \
  	  if test -r $$cat.m; then \
 -	    $(INSTALL_DATA) $$cat.m $$dir/$(PACKAGE)$(INSTOBJEXT).m; \
-+	    $(INSTALL_DATA) $$cat.m $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
++		$(INSTALL_DATA) $$cat.m $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
  	    echo "installing $$cat.m as $$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
  	  else \
  	    if test -r $(srcdir)/$$cat.m ; then \
  	      $(INSTALL_DATA) $(srcdir)/$$cat.m \
--		$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
-+		$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
+ 		$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
  	      echo "installing $(srcdir)/$$cat as" \
- 		   "$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
+-		   "$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
++		$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
  	    else \
---- ./gnokii/Makefile.orig	Sun Jul  1 14:08:44 2001
-+++ ./gnokii/Makefile	Sun Jul  1 14:09:34 2001
-@@ -40,8 +40,8 @@
- 	$(RM) $(OBJS) *~ depend gnokii *.exe core *.bak
- 
- install:
--	$(INSTALL) -d $(bindir)
--	$(INSTALL) gnokii $(bindir)
-+	$(INSTALL) -d $(DESTDIR)$(bindir)
-+	$(INSTALL) gnokii $(DESTDIR)$(bindir)
- 
- depend dep:
- 	$(CC) $(CFLAGS) -MM *.c >depend
---- ./gnokiid/Makefile.orig	Sun Jul  1 14:09:56 2001
-+++ ./gnokiid/Makefile	Sun Jul  1 14:10:30 2001
-@@ -28,8 +28,8 @@
- 	$(RM) $(OBJS) *~ depend gnokiid *.exe core *.bak
- 
- install:
--	$(INSTALL) -d $(sbindir)
--	$(INSTALL) gnokiid $(sbindir)
-+	$(INSTALL) -d $(DESTDIR)$(sbindir)
-+	$(INSTALL) gnokiid $(DESTDIR)$(sbindir)
- 
- depend dep:
- 	$(CC) $(CFLAGS) -MM *.c >depend
---- ./utils/Makefile.orig	Sun Jul  1 14:13:45 2001
-+++ ./utils/Makefile	Sun Jul  1 14:28:09 2001
-@@ -19,9 +19,9 @@
+ 	      true; \
+ 	    fi; \
+diff -urN gnokii-0.3.3.org/utils/Makefile gnokii-0.3.3/utils/Makefile
+--- gnokii-0.3.3.org/utils/Makefile	Fri Sep 28 02:07:59 2001
++++ gnokii-0.3.3/utils/Makefile	Fri Sep 28 19:54:46 2001
+@@ -19,24 +19,24 @@
  	$(RM) $(OBJS) *~ depend mgnokiidev *.exe core *.bak
  
  install:
 -	$(INSTALL) -d $(sbindir)
--	$(INSTALL) -o root -g gnokii -m 4750 mgnokiidev $(sbindir)
+-	$(INSTALL) mgnokiidev $(sbindir)
 -	$(INSTALL) todologo $(bindir)
 +	$(INSTALL) -d $(DESTDIR)$(sbindir)
 +	$(INSTALL) mgnokiidev $(DESTDIR)$(sbindir)
 +	$(INSTALL) todologo $(DESTDIR)$(bindir)
  
+ install-strip:
+-	$(INSTALL) -d $(sbindir)
+-	$(INSTALL) -s mgnokiidev $(sbindir)
+-	$(INSTALL) todologo $(bindir)
++	$(INSTALL) -d $(DESTDIR)$(sbindir)
++	$(INSTALL) -s mgnokiidev $(DESTDIR)$(sbindir)
++	$(INSTALL) todologo $(DESTDIR)$(bindir)
+ 
+ install-suid:
+-	$(INSTALL) -d $(sbindir)
+-	$(INSTALL) -o root -g gnokii -m 4750 mgnokiidev $(sbindir)
+-	$(INSTALL) todologo $(bindir)
++	$(INSTALL) -d $(DESTDIR)$(sbindir)
++	$(INSTALL) -o root -g gnokii -m 4750 mgnokiidev $(DESTDIR)$(sbindir)
++	$(INSTALL) todologo $(DESTDIR)$(bindir)
+ 
+ install-ss:
+-	$(INSTALL) -d $(sbindir)
+-	$(INSTALL) -o root -g gnokii -m 4750 -s mgnokiidev $(sbindir)
+-	$(INSTALL) todologo $(bindir)
++	$(INSTALL) -d $(DESTDIR)$(sbindir)
++	$(INSTALL) -o root -g gnokii -m 4750 -s mgnokiidev $(DESTDIR)$(sbindir)
++	$(INSTALL) todologo $(DESTDIR)$(bindir)
+ 
  depend dep:
  	$(CC) $(CFLAGS) -MM *.c >depend
---- ./xgnokii/Makefile.orig	Sun Jul  1 14:14:46 2001
-+++ ./xgnokii/Makefile	Sun Jul  1 15:35:29 2001
-@@ -58,27 +58,27 @@
+diff -urN gnokii-0.3.3.org/xgnokii/Makefile gnokii-0.3.3/xgnokii/Makefile
+--- gnokii-0.3.3.org/xgnokii/Makefile	Fri Sep 28 02:07:59 2001
++++ gnokii-0.3.3/xgnokii/Makefile	Fri Sep 28 20:12:53 2001
+@@ -58,32 +58,32 @@
  	$(RM) $(OBJS) *~ xpm/*~ depend xgnokii
  
  install: all
--	$(INSTALL) -d $(bindir)
--	$(INSTALL) -m 755 -s xgnokii $(bindir)
+-	$(INSTALL) -d $(xbindir)
+-	$(INSTALL) xgnokii $(xbindir)
 -	$(INSTALL) -d $(xgnokii_libdir)/help
 +	$(INSTALL) -d $(DESTDIR)$(prefix)/X11R6/bin
 +	$(INSTALL) -s xgnokii $(DESTDIR)$(prefix)/X11R6/bin
@@ -104,7 +238,7 @@
 +	       -exec $(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/help/{} \; ; \
  	  $(FIND) . -type f \! -path "*CVS*" \
 -	       -exec $(INSTALL) -m 0444 {} $(xgnokii_libdir)/help/{} \; \
-+	       -exec $(INSTALL) {} $(DESTDIR)$(xgnokii_libdir)/help/{} \; \
++		-exec $(INSTALL) {} $(DESTDIR)$(xgnokii_libdir)/help/{} \; \
  	)
 -	$(INSTALL) -m 0444 ../Docs/CREDITS $(xgnokii_libdir)/help/en_US
 -	$(INSTALL) -m 0444 ../COPYING $(xgnokii_libdir)/help/en_US
@@ -122,73 +256,23 @@
 -	$(INSTALL) -m 0444 xpm/Preview_6110.xpm $(xgnokii_libdir)/xpm
 -	$(INSTALL) -m 0444 xpm/Preview_6150.xpm $(xgnokii_libdir)/xpm
 -	$(INSTALL) -m 0444 xpm/Preview_6210.xpm $(xgnokii_libdir)/xpm
+-	$(INSTALL) -m 0444 xpm/Preview_3310.xpm $(xgnokii_libdir)/xpm
+-	$(INSTALL) -m 0444 xpm/Preview_5110.xpm $(xgnokii_libdir)/xpm
+-	$(INSTALL) -m 0444 xpm/Preview_3210.xpm $(xgnokii_libdir)/xpm
+-	$(INSTALL) -m 0444 xpm/Preview_6250.xpm $(xgnokii_libdir)/xpm
+-	$(INSTALL) -m 0444 xpm/Preview_7110.xpm $(xgnokii_libdir)/xpm
 +	$(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) xpm/6110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) xpm/6150.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) xpm/5110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) xpm/Preview_6110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) xpm/Preview_6150.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
-+	$(INSTALL) xpm/Preview_6210.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) -m 0444 xpm/6110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) -m 0444 xpm/6150.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) -m 0444 xpm/5110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) -m 0444 xpm/Preview_6110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) -m 0444 xpm/Preview_6150.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) -m 0444 xpm/Preview_6210.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) -m 0444 xpm/Preview_3310.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) -m 0444 xpm/Preview_5110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) -m 0444 xpm/Preview_3210.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) -m 0444 xpm/Preview_6250.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) -m 0444 xpm/Preview_7110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
  
- depend dep:
- 	$(CC) $(CFLAGS) -MM *.c >depend
---- ./xlogos/Makefile.orig	Sun Jul  1 14:17:46 2001
-+++ ./xlogos/Makefile	Sun Jul  1 15:20:23 2001
-@@ -36,8 +36,8 @@
- 	$(RM) $(OBJS) *~ depend xlogos *.exe core *.bak
- 
- install: all
--	$(INSTALL) -d $(bindir)
--	$(INSTALL) xlogos $(bindir)
-+	$(INSTALL) -d $(DESTDIR)$(prefix)/X11R6/bin
-+	$(INSTALL) xlogos $(DESTDIR)$(prefix)/X11R6/bin
- 
- depend dep:
- 	$(CC) $(CFLAGS) -MM *.c >depend
---- ./Makefile.orig	Sun Jul  1 14:04:15 2001
-+++ ./Makefile	Sun Jul  1 14:25:19 2001
-@@ -8,12 +8,12 @@
- #               2000 Karel Zak
- #
- 
--TOPDIR=.
-+DESTDIR=
- 
- #
- # Makefile.global contains gnokii global settings
- #
--include ${TOPDIR}/Makefile.global
-+include ./Makefile.global
- 
- 
- DIRS =  common/phones \
---- ./Makefile.global.in.orig	Sun Jul  1 14:04:57 2001
-+++ ./Makefile.global.in	Sun Jul  1 14:22:04 2001
-@@ -25,7 +25,7 @@
- bindir         = @bindir@
- sbindir        = @sbindir@
- libdir         = @libdir@/${PACKAGE}
--xgnokii_libdir = @XGNOKIIDIR@/@XPACKAGE@
-+xgnokii_libdir = ${prefix}/X11R6/lib/@XPACKAGE@
- mandir         = @mandir@/man1/
- docdir         = ${prefix}/doc/${PACKAGE}
- locdir         = @datadir@/locale
---- ./configure.in.orig	Sun Jul  1 14:06:45 2001
-+++ ./configure.in	Sun Jul  1 14:23:08 2001
-@@ -15,7 +15,6 @@
- AC_PREFIX_DEFAULT("/usr/local")
- 
- dnl ======================== Default setting
--CFLAGS="-O2 -Wall"
- ALL_LINGUAS="cs de et fi nl sk pl it"
- 
- dnl ======================== Checks for programs.
-@@ -33,7 +32,7 @@
- 
- AC_ARG_ENABLE(debug, 
-    [  --enable-debug          compile with debug code],
--   [ CFLAGS="-g -Wall"
-+   [ CFLAGS="$CFLAGS -g -Wall"
-      AC_DEFINE(DEBUG)
-      debug="yes" ],
-    [ debug="no"  ]
+ install-strip: all
+ 	$(INSTALL) -d $(xbindir)
