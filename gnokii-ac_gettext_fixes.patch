@@ -1,6 +1,6 @@
-diff -ruN gnokii-0.4.1.org/Makefile gnokii-0.4.1/Makefile
---- gnokii-0.4.1.org/Makefile	Mon Jul 15 08:30:54 2002
-+++ gnokii-0.4.1/Makefile	Mon Jul 15 08:32:34 2002
+diff -urN gnokii-0.4.3.orig/Makefile gnokii-0.4.3/Makefile
+--- gnokii-0.4.3.orig/Makefile	Mon Aug  5 18:21:20 2002
++++ gnokii-0.4.3/Makefile	Wed Aug  7 10:57:38 2002
 @@ -25,19 +25,15 @@
  	common/links \
  	common/devices \
@@ -22,7 +22,7 @@ diff -ruN gnokii-0.4.1.org/Makefile gnokii-0.4.1/Makefile
  	@if [ "$(GTK_LIBS)" ]; then \
  		for dir in $(GTK_DIRS); do \
  		    if [ -e $$dir/Makefile ]; then \
-@@ -59,9 +55,6 @@
+@@ -66,9 +62,6 @@
  		$(MAKE) -C $$dir clean; \
  	    fi; \
  	done
@@ -32,7 +32,7 @@ diff -ruN gnokii-0.4.1.org/Makefile gnokii-0.4.1/Makefile
  
  ifdef OWN_GETOPT
  		$(MAKE) -C getopt clean
-@@ -81,9 +74,6 @@
+@@ -88,9 +81,6 @@
  
  distclean: clean
  	$(MAKE) -C common distclean
@@ -42,7 +42,7 @@ diff -ruN gnokii-0.4.1.org/Makefile gnokii-0.4.1/Makefile
  	$(RM) Makefile.global config.cache config.log config.status \
  		include/config.h \
  		packaging/RedHat/gnokii.spec \
-@@ -118,9 +108,6 @@
+@@ -125,9 +115,6 @@
  			$(MAKE) -C $$dir install; \
  		fi; \
  	done
@@ -52,9 +52,39 @@ diff -ruN gnokii-0.4.1.org/Makefile gnokii-0.4.1/Makefile
  
  	@if [ "$(GTK_LIBS)" ]; then \
  		for dir in $(GTK_DIRS); do \
-diff -ruN gnokii-0.4.1.org/configure.in gnokii-0.4.1/configure.in
---- gnokii-0.4.1.org/configure.in	Mon Jul 15 08:30:54 2002
-+++ gnokii-0.4.1/configure.in	Mon Jul 15 08:31:35 2002
+@@ -148,9 +135,6 @@
+ 			$(MAKE) -C $$dir install-strip; \
+ 		fi; \
+ 	done
+-	@if [ "x$(USE_NLS)" = xyes ]; then \
+-		$(MAKE) -C $(PO_DIR) install; \
+-	fi
+ 
+ 	@if [ "$(GTK_LIBS)" ]; then \
+ 		for dir in $(GTK_DIRS); do \
+@@ -167,9 +151,6 @@
+ 			$(MAKE) -C $$dir install-suid; \
+ 		fi; \
+ 	done
+-	@if [ "x$(USE_NLS)" = xyes ]; then \
+-		$(MAKE) -C $(PO_DIR) install; \
+-	fi
+ 
+ 	@if [ "$(GTK_LIBS)" ]; then \
+ 		for dir in $(GTK_DIRS); do \
+@@ -186,9 +167,6 @@
+ 			$(MAKE) -C $$dir install-ss; \
+ 		fi; \
+ 	done
+-	@if [ "x$(USE_NLS)" = xyes ]; then \
+-		$(MAKE) -C $(PO_DIR) install; \
+-	fi
+ 
+ 	@if [ "$(GTK_LIBS)" ]; then \
+ 		for dir in $(GTK_DIRS); do \
+diff -urN gnokii-0.4.3.orig/configure.in gnokii-0.4.3/configure.in
+--- gnokii-0.4.3.orig/configure.in	Mon Aug  5 18:21:20 2002
++++ gnokii-0.4.3/configure.in	Wed Aug  7 10:54:53 2002
 @@ -17,6 +17,7 @@
  
  dnl ======================== Default setting
@@ -63,9 +93,9 @@ diff -ruN gnokii-0.4.1.org/configure.in gnokii-0.4.1/configure.in
  
  dnl ======================== Check for include/config.h.in
  AC_MSG_CHECKING([for include/config.h.in])
-@@ -67,141 +68,6 @@
- 	[ rlpdebug="no"  ]
- )
+@@ -72,141 +73,6 @@
+ 	CFLAGS="-O2 -Wall"
+ fi
  
 -dnl ======================== NLS support
 -
@@ -205,15 +235,15 @@ diff -ruN gnokii-0.4.1.org/configure.in gnokii-0.4.1/configure.in
  dnl ======================== Checks for libraries.
  
  AC_ARG_WITH(libpthread, 
-@@ -570,7 +436,6 @@
+@@ -572,7 +438,6 @@
+ AC_SUBST(XPACKAGE)
  AC_SUBST(XGNOKIIDIR)
- AC_SUBST(XGNOKIIPATH)
  AC_SUBST(exec_prefix)
 -AC_SUBST(USE_NLS)
  AC_SUBST(GTK_CFLAGS)
  AC_SUBST(GTK_LIBS)
  AC_SUBST(PTHREAD_CFLAGS)
-@@ -588,8 +453,7 @@
+@@ -590,8 +455,7 @@
     Makefile.global
     po/Makefile.in
     packaging/RedHat/gnokii.spec
@@ -223,11 +253,3 @@ diff -ruN gnokii-0.4.1.org/configure.in gnokii-0.4.1/configure.in
     )
  
  
-@@ -617,7 +481,6 @@
-     Debug:              $debug
-     XDebug:             $xdebug
-     RLPDebug:           $rlpdebug
--    NLS:                $USE_NLS
-     Security:           $security
-     Build Shared Lib:   $shared
-     Win32:              $win32 
