@@ -10,25 +10,3 @@ diff -ruN gnokii-0.4.0.org/Docs/sample/gnokiirc gnokii-0.4.0/Docs/sample/gnokiir
  
  # Set this to 'yes' if you want gnokii to set and check the lock file in
  # /var/lock directory. It avoids potential conflicts with other serial
---- gnokii-0.4.0.org/configure.in	27 Jul 2002 14:20:38 -0000	1.77
-+++ gnokii-0.4.0/configure.in	4 Aug 2002 20:12:16 -0000	1.79
-@ -16,7 +16,6 @@
- AC_PREFIX_DEFAULT("/usr/local")
- 
- dnl ======================== Default setting
--CFLAGS="-O2 -Wall"
- ALL_LINGUAS="cs de et fi nl sk pl it sl"
- 
- dnl ======================== Check for include/config.h.in
-@@ -67,6 +66,11 @@
- 	  rlpdebug="yes" ],
- 	[ rlpdebug="no"  ]
- )
-+
-+dnl ======================== Set CFLAGS if not set
-+if test -n "$CFLAGS"; then
-+	CFLAGS="-O2 -Wall"
-+fi
- 
- dnl ======================== NLS support
- 
