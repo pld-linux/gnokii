@@ -1,14 +1,14 @@
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
-Version:	0.6.1
+Version:	0.6.3
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
 #Source0:	http://savannah.nongnu.org/download/gnokii/%{name}-%{version}.tar.bz2
-Source0:	ftp://urtica.linuxnews.pl/pub/people/pkot/gnokii/%{name}-%{version}.tar.bz2
-# Source0-md5:	45521637ecb443f28558317aaee80bdf
+Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}.tar.bz2
+# Source0-md5:	7e932688aeaa2ca8be2f2e3b3bf1b90e
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-pld.patch
@@ -16,7 +16,7 @@ URL:		http://www.gnokii.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	bluez-libs-devel
+BuildRequires:	bluez-libs-devel >= 2.8-2
 BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel >= 1.2
@@ -95,7 +95,7 @@ rm -rf autom4te.cache
 %{__gettextize}
 %{__libtoolize}
 %{__autoheader}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %configure \
 	--enable-security \
