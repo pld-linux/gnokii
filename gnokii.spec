@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.5.10
-Release:	0.1
+Release:	0.2
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -22,6 +22,7 @@ BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel >= 1.2
 BuildRequires:	libtool
+Requires:	libgnikii = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -32,11 +33,23 @@ for mobile phones.
 Gnokii jest zestawem narzêdzi dla Linuksa/Uniksa, oraz sterownikiem
 modemu/faxu dla telefonów komórkowych.
 
+%package devel
+Summary:	%{name} heades files
+Summary(pl):	Pliki nag³ówkowe gnokii
+Group:		Development/Libraries
+Requires:	libgnikii = %{epoch}:%{version}-%{release}
+
+%description devel
+gnokii header files.
+
+%description devel -l pl
+Pliki nag³ówkowe gnokii.
+
 %package X11
 Summary:	Graphical Linux/Unix tool suite for mobile phones
 Summary(pl):	Zestaw narzêdzi z graficznym interfejsem dla telefonów komórkowych
 Group:		X11/Applications
-Requires:	%{name} = %{epoch}:%{version}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description X11
 Xgnokii is graphical Linux/Unix tool suite for mobile phones.
@@ -49,17 +62,17 @@ do pracy z telefonami komórkowymi. Pozwalaj± one na edytowanie
 spisu telefonów, wysy³anie/czytanie wiadomo¶ci SMS i wiele innych
 rzeczy.
 
-%package devel
-Summary:	%{name} heades files
-Summary(pl):	Pliki nag³ówkowe gnokii
-Group:		Development/Libraries
-Requires:	%{name} = %{epoch}:%{version}
+%package -n libgnokii
+Summary:	A gnokii shared library
+Summary(pl):	Biblioteka wspó³dzielona gnokii
+Group:		Libraries
+Conflicts:	gnokii < 1:0.15.10-0.2 
 
-%description devel
-gnokii header files.
+%description -n libgnokii
+A gnokii shared library
 
-%description devel -l pl
-Pliki nag³ówkowe gnokii.
+%description -n libgnokii -l pl
+Biblioteka wspó³dzielona gnokii
 
 %prep
 %setup -q
@@ -80,14 +93,14 @@ Pliki nag³ówkowe gnokii.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
-	$RPM_BUILD_ROOT{%{_sysconfdir},%{_pixmapsdir},%{_applnkdir}/Utilities}
+	$RPM_BUILD_ROOT{%{_sysconfdir},%{_pixmapsdir},%{_desktopdir}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Utilities
+install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %find_lang %{name}
@@ -110,17 +123,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/gnokiid
 %attr(755,root,root) %{_sbindir}/mgnokiidev
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/gnokiirc
-%attr(755,root,root) %{_libdir}/libgnokii.so.*.*
-
-%files X11
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/xgnokii
-%{_libdir}/xgnokii
-%{_applnkdir}/Utilities/*
-%{_pixmapsdir}/*
-%dir %{_datadir}/xgnokii
-%{_datadir}/xgnokii/xpm
-%{_datadir}/xgnokii/help
 
 %files devel
 %defattr(644,root,root,755)
@@ -128,3 +130,17 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/%{name}
 %attr(755,root,root) %{_libdir}/libgnokii.so
 %{_pkgconfigdir}/*.pc
+
+%files X11
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/xgnokii
+%{_libdir}/xgnokii
+%dir %{_datadir}/xgnokii
+%{_datadir}/xgnokii/xpm
+%{_datadir}/xgnokii/help
+%{_desktopdir}/gnokii.desktop
+%{_pixmapsdir}/*
+
+%files -n libgnokii
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/libgnokii.so.*.*
