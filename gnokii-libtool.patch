@@ -44,16 +44,20 @@ diff -Nur gnokii-0.5.5.orig/common/data/Makefile gnokii-0.5.5/common/data/Makefi
 diff -Nur gnokii-0.5.5.orig/common/devices/Makefile gnokii-0.5.5/common/devices/Makefile
 --- gnokii-0.5.5.orig/common/devices/Makefile	2003-10-08 18:31:01.000000000 +0200
 +++ gnokii-0.5.5/common/devices/Makefile	2003-10-27 23:10:10.682212800 +0100
-@@ -17,24 +17,24 @@
+@@ -17,26 +17,26 @@
  TOPDIR=../..
  include $(TOPDIR)/Makefile.global
  
 -OBJS =	tekram.o \
 -	unixirda.o \
--	unixbluetooth.o
+-	bluetooth.o \
+-	unixbluetooth.o \
+-	osxbluetooth.o
 +OBJS =	tekram.lo \
 +	unixirda.lo \
-+	unixbluetooth.lo
++	bluetooth.lo \
++	unixbluetooth.lo \
++	osxbluetooth.lo
  
  ifdef WIN32
 -	OBJS += winserial.o
@@ -122,7 +126,7 @@ diff -Nur gnokii-0.5.5.orig/common/Makefile gnokii-0.5.5/common/Makefile
 @@ -19,92 +19,66 @@
  
  MAJOR_NUMBER = 1
- MINOR_NUMBER = 5
+ MINOR_NUMBER = 6
 +LIBTOOL_VER = -version-info $(MAJOR_NUMBER):$(MINOR_NUMBER):0
  
 -OBJS =	gsm-api.o \
