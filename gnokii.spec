@@ -7,7 +7,7 @@ Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}.tar.bz2
-# Source0-md5:	1e8a98df15ce131706e9fedb26e60c6e
+# Source0-md5:	20a639fa89a4a1746d5c3a7bcae1d2dd
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-pld.patch
