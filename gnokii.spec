@@ -11,9 +11,10 @@ Source2:	%{name}.png
 Patch0:		%{name}-pld.patch
 Patch1:		%{name}-ac_gettext_fixes.patch
 URL:		http://www.gnokii.org/
+BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	XFree86-devel
+BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
