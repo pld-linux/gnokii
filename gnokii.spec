@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for Nokia mobile phones
 Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych Nokia
 Name:		gnokii
 Version:	0.4.1
-Release:	1
+Release:	2
 License:	GPL
 Group:		Applications/Communications
 Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}.tar.gz
@@ -63,7 +63,7 @@ automake -a -c || :
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/gnokii} \
 	$RPM_BUILD_ROOT{%{_prefix}/X11R6/{bin,lib/xgnokii}} \
-	{%{_sysconfdir},%{_pixmapsdir},%{_applnkdir}/Utilities}
+	$RPM_BUILD_ROOT{%{_sysconfdir},%{_pixmapsdir},%{_applnkdir}/Utilities}
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 
