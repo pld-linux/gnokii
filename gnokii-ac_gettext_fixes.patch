@@ -1,6 +1,6 @@
-diff -urN gnokii-0.4.3.orig/Makefile gnokii-0.4.3/Makefile
---- gnokii-0.4.3.orig/Makefile	Mon Aug  5 18:21:20 2002
-+++ gnokii-0.4.3/Makefile	Wed Aug  7 10:57:38 2002
+diff -Nur gnokii/Makefile gnokii-ac/Makefile
+--- gnokii/Makefile	Tue Jul 23 19:32:23 2002
++++ gnokii-ac/Makefile	Wed Aug 28 11:06:42 2002
 @@ -25,19 +25,15 @@
  	common/links \
  	common/devices \
@@ -82,9 +82,22 @@ diff -urN gnokii-0.4.3.orig/Makefile gnokii-0.4.3/Makefile
  
  	@if [ "$(GTK_LIBS)" ]; then \
  		for dir in $(GTK_DIRS); do \
-diff -urN gnokii-0.4.3.orig/configure.in gnokii-0.4.3/configure.in
---- gnokii-0.4.3.orig/configure.in	Mon Aug  5 18:21:20 2002
-+++ gnokii-0.4.3/configure.in	Wed Aug  7 10:54:53 2002
+diff -Nur gnokii/acconfig.h gnokii-ac/acconfig.h
+--- gnokii/acconfig.h	Tue Aug 27 23:39:10 2002
++++ gnokii-ac/acconfig.h	Wed Aug 28 12:49:28 2002
+@@ -51,9 +51,6 @@
+ /* Define if you want security options enabled */
+ #undef SECURITY
+ 
+-/* Define if you want NLS support */
+-#undef USE_NLS
+-
+ /* Use UNIX98 style pty support instead of the traditional */
+ #undef USE_UNIX98PTYS
+ 
+diff -Nur gnokii/configure.in gnokii-ac/configure.in
+--- gnokii/configure.in	Wed Aug 28 01:44:02 2002
++++ gnokii-ac/configure.in	Wed Aug 28 12:06:16 2002
 @@ -17,6 +17,7 @@
  
  dnl ======================== Default setting
@@ -235,7 +248,7 @@ diff -urN gnokii-0.4.3.orig/configure.in gnokii-0.4.3/configure.in
  dnl ======================== Checks for libraries.
  
  AC_ARG_WITH(libpthread, 
-@@ -572,7 +438,6 @@
+@@ -599,7 +465,6 @@
  AC_SUBST(XPACKAGE)
  AC_SUBST(XGNOKIIDIR)
  AC_SUBST(exec_prefix)
@@ -243,7 +256,7 @@ diff -urN gnokii-0.4.3.orig/configure.in gnokii-0.4.3/configure.in
  AC_SUBST(GTK_CFLAGS)
  AC_SUBST(GTK_LIBS)
  AC_SUBST(PTHREAD_CFLAGS)
-@@ -590,8 +455,7 @@
+@@ -618,8 +483,7 @@
     Makefile.global
     po/Makefile.in
     packaging/RedHat/gnokii.spec
@@ -252,4 +265,75 @@ diff -urN gnokii-0.4.3.orig/configure.in gnokii-0.4.3/configure.in
 +   packaging/Slackware/SlackBuild
     )
  
+ 
+diff -Nur gnokii/gnokii/gnokii.c gnokii-ac/gnokii/gnokii.c
+--- gnokii/gnokii/gnokii.c	Wed Aug 28 01:23:00 2002
++++ gnokii-ac/gnokii/gnokii.c	Wed Aug 28 12:45:59 2002
+@@ -66,7 +66,7 @@
+ #endif
+ 
+ 
+-#ifdef USE_NLS
++#ifdef ENABLE_NLS
+ #  include <locale.h>
+ #endif
+ 
+@@ -4534,7 +4534,7 @@
+ 	opterr = 0;
+ 
+ 	/* For GNU gettext */
+-#ifdef USE_NLS
++#ifdef ENABLE_NLS
+ 	textdomain("gnokii");
+ 	setlocale(LC_ALL, "");
+ #endif
+diff -Nur gnokii/gnokiid/gnokiid.c gnokii-ac/gnokiid/gnokiid.c
+--- gnokii/gnokiid/gnokiid.c	Sun Aug 18 19:51:29 2002
++++ gnokii-ac/gnokiid/gnokiid.c	Wed Aug 28 12:46:30 2002
+@@ -101,7 +101,7 @@
+ 	static bool atexit_registered = false;
+ 
+ 	/* For GNU gettext */
+-#ifdef USE_NLS
++#ifdef ENABLE_NLS
+ 	textdomain("gnokii");
+ #endif
+ 
+diff -Nur gnokii/smsd/smsd.c gnokii-ac/smsd/smsd.c
+--- gnokii/smsd/smsd.c	Sun Aug 18 20:03:11 2002
++++ gnokii-ac/smsd/smsd.c	Wed Aug 28 12:47:14 2002
+@@ -425,7 +425,7 @@
+ 
+ int main (int argc, char *argv[])
+ {
+-#ifdef USE_NLS
++#ifdef ENABLE_NLS
+   textdomain("gnokii");
+ #endif
+ 
+diff -Nur gnokii/win32/gnokii_vc6/config1 gnokii-ac/win32/gnokii_vc6/config1
+--- gnokii/win32/gnokii_vc6/config1	Tue Apr 30 20:56:12 2002
++++ gnokii-ac/win32/gnokii_vc6/config1	Wed Aug 28 12:48:11 2002
+@@ -75,8 +75,8 @@
+ #undef XPM
+ 
+ /* Define if you want NLS */
+-//#define USE_NLS 1
+-#undef USE_NLS
++//#define ENABLE_NLS 1
++#undef ENABLE_NLS
+ 
+ /* Define if you want to use Unix98 PTYs */
+ //#define USE_UNIX98PTYS 1
+diff -Nur gnokii/xgnokii/xgnokii.c gnokii-ac/xgnokii/xgnokii.c
+--- gnokii/xgnokii/xgnokii.c	Tue Aug 27 02:44:00 2002
++++ gnokii-ac/xgnokii/xgnokii.c	Wed Aug 28 12:47:44 2002
+@@ -2322,7 +2322,7 @@
+ 
+ int main(int argc, char *argv[])
+ {
+-#ifdef USE_NLS
++#ifdef ENABLE_NLS
+ 	textdomain("gnokii");
+ #endif
  
