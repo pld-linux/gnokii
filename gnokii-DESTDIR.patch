@@ -1,24 +1,24 @@
-diff -Naur gnokii-0.3.2/Docs/sample/sample.gnokiirc gnokii-0.3.2-p/Docs/sample/sample.gnokiirc
---- gnokii-0.3.2/Docs/sample/sample.gnokiirc	Sun May 28 17:04:38 2000
-+++ gnokii-0.3.2-p/Docs/sample/sample.gnokiirc	Sat Jul 29 21:30:37 2000
+diff -Naur gnokii-0.3.3_pre5/Docs/sample/sample.gnokiirc gnokii-0.3.3_pre5-p/Docs/sample/sample.gnokiirc
+--- gnokii-0.3.3_pre5/Docs/sample/sample.gnokiirc	Fri Jun 23 11:43:02 2000
++++ gnokii-0.3.3_pre5-p/Docs/sample/sample.gnokiirc	Mon Jul 31 19:08:09 2000
 @@ -28,4 +28,4 @@
  # In particular ensure that mgnokiidev is in this location, with
  # permissions 4754, owned by root, group gnokii.  Ensure you
  # are in the gnokii group and that the group exists...
 -bindir = /usr/local/sbin/
 +bindir = /usr/sbin/
-diff -Naur gnokii-0.3.2/Docs/sample.gnokiirc gnokii-0.3.2-p/Docs/sample.gnokiirc
---- gnokii-0.3.2/Docs/sample.gnokiirc	Sun May 28 17:04:38 2000
-+++ gnokii-0.3.2-p/Docs/sample.gnokiirc	Sat Jul 29 21:30:24 2000
+diff -Naur gnokii-0.3.3_pre5/Docs/sample.gnokiirc gnokii-0.3.3_pre5-p/Docs/sample.gnokiirc
+--- gnokii-0.3.3_pre5/Docs/sample.gnokiirc	Fri Jun 23 11:43:02 2000
++++ gnokii-0.3.3_pre5-p/Docs/sample.gnokiirc	Mon Jul 31 19:08:09 2000
 @@ -28,4 +28,4 @@
  # In particular ensure that mgnokiidev is in this location, with
  # permissions 4754, owned by root, group gnokii.  Ensure you
  # are in the gnokii group and that the group exists...
 -bindir = /usr/local/sbin/
 +bindir = /usr/sbin/
-diff -Naur gnokii-0.3.2/Makefile gnokii-0.3.2-p/Makefile
---- gnokii-0.3.2/Makefile	Sun May 28 17:04:38 2000
-+++ gnokii-0.3.2-p/Makefile	Sat Jul 29 21:22:36 2000
+diff -Naur gnokii-0.3.3_pre5/Makefile gnokii-0.3.3_pre5-p/Makefile
+--- gnokii-0.3.3_pre5/Makefile	Fri Jun 23 11:43:02 2000
++++ gnokii-0.3.3_pre5-p/Makefile	Mon Jul 31 19:08:09 2000
 @@ -7,6 +7,7 @@
  #
  
@@ -27,9 +27,9 @@ diff -Naur gnokii-0.3.2/Makefile gnokii-0.3.2-p/Makefile
  
  #
  # Makefile.global contains gnokii global settings
-diff -Naur gnokii-0.3.2/Makefile.global.in gnokii-0.3.2-p/Makefile.global.in
---- gnokii-0.3.2/Makefile.global.in	Sun May 28 17:04:38 2000
-+++ gnokii-0.3.2-p/Makefile.global.in	Sat Jul 29 23:34:20 2000
+diff -Naur gnokii-0.3.3_pre5/Makefile.global.in gnokii-0.3.3_pre5-p/Makefile.global.in
+--- gnokii-0.3.3_pre5/Makefile.global.in	Fri Jun 23 11:43:02 2000
++++ gnokii-0.3.3_pre5-p/Makefile.global.in	Mon Jul 31 19:08:09 2000
 @@ -31,7 +31,7 @@
  bindir		= @bindir@
  sbindir		= @sbindir@
@@ -39,9 +39,9 @@ diff -Naur gnokii-0.3.2/Makefile.global.in gnokii-0.3.2-p/Makefile.global.in
  mandir		= @mandir@/man1/
  docdir		= ${prefix}/doc/${PACKAGE}
  locdir		= @datadir@/locale
-diff -Naur gnokii-0.3.2/configure.in gnokii-0.3.2-p/configure.in
---- gnokii-0.3.2/configure.in	Sun May 28 17:04:38 2000
-+++ gnokii-0.3.2-p/configure.in	Sat Jul 29 23:33:05 2000
+diff -Naur gnokii-0.3.3_pre5/configure.in gnokii-0.3.3_pre5-p/configure.in
+--- gnokii-0.3.3_pre5/configure.in	Fri Jun 23 11:43:02 2000
++++ gnokii-0.3.3_pre5-p/configure.in	Mon Jul 31 19:08:09 2000
 @@ -12,7 +12,6 @@
  AC_CANONICAL_SYSTEM
  
@@ -59,10 +59,10 @@ diff -Naur gnokii-0.3.2/configure.in gnokii-0.3.2-p/configure.in
            debug="yes" ],
          [ debug="no"  ]
  )
-diff -Naur gnokii-0.3.2/gnokii/Makefile gnokii-0.3.2-p/gnokii/Makefile
---- gnokii-0.3.2/gnokii/Makefile	Sun May 28 17:04:39 2000
-+++ gnokii-0.3.2-p/gnokii/Makefile	Sat Jul 29 21:23:33 2000
-@@ -33,8 +33,8 @@
+diff -Naur gnokii-0.3.3_pre5/gnokii/Makefile gnokii-0.3.3_pre5-p/gnokii/Makefile
+--- gnokii-0.3.3_pre5/gnokii/Makefile	Fri Jun 23 11:43:04 2000
++++ gnokii-0.3.3_pre5-p/gnokii/Makefile	Mon Jul 31 19:08:09 2000
+@@ -40,8 +40,8 @@
  	$(RM) $(OBJS) *~ depend gnokii *.exe core *.bak
  
  install:
@@ -73,9 +73,9 @@ diff -Naur gnokii-0.3.2/gnokii/Makefile gnokii-0.3.2-p/gnokii/Makefile
  
  depend dep:
  	$(CC) $(CFLAGS) -MM *.c >depend
-diff -Naur gnokii-0.3.2/gnokiid/Makefile gnokii-0.3.2-p/gnokiid/Makefile
---- gnokii-0.3.2/gnokiid/Makefile	Sun May 28 17:04:39 2000
-+++ gnokii-0.3.2-p/gnokiid/Makefile	Sat Jul 29 21:23:51 2000
+diff -Naur gnokii-0.3.3_pre5/gnokiid/Makefile gnokii-0.3.3_pre5-p/gnokiid/Makefile
+--- gnokii-0.3.3_pre5/gnokiid/Makefile	Fri Jun 23 11:43:05 2000
++++ gnokii-0.3.3_pre5-p/gnokiid/Makefile	Mon Jul 31 19:08:09 2000
 @@ -28,8 +28,8 @@
  	$(RM) $(OBJS) *~ depend gnokiid *.exe core *.bak
  
@@ -87,9 +87,9 @@ diff -Naur gnokii-0.3.2/gnokiid/Makefile gnokii-0.3.2-p/gnokiid/Makefile
  
  depend dep:
  	$(CC) $(CFLAGS) -MM *.c >depend
-diff -Naur gnokii-0.3.2/po/Makefile.in.in gnokii-0.3.2-p/po/Makefile.in.in
---- gnokii-0.3.2/po/Makefile.in.in	Sun May 28 17:04:38 2000
-+++ gnokii-0.3.2-p/po/Makefile.in.in	Sat Jul 29 21:25:07 2000
+diff -Naur gnokii-0.3.3_pre5/po/Makefile.in.in gnokii-0.3.3_pre5-p/po/Makefile.in.in
+--- gnokii-0.3.3_pre5/po/Makefile.in.in	Fri Jun 23 11:43:02 2000
++++ gnokii-0.3.3_pre5-p/po/Makefile.in.in	Mon Jul 31 19:08:09 2000
 @@ -107,7 +107,7 @@
  install-data: install-data-@USE_NLS@
  install-data-no: all
@@ -127,9 +127,9 @@ diff -Naur gnokii-0.3.2/po/Makefile.in.in gnokii-0.3.2-p/po/Makefile.in.in
  	      echo "installing $(srcdir)/$$cat as" \
  		   "$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
  	    else \
-diff -Naur gnokii-0.3.2/utils/Makefile gnokii-0.3.2-p/utils/Makefile
---- gnokii-0.3.2/utils/Makefile	Sun May 28 17:04:39 2000
-+++ gnokii-0.3.2-p/utils/Makefile	Sat Jul 29 21:25:20 2000
+diff -Naur gnokii-0.3.3_pre5/utils/Makefile gnokii-0.3.3_pre5-p/utils/Makefile
+--- gnokii-0.3.3_pre5/utils/Makefile	Fri Jun 23 11:43:06 2000
++++ gnokii-0.3.3_pre5-p/utils/Makefile	Mon Jul 31 19:08:09 2000
 @@ -19,8 +19,8 @@
  	$(RM) $(OBJS) *~ depend mgnokiidev *.exe core *.bak
  
@@ -141,10 +141,10 @@ diff -Naur gnokii-0.3.2/utils/Makefile gnokii-0.3.2-p/utils/Makefile
  
  depend dep:
  	$(CC) $(CFLAGS) -MM *.c >depend
-diff -Naur gnokii-0.3.2/xgnokii/Makefile gnokii-0.3.2-p/xgnokii/Makefile
---- gnokii-0.3.2/xgnokii/Makefile	Sun May 28 17:04:40 2000
-+++ gnokii-0.3.2-p/xgnokii/Makefile	Sat Jul 29 21:28:39 2000
-@@ -45,24 +45,24 @@
+diff -Naur gnokii-0.3.3_pre5/xgnokii/Makefile gnokii-0.3.3_pre5-p/xgnokii/Makefile
+--- gnokii-0.3.3_pre5/xgnokii/Makefile	Fri Jun 23 11:43:12 2000
++++ gnokii-0.3.3_pre5-p/xgnokii/Makefile	Mon Jul 31 19:12:10 2000
+@@ -46,26 +46,26 @@
  	$(RM) $(OBJS) *~ xpm/*~ depend xgnokii
  
  install: all
@@ -166,25 +166,30 @@ diff -Naur gnokii-0.3.2/xgnokii/Makefile gnokii-0.3.2-p/xgnokii/Makefile
 -	$(INSTALL) -m 0444 ../COPYING $(xgnokii_libdir)/help/en_US
 -	$(INSTALL) -d $(xgnokii_libdir)/help/en_US/sample
 -	$(INSTALL) -m 0444 ../Docs/sample.gnokiirc $(xgnokii_libdir)/help/en_US/sample
-+	$(INSTALL) ../Docs/CREDITS $(DESTDIR)$(xgnokii_libdir)/help/en_US
-+	$(INSTALL) ../COPYING $(DESTDIR)$(xgnokii_libdir)/help/en_US
-+	$(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/help/en_US/sample
-+	$(INSTALL) ../Docs/sample.gnokiirc $(DESTDIR)$(xgnokii_libdir)/help/en_US/sample
- 	(cd $(xgnokii_libdir)/help; ln -s en_US C; ln -s en_US POSIX)
+-	(cd $(xgnokii_libdir)/help; ln -s en_US C; ln -s en_US POSIX)
 -	$(INSTALL) -d $(xgnokii_libdir)/xpm
 -	$(INSTALL) -m 0444 xpm/6110.xpm $(xgnokii_libdir)/xpm
 -	$(INSTALL) -m 0444 xpm/6150.xpm $(xgnokii_libdir)/xpm
 -	$(INSTALL) -m 0444 xpm/5110.xpm $(xgnokii_libdir)/xpm
+-	$(INSTALL) -m 0444 xpm/Preview_6110.xpm $(xgnokii_libdir)/xpm
+-	$(INSTALL) -m 0444 xpm/Preview_6150.xpm $(xgnokii_libdir)/xpm
++	$(INSTALL) ../Docs/CREDITS $(DESTDIR)$(xgnokii_libdir)/help/en_US
++	$(INSTALL) ../COPYING $(DESTDIR)$(xgnokii_libdir)/help/en_US
++	$(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/help/en_US/sample
++	$(INSTALL) ../Docs/sample.gnokiirc $(DESTDIR)$(xgnokii_libdir)/help/en_US/sample
++	(cd $(DESTDIR)$(xgnokii_libdir)/help; ln -s en_US C; ln -s en_US POSIX)
 +	$(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/xpm
 +	$(INSTALL) xpm/6110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
 +	$(INSTALL) xpm/6150.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
 +	$(INSTALL) xpm/5110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) xpm/Preview_6110.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
++	$(INSTALL) xpm/Preview_6150.xpm $(DESTDIR)$(xgnokii_libdir)/xpm
  
  depend dep:
  	$(CC) $(CFLAGS) -MM *.c >depend
-diff -Naur gnokii-0.3.2/xlogos/Makefile gnokii-0.3.2-p/xlogos/Makefile
---- gnokii-0.3.2/xlogos/Makefile	Sun May 28 17:04:40 2000
-+++ gnokii-0.3.2-p/xlogos/Makefile	Sat Jul 29 21:28:14 2000
+diff -Naur gnokii-0.3.3_pre5/xlogos/Makefile gnokii-0.3.3_pre5-p/xlogos/Makefile
+--- gnokii-0.3.3_pre5/xlogos/Makefile	Fri Jun 23 11:43:16 2000
++++ gnokii-0.3.3_pre5-p/xlogos/Makefile	Mon Jul 31 19:08:09 2000
 @@ -36,8 +36,8 @@
  	$(RM) $(OBJS) *~ depend xlogos *.exe core *.bak
  
