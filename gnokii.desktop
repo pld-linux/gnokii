@@ -7,5 +7,5 @@ Exec=xgnokii
 Terminal=false
 Type=Application
 Encoding=UTF-8
-Categories=Utility;
+Categories=GTK;Office;PDA;
 # vi: encoding=utf-8
