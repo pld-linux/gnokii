@@ -65,6 +65,8 @@ Summary:	libgnokii heades files
 Summary(pl):	Pliki nag³ówkowe biblioteki libgnokii
 Group:		Development/Libraries
 Requires:	libgnokii = %{epoch}:%{version}-%{release}
+Requires:	XFree86-devel
+Requires:	bluez-libs-devel >= 2.8-2
 Obsoletes:	gnokii-devel
 
 %description -n libgnokii-devel
