@@ -45,7 +45,6 @@ rzeczy.
 %patch0 -p1
 
 %build
-LDFLAGS="-s"; export LDFLAGS
 aclocal
 autoconf
 %configure \
