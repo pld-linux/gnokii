@@ -87,7 +87,7 @@
  depend dep:
  	$(CC) $(CFLAGS) -MM *.c >depend
 --- ./xgnokii/Makefile.orig	Sun Jul  1 14:14:46 2001
-+++ ./xgnokii/Makefile	Sun Jul  1 14:17:17 2001
++++ ./xgnokii/Makefile	Sun Jul  1 15:35:29 2001
 @@ -58,27 +58,27 @@
  	$(RM) $(OBJS) *~ xpm/*~ depend xgnokii
  
@@ -95,8 +95,8 @@
 -	$(INSTALL) -d $(bindir)
 -	$(INSTALL) -m 755 -s xgnokii $(bindir)
 -	$(INSTALL) -d $(xgnokii_libdir)/help
-+	$(INSTALL) -d $(DESTDIR)$(bindir)
-+	$(INSTALL) -m 755 -s xgnokii $(DESTDIR)$(bindir)
++	$(INSTALL) -d $(DESTDIR)$(prefix)/X11R6/bin
++	$(INSTALL) -s xgnokii $(DESTDIR)$(prefix)/X11R6/bin
 +	$(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/help
  	( cd $(HELP_DIR); \
  	  $(FIND) . -type d \! -path "*CVS*" \
