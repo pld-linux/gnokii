@@ -6,7 +6,7 @@ Release:	2
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
-Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}.tar.bz2
+Source0:	http://savannah.nongnu.org/download/gnokii/%{name}-%{version}.tar.bz2
 # Source0-md5:	8033f9e1e8e1dd1e852db53d44a1df5e
 Source1:	%{name}.desktop
 Source2:	%{name}.png
