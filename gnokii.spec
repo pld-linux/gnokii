@@ -5,13 +5,18 @@ Version:	0.3.3
 Release:	1
 License:	GPL
 Group:		Applications/Communications
+Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
 Source0:	ftp://ftp.linux.cz/pub/linux/people/pavel_janik/Gnokii/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 URL:		http://www.gnokii.org
 BuildRequires:	XFree86-devel
 BuildRequires:	gtk+-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+%define		_prefix		/usr
 
 %description
 Gnokii is a Linux/Unix tool suite and (eventually) modem/fax driver
@@ -26,6 +31,7 @@ licencji GPL.
 Summary:	Graphical Linux/Unix tool suite for Nokia mobile phones.
 Summary(pl):	Zestaw narzêdzi z graficznym interfejsem dla telefonów komórkowych Nokia.
 Group:		X11/Applications
+Group(de):	X11/Applikationen
 Group(pl):	X11/Aplikacje
 Requires:	%{name} = %{version}
 
@@ -39,8 +45,6 @@ Gnokii-X11 jest zestawem narzêdzi z graficznym interfejsem u¿ytkownika
 do pracy z telefonami komórkowymi Nokia. Pozwalaj± one na edytowanie
 spisu telefonów, wysy³anie/czytanie wiadomo¶ci SMS i wiele innych
 rzeczy.
-
-%define		_prefix		/usr
 
 %prep
 %setup -q
