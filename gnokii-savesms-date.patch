@@ -21,7 +21,7 @@ diff -burN gnokii-0.6.3.orig/Docs/man/gnokii.1 gnokii-0.6.3-savesms-date/Docs/ma
  .BR "\-\-getsmsc \fInumber\fP"
 diff -burN gnokii-0.6.3.orig/gnokii/gnokii.c gnokii-0.6.3-savesms-date/gnokii/gnokii.c
 --- gnokii-0.6.3.orig/gnokii/gnokii.c	2004-09-29 19:39:06.000000000 +0200
-+++ gnokii-0.6.3-savesms-date/gnokii/gnokii.c	2004-09-30 21:23:57.628144736 +0200
++++ gnokii-0.6.3-savesms-date/gnokii/gnokii.c	2004-09-30 22:47:46.577628208 +0200
 @@ -287,6 +287,7 @@
  		     "          gnokii --savesms [--sender from] [--smsc message_center_number |\n"
  		     "                 --smscno message_center_index] [--folder folder_id]\n"
@@ -47,12 +47,13 @@ diff -burN gnokii-0.6.3.orig/gnokii/gnokii.c gnokii-0.6.3-savesms-date/gnokii/gn
  		switch (i) {
  		case '0': /* SMSC number */
  			snprintf(sms.smsc.number, sizeof(sms.smsc.number) - 1, "%s", optarg);
-@@ -869,6 +871,43 @@
+@@ -869,6 +871,32 @@
  		case 'd': /* type Deliver */
  			sms.type = GN_SMS_MT_Deliver;
  			break;
 +		case 't': /* set specific date and time of message delivery */ {
-+			char c;
++			char tmp[3];
++			tmp[2]=0;
 +			if (strlen(optarg) != 12) {
 +				fprintf(stderr, _("Invalid datetime format: %s (should be YYMMDDHHMMSS, all digits)!\n"), optarg);
 +				return -1;
@@ -62,30 +63,18 @@ diff -burN gnokii-0.6.3.orig/gnokii/gnokii.c gnokii-0.6.3-savesms-date/gnokii/gn
 +					fprintf(stderr, _("Invalid datetime format: %s (should be YYMMDDHHMMSS, all digits)!\n"), optarg);
 +					return -1;
 +				};
-+			c=optarg[2];
-+			optarg[2]=0;
-+			sms.smsc_time.year	= atoi(optarg)+1900;
-+			optarg[2]=c;
-+			c=optarg[4];
-+			optarg[4]=0;
-+			sms.smsc_time.month	= atoi(optarg+2);
-+			optarg[4]=c;
-+			c=optarg[6];
-+			optarg[6]=0;
-+			sms.smsc_time.day	= atoi(optarg+4);
-+			optarg[6]=c;
-+			c=optarg[8];
-+			optarg[8]=0;
-+			sms.smsc_time.hour	= atoi(optarg+6);
-+			optarg[8]=c;
-+			c=optarg[10];
-+			optarg[10]=0;
-+			sms.smsc_time.minute	= atoi(optarg+8);
-+			optarg[10]=c;
-+			c=optarg[12];
-+			optarg[12]=0;
-+			sms.smsc_time.second	= atoi(optarg+10);
-+			optarg[12]=c;
++			strncpy(tmp, optarg, 2);
++			sms.smsc_time.year	= atoi(tmp)+1900;
++			strncpy(tmp, optarg+2, 2);
++			sms.smsc_time.month	= atoi(tmp);
++			strncpy(tmp, optarg+4, 2);
++			sms.smsc_time.day	= atoi(tmp);
++			strncpy(tmp, optarg+6, 2);
++			sms.smsc_time.hour	= atoi(tmp);
++			strncpy(tmp, optarg+8, 2);
++			sms.smsc_time.minute	= atoi(tmp);
++			strncpy(tmp, optarg+10, 2);
++			sms.smsc_time.second	= atoi(tmp);
 +			break;
 +		       }
  		default:
