@@ -122,7 +122,7 @@ diff -Nur gnokii-0.5.5.orig/common/Makefile gnokii-0.5.5/common/Makefile
 @@ -19,92 +19,66 @@
  
  MAJOR_NUMBER = 1
- MINOR_NUMBER = 4
+ MINOR_NUMBER = 5
 +LIBTOOL_VER = -version-info $(MAJOR_NUMBER):$(MINOR_NUMBER):0
  
 -OBJS =	gsm-api.o \
