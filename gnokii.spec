@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.5.10
-Release:	0.2
+Release:	0.3
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -66,7 +66,7 @@ rzeczy.
 Summary:	A gnokii shared library
 Summary(pl):	Biblioteka wspó³dzielona gnokii
 Group:		Libraries
-Conflicts:	gnokii < 1:0.15.10-0.2 
+Conflicts:	gnokii < 1:0.5.10-0.2 
 
 %description -n libgnokii
 A gnokii shared library
