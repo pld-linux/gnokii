@@ -1,0 +1,55 @@
+--- gnokii-0.5.5/common/devices/Makefile.orig	Wed Oct  8 18:31:01 2003
++++ gnokii-0.5.5/common/devices/Makefile	Mon Oct 27 12:30:36 2003
+@@ -28,6 +28,12 @@
+ 		tcp.o
+ endif
+ 
++ifndef WIN32_CROSS
++ifndef NO_SHARED
++CFLAGS += -fPIC
++endif
++endif
++
+ all: DEVICES.o
+ 
+ DEVICES.o: $(OBJS)
+--- gnokii-0.5.5/common/links/Makefile.orig	Wed Oct  8 18:31:02 2003
++++ gnokii-0.5.5/common/links/Makefile	Mon Oct 27 12:31:02 2003
+@@ -26,6 +26,12 @@
+ 
+ #	cbus.o
+ 
++ifndef WIN32_CROSS
++ifndef NO_SHARED
++CFLAGS += -fPIC
++endif
++endif
++
+ all: LINKS.o
+ 
+ LINKS.o: $(OBJS)
+--- gnokii-0.5.5/common/phones/Makefile.orig	Wed Oct  8 18:31:02 2003
++++ gnokii-0.5.5/common/phones/Makefile	Mon Oct 27 12:31:19 2003
+@@ -34,6 +34,12 @@
+ #	nk2110.o
+ #	dc2711.o
+ 
++ifndef WIN32_CROSS
++ifndef NO_SHARED
++CFLAGS += -fPIC
++endif
++endif
++
+ all: PHONES.o
+ 
+ PHONES.o: $(OBJS)
+--- gnokii-0.5.5/common/Makefile.orig	Wed Oct  8 18:31:01 2003
++++ gnokii-0.5.5/common/Makefile	Mon Oct 27 12:23:34 2003
+@@ -50,6 +50,7 @@
+ GNOKII_LIB  =libgnokii.so
+ GNOKII_LIBM =$(GNOKII_LIB).$(MAJOR_NUMBER)
+ GNOKII_LIBMM=$(GNOKII_LIBM).$(MINOR_NUMBER)
++CFLAGS += -fPIC
+ endif
+ else
+ ifdef NO_SHARED
