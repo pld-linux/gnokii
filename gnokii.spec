@@ -1,9 +1,10 @@
-%define	_pre	rc1
+%define	_pre	rc3
 Summary:	Linux/Unix tool suite for Nokia mobile phones
 Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych Nokia
 Name:		gnokii
 Version:	0.5.0
-Release:	1
+Release:	0.%{_pre}.1
+Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}%{_pre}.tar.gz
@@ -82,12 +83,13 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
 
 install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
-install common/libgnokii.so $RPM_BUILD_ROOT%{_libdir}
-
 install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Utilities
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %find_lang %{name}
+
+%post -p /sbin/ldconfig
+%postun -p /sbin/ldconfig
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -103,8 +105,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ppm2nokia
 %attr(755,root,root) %{_sbindir}/gnokiid
 %attr(755,root,root) %{_sbindir}/mgnokiidev
-%attr(755,root,root) %{_libdir}/libgnokii.so
 %config(noreplace) %{_sysconfdir}/gnokiirc
+%attr(755,root,root) %{_libdir}/libgnokii.so.*.*
 
 %files X11
 %defattr(644,root,root,755)
@@ -120,3 +122,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_includedir}/*.h
 %{_includedir}/%{name}
+%attr(755,root,root) %{_libdir}/libgnokii.so
+%{_pkgconfigdir}/*.pc
