@@ -59,7 +59,6 @@ rm -f missing
 %{__gettextize}
 %{__aclocal}
 %{__autoconf}
-%{__automake}
 %configure \
 	--enable-security \
 	--with-xgnokiidir=%{_xprefix}
