@@ -1,7 +1,7 @@
 Summary:	Linux/Unix tool suite for Nokia mobile phones
 Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych Nokia
 Name:		gnokii
-Version:	0.3.3_pre7
+Version:	0.3.3_pre24
 Release:	1
 License:	GPL
 Group:		Applications/Communications
@@ -40,6 +40,8 @@ do pracy z telefonami komórkowymi Nokia. Pozwalaj± one na edytowanie
 spisu telefonów, wysy³anie/czytanie wiadomo¶ci SMS i wiele innych
 rzeczy.
 
+%define		_prefix		/usr
+
 %prep
 %setup -q
 %patch0 -p1
@@ -48,7 +50,8 @@ rzeczy.
 aclocal
 autoconf
 %configure \
-	--enable-security
+	--enable-security \
+	--prefix=%{_prefix}
 %{__make}
 
 %install
@@ -58,18 +61,19 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/gnokii} \
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 
-install Docs/sample.gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
+install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
 gzip -9nf Docs/{CREDITS,DataCalls-QuickStart,README{,-{3810,6110}}} \
-	Docs/{sample.gnokiirc,gnokii-ir-howto} \
+	Docs/{sample/gnokiirc,gnokii-ir-howto} \
 	TODO
 
-%find_lang %{name}
+#%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f %{name}.lang
+%files 
+#-f %{name}.lang
 %defattr(644,root,root,755)
 %doc Docs/*.gz Docs/gnokii.nol
 %doc *.gz
