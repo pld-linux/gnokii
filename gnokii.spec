@@ -1,14 +1,14 @@
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
-Version:	0.6.0
+Version:	0.6.1
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
 #Source0:	http://savannah.nongnu.org/download/gnokii/%{name}-%{version}.tar.bz2
 Source0:	ftp://urtica.linuxnews.pl/pub/people/pkot/gnokii/%{name}-%{version}.tar.bz2
-# Source0-md5:	7b0a47b47fc1fc30da2b95183955fd0a
+# Source0-md5:	45521637ecb443f28558317aaee80bdf
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-pld.patch
