@@ -46,18 +46,17 @@ do pracy z telefonami komórkowymi Nokia. Pozwalaj± one na edytowanie
 spisu telefonów, wysy³anie/czytanie wiadomo¶ci SMS i wiele innych
 rzeczy.
 
+%package devel
+Summary:	%{name} heades files
+Summary(pl):	Pliki nag³ówkowe gnokii
+Group:		Development/Libraries
+Requires:	%{name} = %{version}
 
-%package %{name}-devel
-Summary:        %{name} heades files
-Summary(pl):    %{name} pliki nag³ówkowe
-Group:          Development/Libraries
-Requires:       %{name} = %{version}
+%description devel
+gnokii header files.
 
-%description %{name}-devel
-Header files
-
-%description %{name}-devel -l pl
-Pliki nag³ówkowe
+%description devel -l pl
+Pliki nag³ówkowe gnokii.
 
 %prep
 %setup -q -n %{name}-%{version}%{_pre}
@@ -117,6 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_datadir}/xgnokii/xpm
 %{_datadir}/xgnokii/help
 
-%files %{name}-devel
-%{_includedir}/%{name}/*.h
+%files devel
+%defattr(644,root,root,755)
 %{_includedir}/*.h
+%{_includedir}/%{name}
