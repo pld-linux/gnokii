@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.3
-Release:	2
+Release:	3
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -109,13 +109,19 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
 	$RPM_BUILD_ROOT{%{_sysconfdir},%{_pixmapsdir},%{_desktopdir}}
 
-%{__make} install \
+%{__make} install install-docs \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
+
+# do not complain about unpackaged files (we package them with %%doc anyway)
+rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}
+
+# move xgnokii manpage into proper place
+mv -f  $RPM_BUILD_ROOT{%{_prefix}/man,%{_mandir}}/man1/xgnokii.1x
 
 %find_lang %{name}
 
@@ -137,16 +143,19 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/gnokiid
 %attr(755,root,root) %{_sbindir}/mgnokiidev
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/gnokiirc
+%{_mandir}/man1/[!x]*
+%{_mandir}/man8/*
 
 %files X11
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/xgnokii
-%{_libdir}/xgnokii
 %dir %{_datadir}/xgnokii
+%{_libdir}/xgnokii
 %{_datadir}/xgnokii/xpm
 %{_datadir}/xgnokii/help
 %{_desktopdir}/gnokii.desktop
 %{_pixmapsdir}/*
+%{_mandir}/man1/xgnokii.1x*
 
 %files -n libgnokii
 %defattr(644,root,root,755)
