@@ -1,6 +1,6 @@
-diff -ruN gnokii-0.4.0.org/Makefile gnokii-0.4.0/Makefile
---- gnokii-0.4.0.org/Makefile	Thu Jul 11 21:53:50 2002
-+++ gnokii-0.4.0/Makefile	Thu Jul 11 21:56:11 2002
+diff -ruN gnokii-0.4.1.org/Makefile gnokii-0.4.1/Makefile
+--- gnokii-0.4.1.org/Makefile	Mon Jul 15 08:30:54 2002
++++ gnokii-0.4.1/Makefile	Mon Jul 15 08:32:34 2002
 @@ -25,19 +25,15 @@
  	common/links \
  	common/devices \
@@ -32,17 +32,17 @@ diff -ruN gnokii-0.4.0.org/Makefile gnokii-0.4.0/Makefile
  
  ifdef OWN_GETOPT
  		$(MAKE) -C getopt clean
-@@ -80,9 +73,6 @@
- 	@echo "done"
+@@ -81,9 +74,6 @@
  
- distclean:	clean
+ distclean: clean
+ 	$(MAKE) -C common distclean
 -	@if [ -e $(PO_DIR)/Makefile ]; then \
 -		$(MAKE) -C $(PO_DIR) distclean; \
 -	fi
  	$(RM) Makefile.global config.cache config.log config.status \
  		include/config.h \
  		packaging/RedHat/gnokii.spec \
-@@ -117,9 +107,6 @@
+@@ -118,9 +108,6 @@
  			$(MAKE) -C $$dir install; \
  		fi; \
  	done
@@ -52,9 +52,9 @@ diff -ruN gnokii-0.4.0.org/Makefile gnokii-0.4.0/Makefile
  
  	@if [ "$(GTK_LIBS)" ]; then \
  		for dir in $(GTK_DIRS); do \
-diff -ruN gnokii-0.4.0.org/configure.in gnokii-0.4.0/configure.in
---- gnokii-0.4.0.org/configure.in	Thu Jul 11 21:53:50 2002
-+++ gnokii-0.4.0/configure.in	Thu Jul 11 22:04:27 2002
+diff -ruN gnokii-0.4.1.org/configure.in gnokii-0.4.1/configure.in
+--- gnokii-0.4.1.org/configure.in	Mon Jul 15 08:30:54 2002
++++ gnokii-0.4.1/configure.in	Mon Jul 15 08:31:35 2002
 @@ -17,6 +17,7 @@
  
  dnl ======================== Default setting
