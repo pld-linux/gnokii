@@ -12,7 +12,6 @@ Source0:	ftp://urtica.linuxnews.pl/pub/people/pkot/gnokii/%{name}-%{version}.tar
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-pld.patch
-Patch1:		%{name}-libtool.patch
 URL:		http://www.gnokii.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
@@ -92,7 +91,6 @@ Statyczna wersja biblioteki libgnokii.
 %prep
 %setup -q
 %patch0 -p1
-#patch1 -p1
 
 %build
 rm -rf autom4te.cache
