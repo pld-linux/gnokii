@@ -6,6 +6,8 @@ Release:	1
 License:	GPL
 Group:		Applications/Communications
 Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}.tar.gz
+Source1:	%{name}.desktop
+Source2:	%{name}.png
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-ac_gettext_fixes.patch
 URL:		http://www.gnokii.org/
@@ -60,7 +62,8 @@ automake -a -c || :
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/gnokii} \
-	$RPM_BUILD_ROOT{%{_prefix}/X11R6/{bin,lib/xgnokii},%{_sysconfdir}}
+	$RPM_BUILD_ROOT{%{_prefix}/X11R6/{bin,lib/xgnokii}} \
+	{%{_sysconfdir},%{_pixmapsdir},%{_applnkdir}/Utilities}
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
 
@@ -68,9 +71,8 @@ install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
 install common/libgnokii.so $RPM_BUILD_ROOT%{_libdir}
 
-gzip -9nf Docs/{CREDITS,DataCalls-QuickStart,README{,-{3810,6110}}} \
-	Docs/{sample/gnokiirc,gnokii-ir-howto} \
-	TODO
+install %{SOURCE1} $RPM_BUILD_ROOT%{_applnkdir}/Utilities
+install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 %find_lang %{name}
 
@@ -79,7 +81,8 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc Docs/{README*,FAQ,CREDITS.gz,Bugs,DataCalls-QuickStart.gz,gnokii-IrDA-Linux,gnokii-ir-howto.gz,ringtones.txt}
+%doc Docs/{CREDITS,DataCalls-QuickStart,README{,-{3810,6110}}}
+%doc Docs/{sample/gnokiirc,gnokii-ir-howto} TODO
 %attr(755,root,root) %{_bindir}/gnokii
 %attr(755,root,root) %{_bindir}/todologo
 %attr(755,root,root) %{_sbindir}/gnokiid
@@ -91,3 +94,5 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_prefix}/X11R6/bin/xgnokii
 %{_prefix}/X11R6/lib/xgnokii
+%{_applnkdir}/Utilities/*
+%{_pixmapsdir}/*
