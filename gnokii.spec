@@ -1,5 +1,5 @@
 Summary:	Linux/Unix tool suite for mobile phones
-Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych
+Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.0
 Release:	1
@@ -85,7 +85,6 @@ Static version of libgnokii library.
 
 %description -n libgnokii-static -l pl
 Statyczna wersja biblioteki libgnokii.
-
 
 %prep
 %setup -q
