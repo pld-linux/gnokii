@@ -1,0 +1,99 @@
+diff -ruN gnokii-0.4.0.org/Docs/sample/gnokiirc gnokii-0.4.0/Docs/sample/gnokiirc
+--- gnokii-0.4.0.org/Docs/sample/gnokiirc	Wed Jul 10 00:49:13 2002
++++ gnokii-0.4.0/Docs/sample/gnokiirc	Thu Jul 11 21:22:05 2002
+@@ -31,7 +31,7 @@
+ # In particular ensure that mgnokiidev is in this location, with
+ # permissions 4750, owned by root, group gnokii.  Ensure you
+ # are in the gnokii group and that the group exists...
+-bindir = /usr/local/sbin/
++bindir = /usr/sbin/
+ 
+ # Set this to 'yes' if you want gnokii to set and check the lock file in
+ # /var/lock directory. It avoids potential conflicts with other serial
+diff -ruN gnokii-0.4.0.org/Makefile gnokii-0.4.0/Makefile
+--- gnokii-0.4.0.org/Makefile	Wed Jul 10 00:49:13 2002
++++ gnokii-0.4.0/Makefile	Thu Jul 11 21:22:05 2002
+@@ -8,12 +8,12 @@
+ #               2000 Karel Zak
+ #
+ 
+-TOPDIR=.
++DESTDIR=
+ 
+ #
+ # Makefile.global contains gnokii global settings
+ #
+-include ${TOPDIR}/Makefile.global
++include ./Makefile.global
+ 
+ BIN_DIRS = gnokii
+ 
+diff -ruN gnokii-0.4.0.org/Makefile.global.in gnokii-0.4.0/Makefile.global.in
+--- gnokii-0.4.0.org/Makefile.global.in	Wed Jul 10 00:49:13 2002
++++ gnokii-0.4.0/Makefile.global.in	Thu Jul 11 21:22:05 2002
+@@ -24,7 +24,7 @@
+ sbindir        = @sbindir@
+ xbindir        = ${prefix}/X11R6/bin/
+ libdir         = @libdir@
+-xgnokii_libdir = @XGNOKIIDIR@/@XPACKAGE@
++xgnokii_libdir = ${prefix}/X11R6/lib/@XPACKAGE@
+ man1dir        = @mandir@/man1/
+ man8dir        = @mandir@/man8/
+ xmandir        = ${prefix}/X11R6/man/man1/
+diff -ruN gnokii-0.4.0.org/configure.in gnokii-0.4.0/configure.in
+--- gnokii-0.4.0.org/configure.in	Wed Jul 10 00:49:13 2002
++++ gnokii-0.4.0/configure.in	Thu Jul 11 21:22:05 2002
+@@ -16,7 +16,6 @@
+ AC_PREFIX_DEFAULT("/usr/local")
+ 
+ dnl ======================== Default setting
+-CFLAGS="-O2 -Wall"
+ ALL_LINGUAS="cs de et fi nl sk pl it sl"
+ 
+ dnl ======================== Check for include/config.h.in
+@@ -47,7 +46,7 @@
+ AC_ARG_ENABLE(debug, 
+ 	[  --enable-debug          compile with debug code],
+ 	[ if test "x$GCC" = "xyes"; then
+-		CFLAGS="-ggdb3 -Wall"
++		CFLAGS="$CFLAGS -ggdb3 -Wall"
+ 	  fi
+ 	  AC_DEFINE(DEBUG)
+ 	  debug="yes" ],
+diff -ruN gnokii-0.4.0.org/po/Makefile.in.in gnokii-0.4.0/po/Makefile.in.in
+--- gnokii-0.4.0.org/po/Makefile.in.in	Wed Jul 10 00:49:13 2002
++++ gnokii-0.4.0/po/Makefile.in.in	Thu Jul 11 21:43:18 2002
+@@ -116,24 +116,24 @@
+ 	  esac; \
+ 	  lang=`echo $$cat | sed 's/$(CATOBJEXT)$$//'`; \
+ 	  dir=$(DESTDIR)/$$destdir/$$lang/LC_MESSAGES; \
+-	  ${SHELL} $(top_srcdir)/mkinstalldirs $$dir; \
++	  ${SHELL} $(top_srcdir)/mkinstalldirs $(DESTDIR)$$dir; \
+ 	  if test -r $$cat; then \
+-	    $(INSTALL_DATA) $$cat $$dir/$(PACKAGE)$(INSTOBJEXT); \
+-	    echo "installing $$cat as $$dir/$(PACKAGE)$(INSTOBJEXT)"; \
++	    $(INSTALL_DATA) $$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
++	    echo "installing $$cat as $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
+ 	  else \
+-	    $(INSTALL_DATA) $(srcdir)/$$cat $$dir/$(PACKAGE)$(INSTOBJEXT); \
++	    $(INSTALL_DATA) $(srcdir)/$$cat $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT); \
+ 	    echo "installing $(srcdir)/$$cat as" \
+-		 "$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
++		 "$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT)"; \
+ 	  fi; \
+ 	  if test -r $$cat.m; then \
+-	    $(INSTALL_DATA) $$cat.m $$dir/$(PACKAGE)$(INSTOBJEXT).m; \
+-	    echo "installing $$cat.m as $$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
++	    $(INSTALL_DATA) $$cat.m $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
++	    echo "installing $$cat.m as $(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
+ 	  else \
+ 	    if test -r $(srcdir)/$$cat.m ; then \
+ 	      $(INSTALL_DATA) $(srcdir)/$$cat.m \
+-		$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
++		$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m; \
+ 	      echo "installing $(srcdir)/$$cat as" \
+-		   "$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
++		   "$(DESTDIR)$$dir/$(PACKAGE)$(INSTOBJEXT).m"; \
+ 	    else \
+ 	      true; \
+ 	    fi; \
