@@ -1,0 +1,14 @@
+diff -Nuard gnokii-0.5.4.orig/po/Makevars gnokii-0.5.4/po/Makevars
+--- gnokii-0.5.4.orig/po/Makevars	2003-09-22 23:18:51.000000000 +0200
++++ gnokii-0.5.4/po/Makevars	2003-09-23 00:10:45.000000000 +0200
+@@ -18,8 +18,9 @@
+ # or entity, or to disclaim their copyright.  The empty string stands for
+ # the public domain; in this case the translators are expected to disclaim
+ # their copyright.
+-COPYRIGHT_HOLDER = 1999-2002 Hugh Blemings, Pavel Janik, Pawel Kot
++COPYRIGHT_HOLDER = 1999-2003 Hugh Blemings, Pavel Janik, Pawel Kot
+ 
+ # This is the list of locale categories, beyond LC_MESSAGES, for which the
+ # message catalogs shall be used.  It is usually empty.
+ EXTRA_LOCALE_CATEGORIES =
++MSGID_BUGS_ADDRESS = feedback@gnokii.org
