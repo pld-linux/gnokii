@@ -159,8 +159,8 @@ diff -Naur gnokii-0.3.3_pre7/xgnokii/Makefile gnokii-0.3.3_pre7-p/xgnokii/Makefi
 -	$(INSTALL) -d $(bindir)
 -	$(INSTALL) -m 755 -s xgnokii $(bindir)
 -	$(INSTALL) -d $(xgnokii_libdir)/help
-+	$(INSTALL) -d $(DESTDIR)$(bindir)
-+	$(INSTALL) xgnokii $(DESTDIR)$(bindir)
++	$(INSTALL) -d $(DESTDIR)/$(prefix)/X11R6/bin
++	$(INSTALL) xgnokii $(DESTDIR)/$(prefix)/X11R6/bin
 +	$(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/help
  	( cd $(HELP_DIR); \
  	  $(FIND) . -type d \! -path "*CVS*" \
@@ -168,7 +168,7 @@ diff -Naur gnokii-0.3.3_pre7/xgnokii/Makefile gnokii-0.3.3_pre7-p/xgnokii/Makefi
 +	       -exec $(INSTALL) -d $(DESTDIR)$(xgnokii_libdir)/help/{} \; ; \
  	  $(FIND) . -type f \! -path "*CVS*" \
 -	       -exec $(INSTALL) -m 0444 {} $(xgnokii_libdir)/help/{} \; \
-+	       -exec $(INSTALL) $(DESTDIR)$(xgnokii_libdir)/help/{} \; \
++	       -exec $(INSTALL) {} $(DESTDIR)$(xgnokii_libdir)/help/{} \; \
  	)
 -	$(INSTALL) -m 0444 ../Docs/CREDITS $(xgnokii_libdir)/help/en_US
 -	$(INSTALL) -m 0444 ../COPYING $(xgnokii_libdir)/help/en_US
