@@ -55,11 +55,12 @@ rzeczy.
 %patch1
 
 %build
-autoheader
+rm -f missing
+%{__autoheader}
 %{__gettextize}
 %{__aclocal}
 %{__autoconf}
-%{__automake} || :
+%{__automake}
 %configure \
 	--enable-security \
 	--with-xgnokiidir=%{_xprefix}
