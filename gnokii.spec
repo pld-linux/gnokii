@@ -34,7 +34,7 @@ licencji GPL.
 Summary:	Graphical Linux/Unix tool suite for Nokia mobile phones
 Summary(pl):	Zestaw narzêdzi z graficznym interfejsem dla telefonów komórkowych Nokia
 Group:		X11/Applications
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description X11
 Xgnokii is graphical Linux/Unix tool suite for Nokia's mobile phones.
@@ -51,7 +51,7 @@ rzeczy.
 Summary:	%{name} heades files
 Summary(pl):	Pliki nag³ówkowe gnokii
 Group:		Development/Libraries
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{epoch}:%{version}
 
 %description devel
 gnokii header files.
