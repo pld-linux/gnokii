@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.5.10
-Release:	0.3
+Release:	0.4
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -33,18 +33,6 @@ for mobile phones.
 Gnokii jest zestawem narzêdzi dla Linuksa/Uniksa, oraz sterownikiem
 modemu/faxu dla telefonów komórkowych.
 
-%package devel
-Summary:	%{name} heades files
-Summary(pl):	Pliki nag³ówkowe gnokii
-Group:		Development/Libraries
-Requires:	libgnokii = %{epoch}:%{version}-%{release}
-
-%description devel
-gnokii header files.
-
-%description devel -l pl
-Pliki nag³ówkowe gnokii.
-
 %package X11
 Summary:	Graphical Linux/Unix tool suite for mobile phones
 Summary(pl):	Zestaw narzêdzi z graficznym interfejsem dla telefonów komórkowych
@@ -73,6 +61,28 @@ A gnokii shared library
 
 %description -n libgnokii -l pl
 Biblioteka wspó³dzielona gnokii
+
+%package -n libgnokii-devel
+Summary:	%{name} heades files
+Summary(pl):	Pliki nag³ówkowe gnokii
+Group:		Development/Libraries
+Requires:	libgnokii = %{epoch}:%{version}-%{release}
+Obsoletes:	gnokii-devel
+
+%description -n libgnokii-devel
+gnokii header files.
+
+%description -n libgnokii-devel -l pl
+Pliki nag³ówkowe gnokii.
+
+%package -n libgnokii-static
+Summary:	Static %{name} library
+Group:		Development/Libraries
+Requires:	libgnokii-devel = %{epoch}:%{version}-%{release}
+Obsoletes:	gnokii-devel
+
+%description -n libgnokii-static
+Static version of gnokii library.
 
 %prep
 %setup -q
@@ -125,13 +135,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/mgnokiidev
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/gnokiirc
 
-%files devel
-%defattr(644,root,root,755)
-%{_includedir}/*.h
-%{_includedir}/%{name}
-%attr(755,root,root) %{_libdir}/libgnokii.so
-%{_pkgconfigdir}/*.pc
-
 %files X11
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/xgnokii
@@ -145,3 +148,15 @@ rm -rf $RPM_BUILD_ROOT
 %files -n libgnokii
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgnokii.so.*.*
+
+%files -n libgnokii-devel
+%defattr(644,root,root,755)
+%{_includedir}/*.h
+%{_includedir}/%{name}
+%attr(755,root,root) %{_libdir}/libgnokii.so
+%attr(755,root,root) %{_libdir}/libgnokii.la
+%{_pkgconfigdir}/*.pc
+
+%files -n libgnokii-static
+%defattr(644,root,root,755)
+%{_libdir}/libgnokii.a
