@@ -17,7 +17,10 @@ BuildRequires:	XFree86-devel
 BuildRequires:	gtk+-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-%define		_prefix		/usr
+%define		_xprefix	/usr/X11R6
+%define		_xbindir	%{_xprefix}/bin
+%define		_xlibdir	%{_xprefix}/lib
+%define		_xdatadir	%{_xprefix}/share
 
 %description
 Gnokii is a Linux/Unix tool suite and (eventually) modem/fax driver
@@ -57,13 +60,13 @@ aclocal
 automake -a -c || :
 %configure \
 	--enable-security \
-	--with-xgnokiidir=%{_prefix}/X11R6
+	--with-xgnokiidir=%{_xprefix}
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/gnokii} \
-	$RPM_BUILD_ROOT%{_prefix}/X11R6/{bin,lib/xgnokii} \
+	$RPM_BUILD_ROOT{%{_xbindir},%{_xlibdir}/xgnokii} \
 	$RPM_BUILD_ROOT{%{_sysconfdir},%{_pixmapsdir},%{_applnkdir}/Utilities}
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
@@ -93,9 +96,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files X11
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_prefix}/X11R6/bin/xgnokii
-%{_prefix}/X11R6/lib/xgnokii
+%attr(755,root,root) %{_xbindir}/xgnokii
+%{_xlibdir}/xgnokii
 %{_applnkdir}/Utilities/*
 %{_pixmapsdir}/*
-%{_prefix}/X11R6/share/xgnokii/xpm/*
-%{_prefix}/X11R6/share/xgnokii/help/*
+%dir %{_xdatadir}/xgnokii
+%{_xdatadir}/xgnokii/xpm
+%{_xdatadir}/xgnokii/help
