@@ -1,4 +1,4 @@
-%define	_pre	pre6
+%define	_pre	pre9
 Summary:	Linux/Unix tool suite for Nokia mobile phones
 Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych Nokia
 Name:		gnokii
@@ -15,13 +15,9 @@ BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+-devel
+BuildRequires:	gtk+-devel >= 1.2
+BuildRequires:	bluez-libs-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
-
-%define		_xprefix	/usr/X11R6
-%define		_xbindir	%{_xprefix}/bin
-%define		_xlibdir	%{_xprefix}/lib
-%define		_xdatadir	%{_xprefix}/share
 
 %description
 Gnokii is a Linux/Unix tool suite and (eventually) modem/fax driver
@@ -61,13 +57,12 @@ rm -f missing
 %{__autoconf}
 %configure \
 	--enable-security \
-	--with-xgnokiidir=%{_xprefix}
+	--with-xgnokiidir=%{_prefix}
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/gnokii} \
-	$RPM_BUILD_ROOT{%{_xbindir},%{_xlibdir}/xgnokii} \
+install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
 	$RPM_BUILD_ROOT{%{_sysconfdir},%{_pixmapsdir},%{_applnkdir}/Utilities}
 
 %{__make} DESTDIR=$RPM_BUILD_ROOT install
@@ -91,6 +86,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc TODO ChangeLog MAINTAINERS
 %attr(755,root,root) %{_bindir}/gnokii
 %attr(755,root,root) %{_bindir}/todologo
+%attr(755,root,root) %{_bindir}/sendsms
+%attr(755,root,root) %{_bindir}/ppm2nokia
 %attr(755,root,root) %{_sbindir}/gnokiid
 %attr(755,root,root) %{_sbindir}/mgnokiidev
 %attr(755,root,root) %{_libdir}/libgnokii.so
@@ -98,10 +95,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files X11
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_xbindir}/xgnokii
-%{_xlibdir}/xgnokii
+%attr(755,root,root) %{_bindir}/xgnokii
+%{_libdir}/xgnokii
 %{_applnkdir}/Utilities/*
 %{_pixmapsdir}/*
-%dir %{_xdatadir}/xgnokii
-%{_xdatadir}/xgnokii/xpm
-%{_xdatadir}/xgnokii/help
+%dir %{_datadir}/xgnokii
+%{_datadir}/xgnokii/xpm
+%{_datadir}/xgnokii/help
