@@ -1,6 +1,10 @@
-diff -Nur gnokii/Makefile gnokii-ac/Makefile
---- gnokii/Makefile	Tue Jul 23 19:32:23 2002
-+++ gnokii-ac/Makefile	Wed Aug 28 11:06:42 2002
+Index: Makefile
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/Makefile,v
+retrieving revision 1.118
+diff -u -r1.118 Makefile
+--- Makefile	23 Jul 2002 17:32:23 -0000	1.118
++++ Makefile	28 Aug 2002 15:45:23 -0000
 @@ -25,19 +25,15 @@
  	common/links \
  	common/devices \
@@ -82,9 +86,28 @@ diff -Nur gnokii/Makefile gnokii-ac/Makefile
  
  	@if [ "$(GTK_LIBS)" ]; then \
  		for dir in $(GTK_DIRS); do \
-diff -Nur gnokii/acconfig.h gnokii-ac/acconfig.h
---- gnokii/acconfig.h	Tue Aug 27 23:39:10 2002
-+++ gnokii-ac/acconfig.h	Wed Aug 28 12:49:28 2002
+Index: Makefile.global.in
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/Makefile.global.in,v
+retrieving revision 1.31
+diff -u -r1.31 Makefile.global.in
+--- Makefile.global.in	27 Aug 2002 23:44:02 -0000	1.31
++++ Makefile.global.in	28 Aug 2002 15:45:23 -0000
+@@ -56,7 +56,6 @@
+ OWN_GETOPT     = @OWN_GETOPT@
+ NO_SHARED      = @NO_SHARED@
+ 
+-USE_NLS        = @USE_NLS@
+ HAVE_XGNOKII   = @HAVE_XGNOKII@
+ WIN32          = @WIN32@
+
+Index: acconfig.h
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/acconfig.h,v
+retrieving revision 1.4
+diff -u -r1.4 acconfig.h
+--- acconfig.h	27 Aug 2002 21:39:10 -0000	1.4
++++ acconfig.h	28 Aug 2002 15:45:23 -0000
 @@ -51,9 +51,6 @@
  /* Define if you want security options enabled */
  #undef SECURITY
@@ -95,9 +118,27 @@ diff -Nur gnokii/acconfig.h gnokii-ac/acconfig.h
  /* Use UNIX98 style pty support instead of the traditional */
  #undef USE_UNIX98PTYS
  
-diff -Nur gnokii/configure.in gnokii-ac/configure.in
---- gnokii/configure.in	Wed Aug 28 01:44:02 2002
-+++ gnokii-ac/configure.in	Wed Aug 28 12:06:16 2002
+Index: autogen.sh
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/autogen.sh,v
+retrieving revision 1.1
+diff -u -r1.1 autogen.sh
+--- autogen.sh	23 Apr 2002 23:19:26 -0000	1.1
++++ autogen.sh	28 Aug 2002 15:45:23 -0000
+@@ -1,5 +1,6 @@
+ #!/bin/sh
+ 
++aclocal
+ autoheader
+ autoconf
+ ./configure "$@"
+Index: configure.in
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/configure.in,v
+retrieving revision 1.83
+diff -u -r1.83 configure.in
+--- configure.in	27 Aug 2002 23:44:02 -0000	1.83
++++ configure.in	28 Aug 2002 15:45:25 -0000
 @@ -17,6 +17,7 @@
  
  dnl ======================== Default setting
@@ -255,7 +296,7 @@ diff -Nur gnokii/configure.in gnokii-ac/configure.in
 -AC_SUBST(USE_NLS)
  AC_SUBST(GTK_CFLAGS)
  AC_SUBST(GTK_LIBS)
- AC_SUBST(PTHREAD_CFLAGS)
+
 @@ -618,8 +483,7 @@
     Makefile.global
     po/Makefile.in
@@ -266,9 +307,13 @@ diff -Nur gnokii/configure.in gnokii-ac/configure.in
     )
  
  
-diff -Nur gnokii/gnokii/gnokii.c gnokii-ac/gnokii/gnokii.c
---- gnokii/gnokii/gnokii.c	Wed Aug 28 01:23:00 2002
-+++ gnokii-ac/gnokii/gnokii.c	Wed Aug 28 12:45:59 2002
+Index: gnokii/gnokii.c
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/gnokii/gnokii.c,v
+retrieving revision 1.299
+diff -u -r1.299 gnokii.c
+--- gnokii/gnokii.c	27 Aug 2002 23:23:00 -0000	1.299
++++ gnokii/gnokii.c	28 Aug 2002 15:45:45 -0000
 @@ -66,7 +66,7 @@
  #endif
  
@@ -287,9 +332,13 @@ diff -Nur gnokii/gnokii/gnokii.c gnokii-ac/gnokii/gnokii.c
  	textdomain("gnokii");
  	setlocale(LC_ALL, "");
  #endif
-diff -Nur gnokii/gnokiid/gnokiid.c gnokii-ac/gnokiid/gnokiid.c
---- gnokii/gnokiid/gnokiid.c	Sun Aug 18 19:51:29 2002
-+++ gnokii-ac/gnokiid/gnokiid.c	Wed Aug 28 12:46:30 2002
+Index: gnokiid/gnokiid.c
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/gnokiid/gnokiid.c,v
+retrieving revision 1.27
+diff -u -r1.27 gnokiid.c
+--- gnokiid/gnokiid.c	18 Aug 2002 17:51:29 -0000	1.27
++++ gnokiid/gnokiid.c	28 Aug 2002 15:45:45 -0000
 @@ -101,7 +101,7 @@
  	static bool atexit_registered = false;
  
@@ -299,9 +348,52 @@ diff -Nur gnokii/gnokiid/gnokiid.c gnokii-ac/gnokiid/gnokiid.c
  	textdomain("gnokii");
  #endif
  
-diff -Nur gnokii/smsd/smsd.c gnokii-ac/smsd/smsd.c
---- gnokii/smsd/smsd.c	Sun Aug 18 20:03:11 2002
-+++ gnokii-ac/smsd/smsd.c	Wed Aug 28 12:47:14 2002
+Index: include/misc.h
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/include/misc.h,v
+retrieving revision 1.45
+diff -u -r1.45 misc.h
+--- include/misc.h	17 Jul 2002 23:06:39 -0000	1.45
++++ include/misc.h	28 Aug 2002 15:45:46 -0000
+@@ -109,14 +109,14 @@
+ #endif
+ 
+ /* This one is for NLS. */
+-#ifdef USE_NLS
++#ifdef ENABLE_NLS
+ #  include <libintl.h>
+ #  define _(x) gettext(x)
+ #  define N_(x) gettext_noop(x)
+ #else
+ #  define _(x) (x)
+ #  define N_(x) (x)
+-#endif /* USE_NLS */
++#endif /* ENABLE_NLS */
+ 
+ /* Definitions for u8, u16, u32 and u64, borrowed from
+    /usr/src/linux/include/asm-i38/types.h */
+Index: po/POTFILES.in
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/po/POTFILES.in,v
+retrieving revision 1.7
+diff -u -r1.7 POTFILES.in
+--- po/POTFILES.in	9 Nov 2001 13:55:53 -0000	1.7
++++ po/POTFILES.in	28 Aug 2002 15:45:47 -0000
+@@ -14,7 +14,6 @@
+ common/phones/nk6100.c
+ common/phones/nk3110.c
+ common/phones/nk2110.c
+-common/vcal.c
+ common/vcal.lx
+ gnokiid/gnokiid.c
+ gnokii/gnokii.c
+Index: smsd/smsd.c
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/smsd/smsd.c,v
+retrieving revision 1.25
+diff -u -r1.25 smsd.c
+--- smsd/smsd.c	18 Aug 2002 18:03:11 -0000	1.25
++++ smsd/smsd.c	28 Aug 2002 15:45:48 -0000
 @@ -425,7 +425,7 @@
  
  int main (int argc, char *argv[])
@@ -311,9 +403,29 @@ diff -Nur gnokii/smsd/smsd.c gnokii-ac/smsd/smsd.c
    textdomain("gnokii");
  #endif
  
-diff -Nur gnokii/win32/gnokii_vc6/config1 gnokii-ac/win32/gnokii_vc6/config1
---- gnokii/win32/gnokii_vc6/config1	Tue Apr 30 20:56:12 2002
-+++ gnokii-ac/win32/gnokii_vc6/config1	Wed Aug 28 12:48:11 2002
+Index: utils/mgnokiidev.c
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/utils/mgnokiidev.c,v
+retrieving revision 1.16
+diff -u -r1.16 mgnokiidev.c
+--- utils/mgnokiidev.c	23 Apr 2002 23:19:27 -0000	1.16
++++ utils/mgnokiidev.c	28 Aug 2002 15:45:49 -0000
+@@ -148,7 +148,7 @@
+ 	char *name = NULL; /* Device name */
+ 
+ 	/* For GNU gettext */
+-#ifdef USE_NLS
++#ifdef ENABLE_NLS
+ 	textdomain("gnokii");
+ #endif
+ 
+Index: win32/gnokii_vc6/config1
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/win32/gnokii_vc6/config1,v
+retrieving revision 1.2
+diff -u -r1.2 config1
+--- win32/gnokii_vc6/config1	30 Apr 2002 18:56:12 -0000	1.2
++++ win32/gnokii_vc6/config1	28 Aug 2002 15:45:49 -0000
 @@ -75,8 +75,8 @@
  #undef XPM
  
@@ -325,9 +437,13 @@ diff -Nur gnokii/win32/gnokii_vc6/config1 gnokii-ac/win32/gnokii_vc6/config1
  
  /* Define if you want to use Unix98 PTYs */
  //#define USE_UNIX98PTYS 1
-diff -Nur gnokii/xgnokii/xgnokii.c gnokii-ac/xgnokii/xgnokii.c
---- gnokii/xgnokii/xgnokii.c	Tue Aug 27 02:44:00 2002
-+++ gnokii-ac/xgnokii/xgnokii.c	Wed Aug 28 12:47:44 2002
+Index: xgnokii/xgnokii.c
+===================================================================
+RCS file: /cvsroot/gnokii/gnokii/xgnokii/xgnokii.c,v
+retrieving revision 1.56
+diff -u -r1.56 xgnokii.c
+--- xgnokii/xgnokii.c	27 Aug 2002 00:44:00 -0000	1.56
++++ xgnokii/xgnokii.c	28 Aug 2002 15:46:00 -0000
 @@ -2322,7 +2322,7 @@
  
  int main(int argc, char *argv[])
