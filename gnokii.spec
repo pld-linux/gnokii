@@ -7,10 +7,13 @@ License:	GPL
 Group:		Applications/Communications
 Group(de):	Applikationen/Kommunikation
 Group(pl):	Aplikacje/Komunikacja
-Source0:	ftp://ftp.linux.cz/pub/linux/people/pavel_janik/Gnokii/%{name}-%{version}.tar.gz
+Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
-URL:		http://www.gnokii.org
+Patch1:		%{name}-ac_gettext_fixes.patch
+URL:		http://www.gnokii.org/
 BuildRequires:	XFree86-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	gtk+-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -49,13 +52,15 @@ rzeczy.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
+gettextize --copy --force
 aclocal
 autoconf
+automake -a -c || :
 %configure \
-	--enable-security \
-	--prefix=%{_prefix}
+	--enable-security
 %{__make}
 
 %install
@@ -71,13 +76,12 @@ gzip -9nf Docs/{CREDITS,DataCalls-QuickStart,README{,-{3810,6110}}} \
 	Docs/{sample/gnokiirc,gnokii-ir-howto} \
 	TODO
 
-#%find_lang %{name}
+%find_lang %{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files 
-#-f %{name}.lang
+%files -f %{name}.lang
 %defattr(644,root,root,755)
 %doc Docs/*.gz Docs/gnokii.nol
 %doc *.gz
@@ -90,5 +94,4 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_prefix}/X11R6/bin/xgnokii
 #%attr(755,root,root) %{_prefix}/X11R6/bin/xlogos
-%{_prefix}/X11R6/lib/xgnokii/help/en_US
-%{_prefix}/X11R6/lib/xgnokii/xpm
+%{_prefix}/X11R6/lib/xgnokii
