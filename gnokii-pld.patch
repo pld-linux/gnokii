@@ -1,12 +1,11 @@
-diff -ruN gnokii-0.4.0.org/Docs/sample/gnokiirc gnokii-0.4.0/Docs/sample/gnokiirc
---- gnokii-0.4.0.org/Docs/sample/gnokiirc	Wed Jul 10 00:49:13 2002
-+++ gnokii-0.4.0/Docs/sample/gnokiirc	Thu Jul 11 21:22:05 2002
-@@ -31,7 +31,7 @@
- # In particular ensure that mgnokiidev is in this location, with
+--- gnokii-0.6.3/Docs/sample/gnokiirc.orig	2004-07-05 00:04:24.000000000 +0200
++++ gnokii-0.6.3/Docs/sample/gnokiirc	2004-07-23 14:03:12.077771752 +0200
+@@ -91,7 +91,7 @@
  # permissions 4750, owned by root, group gnokii.  Ensure you
  # are in the gnokii group and that the group exists...
+ [gnokiid]
 -bindir = /usr/local/sbin/
 +bindir = /usr/sbin/
  
- # Set this to 'yes' if you want gnokii to set and check the lock file in
- # /var/lock directory. It avoids potential conflicts with other serial
+ # Any entries in the following two sections will be set as environment
+ # variables when running the scripts.
