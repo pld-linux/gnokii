@@ -1,20 +1,18 @@
 Summary:	Linux/Unix tool suite for Nokia mobile phones
 Summary(pl):	Linuksowy/Uniksowy zestaw narzêdzi dla telefonów komórkowych Nokia
 Name:		gnokii
-Version:	0.3.3
-Release:	1
+Version:	20020412
+Release:	0.1
 License:	GPL
 Group:		Applications/Communications
 Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}.tar.gz
 Patch0:		%{name}-DESTDIR.patch
 Patch1:		%{name}-ac_gettext_fixes.patch
 URL:		http://www.gnokii.org/
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	XFree86-devel
-BuildRequires:	autoconf
-BuildRequires:	automake
 BuildRequires:	gtk+-devel
-BuildRequires:	autoconf
-BuildRequires:	automake
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %define		_prefix		/usr
@@ -68,6 +66,8 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/gnokii} \
 
 install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
+install common/libgnokii.so $RPM_BUILD_ROOT%{_libdir}
+
 gzip -9nf Docs/{CREDITS,DataCalls-QuickStart,README{,-{3810,6110}}} \
 	Docs/{sample/gnokiirc,gnokii-ir-howto} \
 	TODO
@@ -82,8 +82,10 @@ rm -rf $RPM_BUILD_ROOT
 %doc Docs/*.gz Docs/gnokii.nol
 %doc *.gz
 %attr(755,root,root) %{_bindir}/gnokii
+%attr(755,root,root) %{_bindir}/todologo
 %attr(755,root,root) %{_sbindir}/gnokiid
 %attr(755,root,root) %{_sbindir}/mgnokiidev
+%attr(755,root,root) %{_libdir}/libgnokii.so
 %config(noreplace) %{_sysconfdir}/gnokiirc
 
 %files X11
