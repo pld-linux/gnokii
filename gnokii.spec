@@ -33,8 +33,8 @@ sterownikiem modemu/faxu dla telefonów komórkowych Nokia, dostêpnym na
 licencji GPL.
 
 %package X11
-Summary:	Graphical Linux/Unix tool suite for Nokia mobile phones.
-Summary(pl):	Zestaw narzêdzi z graficznym interfejsem dla telefonów komórkowych Nokia.
+Summary:	Graphical Linux/Unix tool suite for Nokia mobile phones
+Summary(pl):	Zestaw narzêdzi z graficznym interfejsem dla telefonów komórkowych Nokia
 Group:		X11/Applications
 Requires:	%{name} = %{version}
 
