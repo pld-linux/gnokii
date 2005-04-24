@@ -22,6 +22,8 @@ BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+-devel >= 1.2
 BuildRequires:	libtool
+BuildRequires:	mysql-devel
+BuildRequires:	postgresql-devel
 Requires:	libgnokii = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
