@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.4
-Release:	1
+Release:	1.1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -89,6 +89,19 @@ Static version of libgnokii library.
 %description -n libgnokii-static -l pl
 Statyczna wersja biblioteki libgnokii.
 
+%package -n gnokii-smsd
+Summary:	Daemon for handling incoming and outgoing SMSes using libgnokii
+Summary(pl):	Serwer do zarz±dzania przychodzacymi i wychodzacymi sms'ami przy urzyciu gnokii
+Group:		Daemons
+Requires:	gnokii = %{epoch}:%{version}-%{release}
+Requires:	mysql-devel
+Requires:	postgresql-devel
+Obsoletes:	smstools
+
+%description -n gnokii-smsd
+The  SMSD  (SMS  daemon)  program is intended for receiving and sending
+SMSes
+
 %prep
 %setup -q
 %patch0 -p1
@@ -106,6 +119,13 @@ rm -rf autom4te.cache
 	--with-xgnokiidir=%{_prefix}
 %{__make}
 
+cd smsd
+%{__make}
+%{__make} libpq.la 
+%{__make} libmysql.la
+%{__make} libfile.la
+cd ..
+
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
@@ -113,6 +133,11 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
 
 %{__make} install install-docs \
 	DESTDIR=$RPM_BUILD_ROOT
+
+cd smsd 
+%{__make} install \
+        DESTDIR=$RPM_BUILD_ROOT
+cd ..
 
 install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
@@ -146,7 +171,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/mgnokiidev
 %config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/gnokiirc
 %{_mandir}/man1/[!x]*
-%{_mandir}/man8/*
+%{_mandir}/man8/gnokiid.*
+%{_mandir}/man8/mgnokiidev.*
 
 %files X11
 %defattr(644,root,root,755)
@@ -174,3 +200,10 @@ rm -rf $RPM_BUILD_ROOT
 %files -n libgnokii-static
 %defattr(644,root,root,755)
 %{_libdir}/libgnokii.a
+
+%files -n gnokii-smsd
+%defattr(644,root,root,755)
+%doc smsd/ChangeLog smsd/README smsd/README.MySQL smsd/README.Tru64 smsd/action smsd/*.sql
+%{_sbindir}/smsd
+%{_libdir}/smsd/*
+%{_mandir}/man8/smsd.*
