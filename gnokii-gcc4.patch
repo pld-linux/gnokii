@@ -1,0 +1,359 @@
+diff -Nru gnokii-0.6.4.orig/common/cfgreader.c gnokii-0.6.4/common/cfgreader.c
+--- gnokii-0.6.4.orig/common/cfgreader.c	2004-10-17 21:44:20.000000000 +0200
++++ gnokii-0.6.4/common/cfgreader.c	2005-04-28 18:29:43.464741688 +0200
+@@ -450,7 +450,7 @@
+ 
+ 	retval = gn_cfg_read_default();
+ 
+-	(char *)*bindir = gn_cfg_get(gn_cfg_info, "global", "bindir");
++	*bindir = gn_cfg_get(gn_cfg_info, "global", "bindir");
+ 	if (!*bindir) *bindir = gn_cfg_get(gn_cfg_info, "gnokiid", "bindir");
+ 	if (!*bindir) *bindir = "/usr/local/sbin";
+ 
+iff -Nru gnokii-0.6.4.orig/common/links/atbus.c gnokii-0.6.4/common/links/atbus.c
+--- gnokii-0.6.4.orig/common/links/atbus.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/links/atbus.c	2005-04-28 18:24:02.840524440 +0200
+@@ -258,7 +258,7 @@
+ 	state->link.send_message = &at_send_message;
+ 	businst->rbuf_pos = 1;
+ 	businst->binlen = 1;
+-	AT_BUSINST(state) = businst;
++	(void *)AT_BUSINST(state) = businst;
+ 
+ 	switch (state->config.connection_type) {
+ 	case GN_CT_Serial:
+@@ -286,7 +286,7 @@
+ err:
+ 	dprintf("AT bus initialization failed (%d)\n", error);
+ 	free(AT_BUSINST(state));
+-	AT_BUSINST(state) = NULL;
++	(void *)AT_BUSINST(state) = NULL;
+ out:
+ 	return error;
+ }
+diff -Nru gnokii-0.6.4.orig/common/links/fbus-3110.c gnokii-0.6.4/common/links/fbus-3110.c
+--- gnokii-0.6.4.orig/common/links/fbus-3110.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/links/fbus-3110.c	2005-04-28 18:26:36.984091056 +0200
+@@ -351,7 +351,7 @@
+ 		state->config.init_length = 100;
+ 
+ 	/* Start up the link */
+-	if ((FBUSINST(state) = calloc(1, sizeof(fb3110_link))) == NULL)
++	if (((void *)FBUSINST(state) = calloc(1, sizeof(fb3110_link))) == NULL)
+ 		return GN_ERR_MEMORYFULL;
+ 
+ 	FBUSINST(state)->request_sequence_number = 0x10;
+@@ -364,7 +364,7 @@
+ 
+ 	if (!fb3110_serial_open(state)) {
+ 		free(FBUSINST(state));
+-		FBUSINST(state) = NULL;
++		(void *)FBUSINST(state) = NULL;
+ 		return GN_ERR_FAILED;
+ 	}
+ 
+diff -Nru gnokii-0.6.4.orig/common/links/fbus.c gnokii-0.6.4/common/links/fbus.c
+--- gnokii-0.6.4.orig/common/links/fbus.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/links/fbus.c	2005-04-28 18:25:10.309267632 +0200
+@@ -623,7 +623,7 @@
+ 		state->config.init_length = 250;
+ 
+ 	/* Start up the link */
+-	if ((FBUSINST(state) = calloc(1, sizeof(fbus_link))) == NULL)
++	if (((void *)FBUSINST(state) = calloc(1, sizeof(fbus_link))) == NULL)
+ 		return GN_ERR_MEMORYFULL;
+ 
+ 	FBUSINST(state)->request_sequence_number = 0;
+@@ -672,7 +672,7 @@
+ 	}
+ 	if (!connection) {
+ 		free(FBUSINST(state));
+-		FBUSINST(state) = NULL;
++		(void *)FBUSINST(state) = NULL;
+ 		return GN_ERR_FAILED;
+ 	}
+ 
+diff -Nru gnokii-0.6.4.orig/common/links/fbus-phonet.c gnokii-0.6.4/common/links/fbus-phonet.c
+--- gnokii-0.6.4.orig/common/links/fbus-phonet.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/links/fbus-phonet.c	2005-04-28 18:26:01.852431880 +0200
+@@ -286,7 +286,7 @@
+ 	state->link.loop = &phonet_loop;
+ 	state->link.send_message = &phonet_send_message;
+ 
+-	if ((FBUSINST(state) = calloc(1, sizeof(phonet_incoming_message))) == NULL)
++	if (((void *)FBUSINST(state) = calloc(1, sizeof(phonet_incoming_message))) == NULL)
+ 		return GN_ERR_MEMORYFULL;
+ 
+ 	switch (state->config.connection_type) {
+@@ -301,7 +301,7 @@
+ 	}
+ 	if (error != GN_ERR_NONE) {
+ 		free(FBUSINST(state));
+-		FBUSINST(state) = NULL;
++		(void *)FBUSINST(state) = NULL;
+ 		return error;
+ 	}
+ 
+diff -Nru gnokii-0.6.4.orig/common/links/gnbus.c gnokii-0.6.4/common/links/gnbus.c
+--- gnokii-0.6.4.orig/common/links/gnbus.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/links/gnbus.c	2005-04-28 18:28:01.787199024 +0200
+@@ -284,7 +284,7 @@
+ 	state->link.send_message = gnbus_send_message;
+ 
+ 	/* Start up the link */
+-	if ((GNBUSINST(state) = calloc(1, sizeof(gnbus_link))) == NULL)
++	if (((void *)GNBUSINST(state) = calloc(1, sizeof(gnbus_link))) == NULL)
+ 		return GN_ERR_MEMORYFULL;
+ 
+ 	GNBUSINST(state)->i.state = GNBUS_RX_Sync;
+@@ -294,7 +294,7 @@
+ 	if (!device_open(state->config.port_device, false, false, false, conn_type, state)) {
+ 		perror(_("Couldn't open GNBUS device"));
+ 		free(GNBUSINST(state));
+-		GNBUSINST(state) = NULL;
++		(void *)GNBUSINST(state) = NULL;
+ 		return GN_ERR_FAILED;
+ 	}
+ 
+diff -Nru gnokii-0.6.4.orig/common/links/m2bus.c gnokii-0.6.4/common/links/m2bus.c
+--- gnokii-0.6.4.orig/common/links/m2bus.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/links/m2bus.c	2005-04-28 18:27:16.001159560 +0200
+@@ -460,7 +460,7 @@
+ 	state->link.send_message = m2bus_send_message;
+ 
+ 	/* Start up the link */
+-	if ((M2BUSINST(state) = calloc(1, sizeof(m2bus_link))) == NULL)
++	if (((void *)M2BUSINST(state) = calloc(1, sizeof(m2bus_link))) == NULL)
+ 		return GN_ERR_MEMORYFULL;
+ 
+ 	M2BUSINST(state)->request_sequence_number = 2;
+@@ -473,7 +473,7 @@
+ 	}
+ 	if (err != GN_ERR_NONE) {
+ 		free(M2BUSINST(state));
+-		M2BUSINST(state) = NULL;
++		(void *)M2BUSINST(state) = NULL;
+ 		return err;
+ 	}
+ 
+diff -Nru gnokii-0.6.4.orig/common/phones/atgen.c gnokii-0.6.4/common/phones/atgen.c
+--- gnokii-0.6.4.orig/common/phones/atgen.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/phones/atgen.c	2005-04-28 18:21:12.280453512 +0200
+@@ -1645,7 +1645,7 @@
+ 		return GN_ERR_MEMORYFULL;
+ 
+ 	state->driver.incoming_functions = drvinst->incoming_functions;
+-	AT_DRVINST(state) = drvinst;
++	(void *)AT_DRVINST(state) = drvinst;
+ 	drvinst->manufacturer_error = NULL;
+ 	drvinst->memorytype = GN_MT_XX;
+ 	drvinst->memoryoffset = 0;
+@@ -1720,7 +1720,7 @@
+ 	if (ret) {
+ 		dprintf("Initialization failed (%d)\n", ret);
+ 		free(AT_DRVINST(state));
+-		AT_DRVINST(state) = NULL;
++		(void *)AT_DRVINST(state) = NULL;
+ 	}
+ 	return ret;
+ }
+@@ -1729,7 +1729,7 @@
+ {
+ 	if (AT_DRVINST(state)) {
+ 		free(AT_DRVINST(state));
+-		AT_DRVINST(state) = NULL;
++		(void *)AT_DRVINST(state) = NULL;
+ 	}
+ 	return pgen_terminate(data, state);
+ }
+diff -Nru gnokii-0.6.4.orig/common/phones/gnapplet.c gnokii-0.6.4/common/phones/gnapplet.c
+--- gnokii-0.6.4.orig/common/phones/gnapplet.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/phones/gnapplet.c	2005-04-28 18:22:56.226651288 +0200
+@@ -419,7 +419,7 @@
+ 		if (DRVINSTANCE(state)) return GN_ERR_INTERNALERROR;
+ 		return gnapplet_initialise(state);
+ 	case GN_OP_Terminate:
+-		FREE(DRVINSTANCE(state));
++		FREE((void *)DRVINSTANCE(state));
+ 		return pgen_terminate(data, state);
+ 	case GN_OP_GetImei:
+ 	case GN_OP_GetModel:
+@@ -508,7 +508,7 @@
+ 	/* Copy in the phone info */
+ 	memcpy(&(state->driver), &driver_gnapplet, sizeof(gn_driver));
+ 
+-	if (!(DRVINSTANCE(state) = calloc(1, sizeof(gnapplet_driver_instance))))
++	if (!((void *)DRVINSTANCE(state) = calloc(1, sizeof(gnapplet_driver_instance))))
+ 		return GN_ERR_MEMORYFULL;
+ 
+ 	switch (state->config.connection_type) {
+@@ -520,13 +520,13 @@
+ 		err = gnbus_initialise(state);
+ 		break;
+ 	default:
+-		FREE(DRVINSTANCE(state));
++		FREE((void *)DRVINSTANCE(state));
+ 		return GN_ERR_NOTSUPPORTED;
+ 	}
+ 
+ 	if (err != GN_ERR_NONE) {
+ 		dprintf("Error in link initialisation\n");
+-		FREE(DRVINSTANCE(state));
++		FREE((void *)DRVINSTANCE(state));
+ 		return GN_ERR_NOTSUPPORTED;
+ 	}
+ 
+@@ -534,7 +534,7 @@
+ 
+ 	gn_data_clear(&d);
+ 	if ((err = gnapplet_identify(&d, state)) != GN_ERR_NONE) {
+-		FREE(DRVINSTANCE(state));
++		FREE((void *)DRVINSTANCE(state));
+ 		return err;
+ 	}
+ 
+diff -Nru gnokii-0.6.4.orig/common/phones/nk3110.c gnokii-0.6.4/common/phones/nk3110.c
+--- gnokii-0.6.4.orig/common/phones/nk3110.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/phones/nk3110.c	2005-04-28 18:19:17.935836536 +0200
+@@ -169,7 +169,7 @@
+ 		if (DRVINSTANCE(state)) return GN_ERR_INTERNALERROR;
+ 		return P3110_Initialise(state);
+ 	case GN_OP_Terminate:
+-		FREE(DRVINSTANCE(state));
++		FREE((void *)DRVINSTANCE(state));
+ 		return pgen_terminate(data, state);
+ 	case GN_OP_GetModel:
+ 	case GN_OP_GetRevision:
+@@ -226,7 +226,7 @@
+ 	/* Copy in the phone info */
+ 	memcpy(&(state->driver), &driver_nokia_3110, sizeof(gn_driver));
+ 
+-	if (!(DRVINSTANCE(state) = calloc(1, sizeof(nk3110_driver_instance)))) {
++	if (!((void *)DRVINSTANCE(state) = calloc(1, sizeof(nk3110_driver_instance)))) {
+ 		error = GN_ERR_MEMORYFULL;
+ 		goto retval;
+ 	}
+@@ -268,7 +268,7 @@
+ 
+ 	goto retval;
+ errcond:
+-	FREE(DRVINSTANCE(state));
++	FREE((void *)DRVINSTANCE(state));
+ retval:
+ 	return error;
+ }
+diff -Nru gnokii-0.6.4.orig/common/phones/nk6100.c gnokii-0.6.4/common/phones/nk6100.c
+--- gnokii-0.6.4.orig/common/phones/nk6100.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/phones/nk6100.c	2005-04-28 18:17:38.371972544 +0200
+@@ -238,7 +238,7 @@
+ 		if (DRVINSTANCE(state)) return GN_ERR_INTERNALERROR;
+ 		return Initialise(state);
+ 	case GN_OP_Terminate:
+-		FREE(DRVINSTANCE(state));
++		FREE((void *)DRVINSTANCE(state));
+ 		return pgen_terminate(data, state);
+ 	case GN_OP_GetSpeedDial:
+ 		return GetSpeedDial(data, state);
+@@ -522,7 +522,7 @@
+ 	/* Copy in the phone info */
+ 	memcpy(&(state->driver), &driver_nokia_6100, sizeof(gn_driver));
+ 
+-	if (!(DRVINSTANCE(state) = calloc(1, sizeof(nk6100_driver_instance))))
++	if (!((void *)DRVINSTANCE(state) = calloc(1, sizeof(nk6100_driver_instance))))
+ 		return GN_ERR_MEMORYFULL;
+ 
+ 	switch (state->config.connection_type) {
+@@ -541,13 +541,13 @@
+ 		err = m2bus_initialise(state);
+ 		break;
+ 	default:
+-		FREE(DRVINSTANCE(state));
++		FREE((void *)DRVINSTANCE(state));
+ 		return GN_ERR_NOTSUPPORTED;
+ 	}
+ 
+ 	if (err != GN_ERR_NONE) {
+ 		dprintf("Error in link initialisation\n");
+-		FREE(DRVINSTANCE(state));
++		FREE((void *)DRVINSTANCE(state));
+ 		return GN_ERR_NOTSUPPORTED;
+ 	}
+ 
+@@ -557,7 +557,7 @@
+ 	   authorize or set keytable */
+ 
+ 	if ((err = IdentifyPhone(state)) != GN_ERR_NONE) {
+-		FREE(DRVINSTANCE(state));
++		FREE((void *)DRVINSTANCE(state));
+ 		return err;
+ 	}
+ 
+@@ -567,7 +567,7 @@
+ 	if (DRVINSTANCE(state)->pm->flags & PM_AUTHENTICATION) {
+ 		/* Now test the link and authenticate ourself */
+ 		if ((err = Authentication(state, DRVINSTANCE(state)->imei)) != GN_ERR_NONE) {
+-			FREE(DRVINSTANCE(state));
++			FREE((void *)DRVINSTANCE(state));
+ 			return err;
+ 		}
+ 	}
+@@ -577,7 +577,7 @@
+ 			/* FIXME: build a default table */
+ 		} else {
+ 			if (BuildKeytable(state) != GN_ERR_NONE) {
+-				FREE(DRVINSTANCE(state));
++				FREE((void *)DRVINSTANCE(state));
+ 				return GN_ERR_NOTSUPPORTED;
+ 			}
+ 		}
+diff -Nru gnokii-0.6.4.orig/common/phones/nk6160.c gnokii-0.6.4/common/phones/nk6160.c
+--- gnokii-0.6.4.orig/common/phones/nk6160.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/phones/nk6160.c	2005-04-28 18:14:41.534855872 +0200
+@@ -189,7 +189,7 @@
+ 	if (error) {
+ 		dprintf("Initialization failed (%d)\n", error);
+ 		free(NK6160_DRVINST(state));
+-		NK6160_DRVINST(state) = NULL;
++		(void *)NK6160_DRVINST(state) = NULL;
+ 	}
+ 	return error;
+ }
+diff -Nru gnokii-0.6.4.orig/common/phones/nk7110.c gnokii-0.6.4/common/phones/nk7110.c
+--- gnokii-0.6.4.orig/common/phones/nk7110.c	2004-10-17 21:44:21.000000000 +0200
++++ gnokii-0.6.4/common/phones/nk7110.c	2005-04-28 18:13:52.087373032 +0200
+@@ -184,7 +184,7 @@
+ 	case GN_OP_Init:
+ 		return NK7110_Initialise(state);
+ 	case GN_OP_Terminate:
+-		FREE(DRVINSTANCE(state));
++		FREE((void *)DRVINSTANCE(state));
+ 		return pgen_terminate(data, state);
+ 	case GN_OP_GetModel:
+ 		return NK7110_GetModel(data, state);
+@@ -322,7 +322,7 @@
+ 	/* Copy in the phone info */
+ 	memcpy(&(state->driver), &driver_nokia_7110, sizeof(gn_driver));
+ 
+-	if (!(DRVINSTANCE(state) = calloc(1, sizeof(nk7110_driver_instance))))
++	if (!((void *)DRVINSTANCE(state) = calloc(1, sizeof(nk7110_driver_instance))))
+ 		return GN_ERR_INTERNALERROR;
+ 
+ 	dprintf("Connecting\n");
+@@ -350,7 +350,7 @@
+ 			err = m2bus_initialise(state);
+ 			break;
+ 		default:
+-			FREE(DRVINSTANCE(state));
++			FREE((void *)DRVINSTANCE(state));
+ 			return GN_ERR_NOTSUPPORTED;
+ 		}
+ 
+@@ -368,7 +368,7 @@
+ 			connected = true;
+ 	}
+ 	if (!connected) {
+-		FREE(DRVINSTANCE(state));
++		FREE((void *)DRVINSTANCE(state));
+ 		return err;
+ 	}
+ 
