@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.7
-Release:	0.1
+Release:	0.2
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -12,6 +12,7 @@ Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}.tar.bz2
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-pld.patch
+Patch1:		%{name}-smsdlibs.patch
 URL:		http://www.gnokii.org/
 BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
@@ -100,12 +101,13 @@ Requires:	postgresql-devel
 Obsoletes:	smstools
 
 %description -n gnokii-smsd
-The  SMSD  (SMS  daemon)  program is intended for receiving and sending
+The SMSD (SMS daemon) program is intended for receiving and sending
 SMSes
 
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 rm -rf autom4te.cache
@@ -121,7 +123,7 @@ rm -rf autom4te.cache
 
 cd smsd
 %{__make}
-%{__make} libpq.la 
+%{__make} libpq.la
 %{__make} libmysql.la
 %{__make} libfile.la
 cd ..
@@ -134,7 +136,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
 %{__make} install install-docs \
 	DESTDIR=$RPM_BUILD_ROOT
 
-cd smsd 
+cd smsd
 %{__make} install \
         DESTDIR=$RPM_BUILD_ROOT
 cd ..
@@ -148,7 +150,7 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}
 
 # move xgnokii manpage into proper place
-mv -f  $RPM_BUILD_ROOT{%{_prefix}/man,%{_mandir}}/man1/xgnokii.1x
+mv -f  $RPM_BUILD_ROOT{%{_mandir},%{_mandir}}/man1/xgnokii.1x
 
 %find_lang %{name}
 
@@ -204,6 +206,8 @@ rm -rf $RPM_BUILD_ROOT
 %files -n gnokii-smsd
 %defattr(644,root,root,755)
 %doc smsd/ChangeLog smsd/README smsd/README.MySQL smsd/README.Tru64 smsd/action smsd/*.sql
-%{_sbindir}/smsd
-%{_libdir}/smsd/*
+%attr(755,root,root) %{_sbindir}/smsd
+%attr(755,root,root) %{_libdir}/smsd/*.so
+%attr(755,root,root) %{_libdir}/smsd/*.la
+%{_libdir}/smsd/*.a
 %{_mandir}/man8/smsd.*
