@@ -1,8 +1,9 @@
+# TODO: split to gnokii smsd smsd-mysql smsd-pgsql as gnokii-team spec
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.7
-Release:	0.2
+Release:	0.3
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
