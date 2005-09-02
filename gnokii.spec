@@ -92,18 +92,19 @@ Static version of libgnokii library.
 %description -n libgnokii-static -l pl
 Statyczna wersja biblioteki libgnokii.
 
-%package -n gnokii-smsd
+%package smsd
 Summary:	Daemon for handling incoming and outgoing SMSes using libgnokii
-Summary(pl):	Serwer do zarz±dzania przychodzacymi i wychodzacymi sms'ami przy urzyciu gnokii
+Summary(pl):	Serwer do zarz±dzania przychodzacymi i wychodzacymi SMS-ami przy u¿yciu gnokii
 Group:		Daemons
 Requires:	gnokii = %{epoch}:%{version}-%{release}
-Requires:	mysql-devel
-Requires:	postgresql-devel
 Obsoletes:	smstools
 
-%description -n gnokii-smsd
+%description smsd
 The SMSD (SMS daemon) program is intended for receiving and sending
-SMSes
+SMSes.
+
+%description smsd -l pl
+Program SMSD (demon SMS) s³u¿y do odbierania i wysy³ania SMS-ów.
 
 %prep
 %setup -q
@@ -137,10 +138,8 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
 %{__make} install install-docs \
 	DESTDIR=$RPM_BUILD_ROOT
 
-cd smsd
-%{__make} install \
+%{__make} -C smsd install \
         DESTDIR=$RPM_BUILD_ROOT
-cd ..
 
 install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
@@ -152,6 +151,8 @@ rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}
 
 # move xgnokii manpage into proper place
 mv -f  $RPM_BUILD_ROOT{%{_mandir},%{_mandir}}/man1/xgnokii.1x
+
+rm -f $RPM_BUILD_ROOT%{_libdir}/smsd/*.{la,a}
 
 %find_lang %{name}
 
@@ -209,6 +210,4 @@ rm -rf $RPM_BUILD_ROOT
 %doc smsd/ChangeLog smsd/README smsd/README.MySQL smsd/README.Tru64 smsd/action smsd/*.sql
 %attr(755,root,root) %{_sbindir}/smsd
 %attr(755,root,root) %{_libdir}/smsd/*.so
-%attr(755,root,root) %{_libdir}/smsd/*.la
-%{_libdir}/smsd/*.a
 %{_mandir}/man8/smsd.*
