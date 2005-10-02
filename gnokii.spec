@@ -150,14 +150,14 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}
 
 # move xgnokii manpage into proper place
-mv -f  $RPM_BUILD_ROOT{%{_mandir},%{_mandir}}/man1/xgnokii.1x
+mv -f  $RPM_BUILD_ROOT{/usr/man,%{_mandir}}/man1/xgnokii.1x
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/smsd/*.{la,a}
 
 %find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+# rm -rf $RPM_BUILD_ROOT
 
 %post	-n libgnokii -p /sbin/ldconfig
 %postun -n libgnokii -p /sbin/ldconfig
