@@ -1,15 +1,13 @@
-# TODO: split to gnokii smsd smsd-mysql smsd-pgsql as gnokii-team spec
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
-Version:	0.6.9
-Release:	0.3
+Version:	0.6.10
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
-#Source0:	http://savannah.nongnu.org/download/gnokii/%{name}-%{version}.tar.bz2
-Source0:	ftp://ftp.gnokii.org/pub/gnokii/%{name}-%{version}.tar.bz2
-# Source0-md5:	9d73d5b22ef45b03979cd53bab5ef3ec
+Source0:	http://www.gnokii.org/download/gnokii/%{name}-%{version}.tar.bz2
+# Source0-md5:	031007358ff9b6e6e2994d408a4fa88a
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch0:		%{name}-pld.patch
@@ -106,6 +104,42 @@ SMSes.
 %description smsd -l pl
 Program SMSD (demon SMS) s³u¿y do odbierania i wysy³ania SMS-ów.
 
+%package smsd-mysql
+Summary:	mysql plugin for gnokii-smsd
+Summary(pl):	plugin mysql dla gnokii-smsd
+Group:		Daemons
+Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
+
+%description smsd-mysql
+MySQL plugin for gnokii-smsd.
+
+%description smsd-mysql -l pl
+Plugin MySQL dla gnokii-smsd.
+
+%package smsd-pgsql
+Summary:	pgsql plugin for gnokii-smsd
+Summary(pl):	plugin pgsql dla gnokii-smsd
+Group:		Daemons
+Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
+
+%description smsd-pgsql
+PostgreSQL plugin for gnokii-smsd.
+
+%description smsd-pgsql -l pl
+Plugin PostgreSQL dla gnokii-smsd.
+
+%package smsd-file
+Summary:	file plugin for gnokii-smsd
+Summary(pl):	plugin obs³ugi plików dla gnokii-smsd
+Group:		Daemons
+Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
+
+%description smsd-file
+Plain file plugin for gnokii-smsd
+
+%description smsd-file -l pl
+Plugin obs³ugi plików dla gnokii-smsd.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -150,7 +184,7 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}
 
 # move xgnokii manpage into proper place
-mv -f  $RPM_BUILD_ROOT{/usr/man,%{_mandir}}/man1/xgnokii.1x
+mv -f $RPM_BUILD_ROOT{%{_prefix}/man,%{_mandir}}/man1/xgnokii.1x
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/smsd/*.{la,a}
 
@@ -173,7 +207,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ppm2nokia
 %attr(755,root,root) %{_sbindir}/gnokiid
 %attr(755,root,root) %{_sbindir}/mgnokiidev
-%config(noreplace) %verify(not size mtime md5) %{_sysconfdir}/gnokiirc
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/gnokiirc
 %{_mandir}/man1/[!x]*
 %{_mandir}/man8/gnokiid.*
 %{_mandir}/man8/mgnokiidev.*
@@ -211,3 +245,15 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/smsd
 %attr(755,root,root) %{_libdir}/smsd/*.so
 %{_mandir}/man8/smsd.*
+
+%files -n gnokii-smsd-mysql
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/smsd/libmysql.so
+
+%files -n gnokii-smsd-pgsql
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/smsd/libpq.so
+
+%files -n gnokii-smsd-file
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/smsd/libfile.so
