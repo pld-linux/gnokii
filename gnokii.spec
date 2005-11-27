@@ -105,8 +105,8 @@ SMSes.
 Program SMSD (demon SMS) s³u¿y do odbierania i wysy³ania SMS-ów.
 
 %package smsd-mysql
-Summary:	mysql plugin for gnokii-smsd
-Summary(pl):	plugin mysql dla gnokii-smsd
+Summary:	MySQL plugin for gnokii-smsd
+Summary(pl):	Wtyczka MySQL dla gnokii-smsd
 Group:		Daemons
 Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 
@@ -114,11 +114,11 @@ Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 MySQL plugin for gnokii-smsd.
 
 %description smsd-mysql -l pl
-Plugin MySQL dla gnokii-smsd.
+Wtyczka MySQL dla gnokii-smsd.
 
 %package smsd-pgsql
-Summary:	pgsql plugin for gnokii-smsd
-Summary(pl):	plugin pgsql dla gnokii-smsd
+Summary:	PostgreSQL plugin for gnokii-smsd
+Summary(pl):	Wtyczka PostgreSQL dla gnokii-smsd
 Group:		Daemons
 Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 
@@ -126,11 +126,11 @@ Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 PostgreSQL plugin for gnokii-smsd.
 
 %description smsd-pgsql -l pl
-Plugin PostgreSQL dla gnokii-smsd.
+Wtyczka PostgreSQL dla gnokii-smsd.
 
 %package smsd-file
 Summary:	file plugin for gnokii-smsd
-Summary(pl):	plugin obs³ugi plików dla gnokii-smsd
+Summary(pl):	Wtyczka obs³ugi plików dla gnokii-smsd
 Group:		Daemons
 Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 
@@ -138,7 +138,7 @@ Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 Plain file plugin for gnokii-smsd
 
 %description smsd-file -l pl
-Plugin obs³ugi plików dla gnokii-smsd.
+Wtyczka obs³ugi plików dla gnokii-smsd.
 
 %prep
 %setup -q
