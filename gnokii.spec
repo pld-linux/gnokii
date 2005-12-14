@@ -19,7 +19,7 @@ BuildRequires:	automake
 BuildRequires:	bluez-libs-devel >= 2.8-2
 BuildRequires:	flex
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+-devel >= 1.2
+BuildRequires:	gtk+2-devel
 BuildRequires:	libtool
 BuildRequires:	mysql-devel
 BuildRequires:	postgresql-devel
@@ -173,7 +173,7 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__make} -C smsd install \
-        DESTDIR=$RPM_BUILD_ROOT
+	DESTDIR=$RPM_BUILD_ROOT
 
 install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
