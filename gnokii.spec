@@ -19,9 +19,10 @@ BuildRequires:	automake
 BuildRequires:	bluez-libs-devel >= 2.8-2
 BuildRequires:	flex
 BuildRequires:	gettext-devel
-BuildRequires:	gtk+2-devel
+BuildRequires:	gtk+2-devel >= 2.0
 BuildRequires:	libtool
 BuildRequires:	mysql-devel
+BuildRequires:	pkgconfig
 BuildRequires:	postgresql-devel
 Requires:	libgnokii = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
