@@ -178,6 +178,9 @@ install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
 
 install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
+install -d $RPM_BUILD_ROOT%{_datadir}/xgnokii/xpm
+install xgnokii/xpm/* $RPM_BUILD_ROOT%{_datadir}/xgnokii/xpm/
+
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
@@ -192,7 +195,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/smsd/*.{la,a}
 %find_lang %{name}
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+#rm -rf $RPM_BUILD_ROOT
 
 %post	-n libgnokii -p /sbin/ldconfig
 %postun -n libgnokii -p /sbin/ldconfig
@@ -218,7 +221,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/xgnokii
 %dir %{_datadir}/xgnokii
 %{_libdir}/xgnokii
-#%{_datadir}/xgnokii/xpm
+%{_datadir}/xgnokii/xpm
 %{_datadir}/xgnokii/help
 %{_desktopdir}/gnokii.desktop
 %{_pixmapsdir}/*
