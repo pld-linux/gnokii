@@ -20,6 +20,7 @@ BuildRequires:	bluez-libs-devel >= 2.8-2
 BuildRequires:	flex
 BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2.0
+#BuildRequires:	libical-devel
 BuildRequires:	libtool
 BuildRequires:	mysql-devel
 BuildRequires:	pkgconfig
@@ -155,7 +156,8 @@ rm -rf autom4te.cache
 %{__autoconf}
 %configure \
 	--enable-security \
-	--with-xgnokiidir=%{_prefix}
+	--with-xgnokiidir=%{_prefix} \
+	%{?debug:--enable-fulldebug}
 %{__make}
 
 cd smsd
