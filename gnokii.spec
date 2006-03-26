@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.12
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -13,7 +13,6 @@ Source2:	%{name}.png
 Patch0:		%{name}-pld.patch
 Patch1:		%{name}-smsdlibs.patch
 URL:		http://www.gnokii.org/
-BuildRequires:	XFree86-devel
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bluez-libs-devel >= 2.8-2
@@ -25,6 +24,8 @@ BuildRequires:	libtool
 BuildRequires:	mysql-devel
 BuildRequires:	pkgconfig
 BuildRequires:	postgresql-devel
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXpm-devel
 Requires:	libgnokii = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -68,9 +69,10 @@ Biblioteka wspó³dzielona gnokii.
 Summary:	libgnokii heades files
 Summary(pl):	Pliki nag³ówkowe biblioteki libgnokii
 Group:		Development/Libraries
-Requires:	libgnokii = %{epoch}:%{version}-%{release}
-Requires:	XFree86-devel
 Requires:	bluez-libs-devel >= 2.8-2
+Requires:	libgnokii = %{epoch}:%{version}-%{release}
+Requires:	xorg-lib-libX11-devel
+Requires:	xorg-lib-libXpm-devel
 Obsoletes:	gnokii-devel
 
 %description -n libgnokii-devel
