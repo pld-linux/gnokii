@@ -11,15 +11,3 @@
  
  all: smsd
  
-@@ -90,9 +90,9 @@
- install: all
- 	$(INSTALL) -d $(DESTDIR)$(sbindir)
- 	$(LIBTOOL) --mode=install $(INSTALL) -m 755 smsd $(DESTDIR)$(sbindir)
--	$(INSTALL) -d $(DESTDIR)${libdir}/smsd
-+	$(INSTALL) -m 755 -d $(DESTDIR)${libdir}/smsd
- 	for f in $(DB_LIBS) ; do \
--	$(LIBTOOL) --mode=install $(INSTALL) $$f $(DESTDIR)${libdir}/smsd ; \
-+	$(LIBTOOL) --mode=install $(INSTALL) $$f $(DESTDIR)${libdir}/smsd ; \
- 	done
- 	$(LIBTOOL) --mode=finish ${libdir}/smsd
- 	$(INSTALL) -d $(DESTDIR)$(man8dir)
