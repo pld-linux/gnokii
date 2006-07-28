@@ -199,7 +199,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/smsd/*.{la,a}
 %find_lang %{name}
 
 %clean
-#rm -rf $RPM_BUILD_ROOT
+rm -rf $RPM_BUILD_ROOT
 
 %post	-n libgnokii -p /sbin/ldconfig
 %postun -n libgnokii -p /sbin/ldconfig
