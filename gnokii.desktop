@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=gnokii
-Comment=Linux/Unix tool suite for Nokia mobile phones
-Comment[pl]=Linuksowy/Uniksowy zestaw narzędzi dla telefonów komórkowych Nokia
+Comment=Linux/Unix tool suite for mobile phones
+Comment[pl]=Linuksowy/Uniksowy zestaw narzędzi dla telefonów komórkowych
 Icon=gnokii.png
 Exec=xgnokii
 Terminal=false
