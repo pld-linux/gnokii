@@ -189,10 +189,10 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 
 # do not complain about unpackaged files (we package them with %%doc anyway)
-rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}
+rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 
 # move xgnokii manpage into proper place
-mv -f $RPM_BUILD_ROOT{%{_prefix}/man,%{_mandir}}/man1/xgnokii.1x
+mv -f $RPM_BUILD_ROOT{%{_mandir},%{_mandir}}/man1/xgnokii.1x
 
 rm -f $RPM_BUILD_ROOT%{_libdir}/smsd/*.{la,a}
 
