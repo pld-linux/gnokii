@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.13
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -10,6 +10,8 @@ Source0:	http://www.gnokii.org/download/gnokii/%{name}-%{version}.tar.bz2
 # Source0-md5:	7f6e71aa4765c813d2129339c73e6520
 Source1:	%{name}.desktop
 Source2:	%{name}.png
+Source3:	%{name}.smsd.config
+Source4:	%{name}.smsd.init
 Patch0:		%{name}-pld.patch
 Patch1:		%{name}-smsdlibs.patch
 URL:		http://www.gnokii.org/
@@ -168,8 +170,9 @@ cd ..
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
-	$RPM_BUILD_ROOT{%{_sysconfdir},%{_pixmapsdir},%{_desktopdir}}
+install -d $RPM_BUILD_ROOT/etc/{sysconfig,rc.d/init.d,logrotate.d} \
+	$RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
+	$RPM_BUILD_ROOT{%{_sysconfdir},%{_pixmapsdir},%{_desktopdir},%{_var}/log/{smsd,archiv/smsd}}
 
 %{__make} install install-docs \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -184,6 +187,9 @@ install xgnokii/xpm/* $RPM_BUILD_ROOT%{_datadir}/xgnokii/xpm/
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/smsd
+install %{SOURCE4} $RPM_BUILD_ROOT/etc/rc.d/init.d/smsd
+
 
 # do not complain about unpackaged files (we package them with %%doc anyway)
 rm -rf $RPM_BUILD_ROOT%{_defaultdocdir}/%{name}
@@ -200,6 +206,16 @@ rm -rf $RPM_BUILD_ROOT
 
 %post	-n libgnokii -p /sbin/ldconfig
 %postun -n libgnokii -p /sbin/ldconfig
+
+%post smsd
+/sbin/chkconfig --add smsd
+%service smsd restart "smsd daemon"
+
+%preun smsd
+if [ "$1" = "0" ]; then
+        %service smsd stop
+        /sbin/chkconfig --del smsd
+fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
@@ -250,6 +266,10 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_sbindir}/smsd
 %attr(755,root,root) %{_libdir}/smsd/*.so
 %{_mandir}/man8/smsd.*
+%attr(754,root,root) /etc/rc.d/init.d/smsd
+%attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/smsd
+%attr(2750,root,logs) %dir /var/log/smsd
+%attr(2750,root,logs) %dir /var/log/archiv/smsd
 
 %files -n gnokii-smsd-mysql
 %defattr(644,root,root,755)
