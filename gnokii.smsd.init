@@ -89,7 +89,7 @@ case "$1" in
 #		killproc smsd -HUP
 #		RETVAL=$?
 #	else
-#		msg_not_running smsd >&2
+#		msg_not_running smsd
 #		exit 7
 #	fi
 #	;;
