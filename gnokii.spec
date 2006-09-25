@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.14
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -26,6 +26,7 @@ BuildRequires:	libtool
 BuildRequires:	mysql-devel
 BuildRequires:	pkgconfig
 BuildRequires:	postgresql-devel
+BuildRequires:	rpmbuild(macros) >= 1.268
 Requires:	libgnokii = %{epoch}:%{version}-%{release}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -69,9 +70,9 @@ Biblioteka wspó³dzielona gnokii.
 Summary:	libgnokii heades files
 Summary(pl):	Pliki nag³ówkowe biblioteki libgnokii
 Group:		Development/Libraries
+Requires:	XFree86-devel
 Requires:	bluez-libs-devel >= 2.8-2
 Requires:	libgnokii = %{epoch}:%{version}-%{release}
-Requires:	XFree86-devel
 Obsoletes:	gnokii-devel
 
 %description -n libgnokii-devel
@@ -97,7 +98,9 @@ Statyczna wersja biblioteki libgnokii.
 Summary:	Daemon for handling incoming and outgoing SMSes using libgnokii
 Summary(pl):	Serwer do zarz±dzania przychodzacymi i wychodzacymi SMS-ami przy u¿yciu gnokii
 Group:		Daemons
+Requires(post,preun):	/sbin/chkconfig
 Requires:	gnokii = %{epoch}:%{version}-%{release}
+Requires:	rc-scripts
 Obsoletes:	smstools
 
 %description smsd
@@ -159,7 +162,7 @@ rm -rf autom4te.cache
 	--enable-security \
 	--with-xgnokiidir=%{_prefix} \
 	%{?debug:--enable-fulldebug}
-%{__make}
+%{__make} -j1
 
 cd smsd
 %{__make}
@@ -190,13 +193,11 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/smsd
 install %{SOURCE4} $RPM_BUILD_ROOT/etc/rc.d/init.d/smsd
 
-
 # do not complain about unpackaged files (we package them with %%doc anyway)
 rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 
 # move xgnokii manpage into proper place
 mv -f $RPM_BUILD_ROOT{%{_prefix}/man,%{_mandir}}/man1/xgnokii.1x
-
 rm -f $RPM_BUILD_ROOT%{_libdir}/smsd/*.{la,a}
 
 %find_lang %{name}
@@ -260,7 +261,7 @@ fi
 %defattr(644,root,root,755)
 %{_libdir}/libgnokii.a
 
-%files -n gnokii-smsd
+%files smsd
 %defattr(644,root,root,755)
 %doc smsd/ChangeLog smsd/README smsd/README.MySQL smsd/README.Tru64 smsd/action smsd/*.sql
 %attr(755,root,root) %{_sbindir}/smsd
