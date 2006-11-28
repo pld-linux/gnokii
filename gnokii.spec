@@ -1,3 +1,5 @@
+# TODO
+# - add support: ical read support:  no
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
 Name:		gnokii
