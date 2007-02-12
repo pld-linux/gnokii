@@ -1,5 +1,5 @@
 Summary:	Linux/Unix tool suite for mobile phones
-Summary(pl):	Linuksowy/uniksowy zestaw narzêdzi dla telefonów komórkowych
+Summary(pl.UTF-8):   Linuksowy/uniksowy zestaw narzÄ™dzi dla telefonÃ³w komÃ³rkowych
 Name:		gnokii
 Version:	0.6.14
 Release:	4
@@ -37,13 +37,13 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 Gnokii is a Linux/Unix tool suite and (eventually) modem/fax driver
 for mobile phones.
 
-%description -l pl
-Gnokii jest zestawem narzêdzi dla Linuksa/Uniksa, oraz sterownikiem
-modemu/faksu dla telefonów komórkowych.
+%description -l pl.UTF-8
+Gnokii jest zestawem narzÄ™dzi dla Linuksa/Uniksa, oraz sterownikiem
+modemu/faksu dla telefonÃ³w komÃ³rkowych.
 
 %package X11
 Summary:	Graphical Linux/Unix tool suite for mobile phones
-Summary(pl):	Zestaw narzêdzi z graficznym interfejsem dla telefonów komórkowych
+Summary(pl.UTF-8):   Zestaw narzÄ™dzi z graficznym interfejsem dla telefonÃ³w komÃ³rkowych
 Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -52,26 +52,26 @@ Xgnokii is graphical Linux/Unix tool suite for mobile phones. It
 allows you to edit your contacts book, send/read SMS's from/in
 computer and more other features.
 
-%description X11 -l pl
-Xgnokii jest zestawem narzêdzi z graficznym interfejsem u¿ytkownika do
-pracy z telefonami komórkowymi. Pozwalaj± one na modyfikowanie spisu
-telefonów, wysy³anie/czytanie wiadomo¶ci SMS i wiele innych rzeczy.
+%description X11 -l pl.UTF-8
+Xgnokii jest zestawem narzÄ™dzi z graficznym interfejsem uÅ¼ytkownika do
+pracy z telefonami komÃ³rkowymi. PozwalajÄ… one na modyfikowanie spisu
+telefonÃ³w, wysyÅ‚anie/czytanie wiadomoÅ›ci SMS i wiele innych rzeczy.
 
 %package -n libgnokii
 Summary:	A gnokii shared library
-Summary(pl):	Biblioteka wspó³dzielona gnokii
+Summary(pl.UTF-8):   Biblioteka wspÃ³Å‚dzielona gnokii
 Group:		Libraries
 Conflicts:	gnokii < 1:0.5.10-0.2
 
 %description -n libgnokii
 A gnokii shared library.
 
-%description -n libgnokii -l pl
-Biblioteka wspó³dzielona gnokii.
+%description -n libgnokii -l pl.UTF-8
+Biblioteka wspÃ³Å‚dzielona gnokii.
 
 %package -n libgnokii-devel
 Summary:	libgnokii heades files
-Summary(pl):	Pliki nag³ówkowe biblioteki libgnokii
+Summary(pl.UTF-8):   Pliki nagÅ‚Ã³wkowe biblioteki libgnokii
 Group:		Development/Libraries
 Requires:	bluez-libs-devel >= 2.8-2
 Requires:	libgnokii = %{epoch}:%{version}-%{release}
@@ -83,12 +83,12 @@ Obsoletes:	gnokii-devel
 %description -n libgnokii-devel
 libgnokii header files.
 
-%description -n libgnokii-devel -l pl
-Pliki nag³ówkowe biblioteki libgnokii.
+%description -n libgnokii-devel -l pl.UTF-8
+Pliki nagÅ‚Ã³wkowe biblioteki libgnokii.
 
 %package -n libgnokii-static
 Summary:	Static libgnoki library
-Summary(pl):	Statyczna biblioteka libgnokii
+Summary(pl.UTF-8):   Statyczna biblioteka libgnokii
 Group:		Development/Libraries
 Requires:	libgnokii-devel = %{epoch}:%{version}-%{release}
 Obsoletes:	gnokii-devel
@@ -96,12 +96,12 @@ Obsoletes:	gnokii-devel
 %description -n libgnokii-static
 Static version of libgnokii library.
 
-%description -n libgnokii-static -l pl
+%description -n libgnokii-static -l pl.UTF-8
 Statyczna wersja biblioteki libgnokii.
 
 %package smsd
 Summary:	Daemon for handling incoming and outgoing SMSes using libgnokii
-Summary(pl):	Serwer do zarz±dzania przychodzacymi i wychodzacymi SMS-ami przy u¿yciu gnokii
+Summary(pl.UTF-8):   Serwer do zarzÄ…dzania przychodzacymi i wychodzacymi SMS-ami przy uÅ¼yciu gnokii
 Group:		Daemons
 Requires(post,preun):	/sbin/chkconfig
 Requires:	gnokii = %{epoch}:%{version}-%{release}
@@ -112,44 +112,44 @@ Obsoletes:	smstools
 The SMSD (SMS daemon) program is intended for receiving and sending
 SMSes.
 
-%description smsd -l pl
-Program SMSD (demon SMS) s³u¿y do odbierania i wysy³ania SMS-ów.
+%description smsd -l pl.UTF-8
+Program SMSD (demon SMS) sÅ‚uÅ¼y do odbierania i wysyÅ‚ania SMS-Ã³w.
 
 %package smsd-mysql
 Summary:	MySQL plugin for gnokii-smsd
-Summary(pl):	Wtyczka MySQL dla gnokii-smsd
+Summary(pl.UTF-8):   Wtyczka MySQL dla gnokii-smsd
 Group:		Daemons
 Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 
 %description smsd-mysql
 MySQL plugin for gnokii-smsd.
 
-%description smsd-mysql -l pl
+%description smsd-mysql -l pl.UTF-8
 Wtyczka MySQL dla gnokii-smsd.
 
 %package smsd-pgsql
 Summary:	PostgreSQL plugin for gnokii-smsd
-Summary(pl):	Wtyczka PostgreSQL dla gnokii-smsd
+Summary(pl.UTF-8):   Wtyczka PostgreSQL dla gnokii-smsd
 Group:		Daemons
 Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 
 %description smsd-pgsql
 PostgreSQL plugin for gnokii-smsd.
 
-%description smsd-pgsql -l pl
+%description smsd-pgsql -l pl.UTF-8
 Wtyczka PostgreSQL dla gnokii-smsd.
 
 %package smsd-file
 Summary:	file plugin for gnokii-smsd
-Summary(pl):	Wtyczka obs³ugi plików dla gnokii-smsd
+Summary(pl.UTF-8):   Wtyczka obsÅ‚ugi plikÃ³w dla gnokii-smsd
 Group:		Daemons
 Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 
 %description smsd-file
 Plain file plugin for gnokii-smsd
 
-%description smsd-file -l pl
-Wtyczka obs³ugi plików dla gnokii-smsd.
+%description smsd-file -l pl.UTF-8
+Wtyczka obsÅ‚ugi plikÃ³w dla gnokii-smsd.
 
 %prep
 %setup -q
