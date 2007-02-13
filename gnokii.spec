@@ -1,5 +1,5 @@
 Summary:	Linux/Unix tool suite for mobile phones
-Summary(pl.UTF-8):   Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
+Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.14
 Release:	4
@@ -43,7 +43,7 @@ modemu/faksu dla telefonów komórkowych.
 
 %package X11
 Summary:	Graphical Linux/Unix tool suite for mobile phones
-Summary(pl.UTF-8):   Zestaw narzędzi z graficznym interfejsem dla telefonów komórkowych
+Summary(pl.UTF-8):	Zestaw narzędzi z graficznym interfejsem dla telefonów komórkowych
 Group:		X11/Applications
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
@@ -59,7 +59,7 @@ telefonów, wysyłanie/czytanie wiadomości SMS i wiele innych rzeczy.
 
 %package -n libgnokii
 Summary:	A gnokii shared library
-Summary(pl.UTF-8):   Biblioteka współdzielona gnokii
+Summary(pl.UTF-8):	Biblioteka współdzielona gnokii
 Group:		Libraries
 Conflicts:	gnokii < 1:0.5.10-0.2
 
@@ -71,7 +71,7 @@ Biblioteka współdzielona gnokii.
 
 %package -n libgnokii-devel
 Summary:	libgnokii heades files
-Summary(pl.UTF-8):   Pliki nagłówkowe biblioteki libgnokii
+Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libgnokii
 Group:		Development/Libraries
 Requires:	bluez-libs-devel >= 2.8-2
 Requires:	libgnokii = %{epoch}:%{version}-%{release}
@@ -88,7 +88,7 @@ Pliki nagłówkowe biblioteki libgnokii.
 
 %package -n libgnokii-static
 Summary:	Static libgnoki library
-Summary(pl.UTF-8):   Statyczna biblioteka libgnokii
+Summary(pl.UTF-8):	Statyczna biblioteka libgnokii
 Group:		Development/Libraries
 Requires:	libgnokii-devel = %{epoch}:%{version}-%{release}
 Obsoletes:	gnokii-devel
@@ -101,7 +101,7 @@ Statyczna wersja biblioteki libgnokii.
 
 %package smsd
 Summary:	Daemon for handling incoming and outgoing SMSes using libgnokii
-Summary(pl.UTF-8):   Serwer do zarządzania przychodzacymi i wychodzacymi SMS-ami przy użyciu gnokii
+Summary(pl.UTF-8):	Serwer do zarządzania przychodzacymi i wychodzacymi SMS-ami przy użyciu gnokii
 Group:		Daemons
 Requires(post,preun):	/sbin/chkconfig
 Requires:	gnokii = %{epoch}:%{version}-%{release}
@@ -117,7 +117,7 @@ Program SMSD (demon SMS) służy do odbierania i wysyłania SMS-ów.
 
 %package smsd-mysql
 Summary:	MySQL plugin for gnokii-smsd
-Summary(pl.UTF-8):   Wtyczka MySQL dla gnokii-smsd
+Summary(pl.UTF-8):	Wtyczka MySQL dla gnokii-smsd
 Group:		Daemons
 Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 
@@ -129,7 +129,7 @@ Wtyczka MySQL dla gnokii-smsd.
 
 %package smsd-pgsql
 Summary:	PostgreSQL plugin for gnokii-smsd
-Summary(pl.UTF-8):   Wtyczka PostgreSQL dla gnokii-smsd
+Summary(pl.UTF-8):	Wtyczka PostgreSQL dla gnokii-smsd
 Group:		Daemons
 Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 
@@ -141,7 +141,7 @@ Wtyczka PostgreSQL dla gnokii-smsd.
 
 %package smsd-file
 Summary:	file plugin for gnokii-smsd
-Summary(pl.UTF-8):   Wtyczka obsługi plików dla gnokii-smsd
+Summary(pl.UTF-8):	Wtyczka obsługi plików dla gnokii-smsd
 Group:		Daemons
 Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
 
