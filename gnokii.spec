@@ -2,7 +2,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.14
-Release:	4
+Release:	5
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -270,6 +270,7 @@ fi
 %defattr(644,root,root,755)
 %doc smsd/ChangeLog smsd/README smsd/README.MySQL smsd/README.Tru64 smsd/action smsd/*.sql
 %attr(755,root,root) %{_sbindir}/smsd
+%dir %{_libdir}/smsd
 %attr(755,root,root) %{_libdir}/smsd/*.so
 %{_mandir}/man8/smsd.*
 %attr(754,root,root) /etc/rc.d/init.d/smsd
