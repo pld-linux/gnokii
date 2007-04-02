@@ -276,7 +276,7 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/smsd
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/smsd
 %attr(2750,root,logs) %dir /var/log/smsd
-%attr(2750,root,logs) %dir /var/log/archiv/smsd
+%attr(2750,root,logs) %dir /var/log/archive/smsd
 
 %files -n gnokii-smsd-mysql
 %defattr(644,root,root,755)
