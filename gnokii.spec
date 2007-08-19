@@ -1,27 +1,29 @@
+#
+# TODO:
+#	- conditional build: irda, bluetooth, libusb, ical
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
-Version:	0.6.14
-Release:	7
+Version:	0.6.18
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	http://www.gnokii.org/download/gnokii/%{name}-%{version}.tar.bz2
-# Source0-md5:	89449d613c7a7e765a0d8da57ef1bb88
+# Source0-md5:	0060f876414a22914ded4201335298ad
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Source3:	%{name}.smsd.config
 Source4:	%{name}.smsd.init
 Patch0:		%{name}-pld.patch
-Patch1:		%{name}-smsdlibs.patch
 URL:		http://www.gnokii.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	bluez-libs-devel >= 2.8-2
 BuildRequires:	flex
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-autopoint
 BuildRequires:	gtk+2-devel >= 2.0
-#BuildRequires:	libical-devel
+BuildRequires:	libical-devel
 BuildRequires:	libtool
 BuildRequires:	libusb-devel
 BuildRequires:	mysql-devel
@@ -154,11 +156,10 @@ Wtyczka obsługi plików dla gnokii-smsd.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 
 %build
 rm -rf autom4te.cache
-%{__gettextize}
+%{__autopoint}
 %{__libtoolize}
 %{__autoheader}
 %{__aclocal} -I m4
@@ -229,9 +230,7 @@ fi
 %doc Docs/{sample/{gnokiirc,ppp*,ringtone,vCalendar,vCard},gnokii-{ir-howto,IrDA-Linux}}
 %doc TODO ChangeLog MAINTAINERS
 %attr(755,root,root) %{_bindir}/gnokii
-%attr(755,root,root) %{_bindir}/todologo
 %attr(755,root,root) %{_bindir}/sendsms
-%attr(755,root,root) %{_bindir}/ppm2nokia
 %attr(755,root,root) %{_sbindir}/gnokiid
 %attr(755,root,root) %{_sbindir}/mgnokiidev
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/gnokiirc
