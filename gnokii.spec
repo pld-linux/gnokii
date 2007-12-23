@@ -1,16 +1,24 @@
 #
 # TODO:
-#	- conditional build: irda, bluetooth, libusb, ical
+#	- conditional build: X11 and static subpackage
+#
+# Conditional build:
+%bcond_without	bluetooth	# build without bluetooth support
+%bcond_without	ical		# build without iCalendar support
+%bcond_without	irda		# build without IrDA support
+%bcond_without	usb		# build without USB support (for DKU2 cables)
+%bcond_without	pcsc		# build without PC/SC Lite support (for Smart Card readers)
+#
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
-Version:	0.6.18
-Release:	3
+Version:	0.6.22
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	http://www.gnokii.org/download/gnokii/%{name}-%{version}.tar.bz2
-# Source0-md5:	0060f876414a22914ded4201335298ad
+# Source0-md5:	15d64a4911735ee30c03a7bfa9b60f05
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Source3:	%{name}.smsd.config
@@ -19,14 +27,15 @@ Patch0:		%{name}-pld.patch
 URL:		http://www.gnokii.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	bluez-libs-devel >= 2.8-2
+%{?with_bluetooth:BuildRequires:	bluez-libs-devel >= 2.8-2}
 BuildRequires:	flex
 BuildRequires:	gettext-autopoint
 BuildRequires:	gtk+2-devel >= 2.0
-BuildRequires:	libical-devel
+%{?with_ical:BuildRequires:	libical-devel}
 BuildRequires:	libtool
-BuildRequires:	libusb-devel
+%{?with_usb:BuildRequires:	libusb-devel}
 BuildRequires:	mysql-devel
+%{?with_pcsc:BuildRequires:	pcsc-lite-devel}
 BuildRequires:	pkgconfig
 BuildRequires:	postgresql-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -167,7 +176,16 @@ rm -rf autom4te.cache
 %configure \
 	--enable-security \
 	--with-xgnokiidir=%{_prefix} \
+	%{!?with_ical:--disable-libical} \
+	%{!?with_usb:--disable-libusb} \
+	%{!?with_irda:--disable-irda} \
+	%{!?with_bluetooth:--disable-bluetooth} \
 	%{?debug:--enable-fulldebug}
+#	%{!?debug:--disable-debug} \
+#	%{!?debug:--disable-xdebug} \
+#	%{!?debug:--disable-rlpdebug} \
+# for now the option below makes configure not to see GTK
+#	%{!?with_pcsc:--disable-libpcsclite} \
 %{__make} -j1
 
 cd smsd
@@ -183,7 +201,7 @@ install -d $RPM_BUILD_ROOT/etc/{sysconfig,rc.d/init.d,logrotate.d} \
 	$RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
 	$RPM_BUILD_ROOT{%{_sysconfdir},%{_pixmapsdir},%{_desktopdir},%{_var}/log/{smsd,archive/smsd}}
 
-%{__make} install install-docs \
+%{__make} install install-includes \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__make} -C smsd install \
@@ -226,8 +244,8 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc Docs/{CREDITS,DataCalls-QuickStart,README*,Bugs,FAQ,*.txt,protocol}
-%doc Docs/{sample/{gnokiirc,ppp*,ringtone,vCalendar,vCard},gnokii-{ir-howto,IrDA-Linux}}
+%doc Docs/{CREDITS,DataCalls-QuickStart,KNOWN_BUGS,README*,Bugs,FAQ,*.txt,protocol}
+%doc Docs/{sample,gnokii-{hackers-howto,ir-howto,IrDA-Linux},gnokii.nol} utils/gnapplet.sis
 %doc TODO ChangeLog MAINTAINERS
 %attr(755,root,root) %{_bindir}/gnokii
 %attr(755,root,root) %{_bindir}/sendsms
@@ -240,6 +258,7 @@ fi
 
 %files X11
 %defattr(644,root,root,755)
+%doc xgnokii/{ChangeLog,README.vcard}
 %attr(755,root,root) %{_bindir}/xgnokii
 %dir %{_datadir}/xgnokii
 %{_libdir}/xgnokii
@@ -270,7 +289,6 @@ fi
 %doc smsd/ChangeLog smsd/README smsd/README.MySQL smsd/README.Tru64 smsd/action smsd/*.sql
 %attr(755,root,root) %{_sbindir}/smsd
 %dir %{_libdir}/smsd
-%attr(755,root,root) %{_libdir}/smsd/*.so
 %{_mandir}/man8/smsd.*
 %attr(754,root,root) /etc/rc.d/init.d/smsd
 %attr(640,root,root) %config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/smsd
