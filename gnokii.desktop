@@ -2,10 +2,9 @@
 Name=gnokii
 Comment=Linux/Unix tool suite for mobile phones
 Comment[pl]=Linuksowy/Uniksowy zestaw narzędzi dla telefonów komórkowych
-Icon=gnokii.png
+Icon=gnokii
 Exec=xgnokii
 Terminal=false
 Type=Application
-Encoding=UTF-8
 Categories=GTK;Office;PDA;
 # vi: encoding=utf-8
