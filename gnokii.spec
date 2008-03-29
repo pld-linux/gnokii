@@ -1,6 +1,6 @@
 #
 # TODO:
-#	- conditional build: X11 and static subpackage
+#	- conditional build: X11, smsd, security, and static subpackage
 #
 # Conditional build:
 %bcond_without	bluetooth	# build without bluetooth support
@@ -8,17 +8,18 @@
 %bcond_without	irda		# build without IrDA support
 %bcond_without	usb		# build without USB support (for DKU2 cables)
 %bcond_without	pcsc		# build without PC/SC Lite support (for Smart Card readers)
+%bcond_without	x11		# build without x11
 #
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
-Version:	0.6.23
+Version:	0.6.24
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	http://www.gnokii.org/download/gnokii/%{name}-%{version}.tar.bz2
-# Source0-md5:	a2cbe925f6ceadf65730581b4dbe9f29
+# Source0-md5:	9504f650b685d259a504a7cc9ad91c2e
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Source3:	%{name}.smsd.config
@@ -168,32 +169,26 @@ Wtyczka obsługi plików dla gnokii-smsd.
 
 %build
 rm -rf autom4te.cache
-%{__autopoint}
 %{__libtoolize}
 %{__autoheader}
 %{__aclocal} -I m4
 %{__autoconf}
 %configure \
 	--enable-security \
-	--with-xgnokiidir=%{_prefix} \
+	%{!?with_x11:--with-xgnokiidir=%{_prefix}} \
 	%{!?with_ical:--disable-libical} \
 	%{!?with_usb:--disable-libusb} \
 	%{!?with_irda:--disable-irda} \
 	%{!?with_bluetooth:--disable-bluetooth} \
-	%{?debug:--enable-fulldebug}
+	--enable-smsd \
+	--enable-security \
+	%{?debug:--enable-fulldebug} \
+	%{!?with_pcsc:--disable-libpcsclite}
 #	%{!?debug:--disable-debug} \
 #	%{!?debug:--disable-xdebug} \
 #	%{!?debug:--disable-rlpdebug} \
-# for now the option below makes configure not to see GTK
-#	%{!?with_pcsc:--disable-libpcsclite} \
-%{__make} -j1
 
-cd smsd
-%{__make}
-%{__make} libpq.la
-%{__make} libmysql.la
-%{__make} libfile.la
-cd ..
+%{__make} -j1
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -201,10 +196,7 @@ install -d $RPM_BUILD_ROOT/etc/{sysconfig,rc.d/init.d,logrotate.d} \
 	$RPM_BUILD_ROOT{%{_bindir},%{_sbindir},%{_libdir}/{x,}gnokii} \
 	$RPM_BUILD_ROOT{%{_sysconfdir},%{_pixmapsdir},%{_desktopdir},%{_var}/log/{smsd,archive/smsd}}
 
-%{__make} install install-includes \
-	DESTDIR=$RPM_BUILD_ROOT
-
-%{__make} -C smsd install \
+%{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
@@ -219,9 +211,6 @@ install %{SOURCE4} $RPM_BUILD_ROOT/etc/rc.d/init.d/smsd
 
 # do not complain about unpackaged files (we package them with %%doc anyway)
 rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
-
-# move xgnokii manpage into proper place
-mv -f $RPM_BUILD_ROOT{%{_prefix}/man,%{_mandir}}/man1/xgnokii.1x
 rm -f $RPM_BUILD_ROOT%{_libdir}/smsd/*.{la,a}
 
 %find_lang %{name}
@@ -249,7 +238,7 @@ fi
 %doc TODO ChangeLog MAINTAINERS
 %attr(755,root,root) %{_bindir}/gnokii
 %attr(755,root,root) %{_bindir}/sendsms
-%attr(755,root,root) %{_sbindir}/gnokiid
+%attr(755,root,root) %{_bindir}/gnokiid
 %attr(755,root,root) %{_sbindir}/mgnokiidev
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/gnokiirc
 %{_mandir}/man1/[!x]*
@@ -265,6 +254,7 @@ fi
 %{_datadir}/xgnokii/xpm
 %{_datadir}/xgnokii/help
 %{_desktopdir}/gnokii.desktop
+%{_desktopdir}/xgnokii.desktop
 %{_pixmapsdir}/*
 %{_mandir}/man1/xgnokii.1x*
 
@@ -275,6 +265,7 @@ fi
 %files -n libgnokii-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgnokii.so
+%attr(755,root,root) %{_libdir}/libgnokii.so.3
 %{_libdir}/libgnokii.la
 %{_includedir}/*.h
 %{_includedir}/%{name}
@@ -287,7 +278,7 @@ fi
 %files smsd
 %defattr(644,root,root,755)
 %doc smsd/ChangeLog smsd/README smsd/README.MySQL smsd/README.Tru64 smsd/action smsd/*.sql
-%attr(755,root,root) %{_sbindir}/smsd
+%attr(755,root,root) %{_bindir}/smsd
 %dir %{_libdir}/smsd
 %{_mandir}/man8/smsd.*
 %attr(754,root,root) /etc/rc.d/init.d/smsd
@@ -297,12 +288,12 @@ fi
 
 %files -n gnokii-smsd-mysql
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/smsd/libmysql.so
+%attr(755,root,root) %{_libdir}/smsd/libsmsd_mysql.so
 
 %files -n gnokii-smsd-pgsql
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/smsd/libpq.so
+%attr(755,root,root) %{_libdir}/smsd/libsmsd_pq.so
 
 %files -n gnokii-smsd-file
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/smsd/libfile.so
+%attr(755,root,root) %{_libdir}/smsd/libsmsd_file.so
