@@ -14,7 +14,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.26
-Release:	2
+Release:	3
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -84,7 +84,7 @@ Biblioteka współdzielona gnokii.
 Summary:	libgnokii heades files
 Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libgnokii
 Group:		Development/Libraries
-BuildRequires:	XFree86-devel
+Requires:	XFree86-devel
 Requires:	bluez-libs-devel >= 2.8-2
 Requires:	libgnokii = %{epoch}:%{version}-%{release}
 Requires:	libusb-devel
