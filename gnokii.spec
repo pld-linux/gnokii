@@ -14,7 +14,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.27
-Release:	2
+Release:	3
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -34,7 +34,7 @@ BuildRequires:	gettext-autopoint
 BuildRequires:	gtk+2-devel >= 2.0
 %{?with_ical:BuildRequires:	libical-devel}
 BuildRequires:	libtool
-%{?with_usb:BuildRequires:	libusb-devel}
+%{?with_usb:BuildRequires:	libusb-compat-devel}
 BuildRequires:	mysql-devel
 %{?with_pcsc:BuildRequires:	pcsc-lite-devel}
 BuildRequires:	pkgconfig
@@ -87,7 +87,7 @@ Summary(pl.UTF-8):	Pliki nagłówkowe biblioteki libgnokii
 Group:		Development/Libraries
 Requires:	bluez-libs-devel >= 2.8-2
 Requires:	libgnokii = %{epoch}:%{version}-%{release}
-Requires:	libusb-devel
+Requires:	libusb-compat-devel
 Requires:	xorg-lib-libX11-devel
 Requires:	xorg-lib-libXpm-devel
 Obsoletes:	gnokii-devel
