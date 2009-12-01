@@ -32,6 +32,7 @@ BuildRequires:	automake
 BuildRequires:	flex
 BuildRequires:	gettext-autopoint
 BuildRequires:	gtk+2-devel >= 2.0
+BuildRequires:	intltool
 %{?with_ical:BuildRequires:	libical-devel}
 BuildRequires:	libtool
 %{?with_usb:BuildRequires:	libusb-compat-devel}
