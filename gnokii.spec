@@ -13,13 +13,13 @@
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
-Version:	0.6.27
-Release:	5
+Version:	0.6.29
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	http://www.gnokii.org/download/gnokii/%{name}-%{version}.tar.bz2
-# Source0-md5:	fd0ae7996a2e2a2c29e9f3c625df8f3d
+# Source0-md5:	6111e0158a1129062bda6420db67c313
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Source3:	%{name}.smsd.config
@@ -254,7 +254,6 @@ fi
 %dir %{_datadir}/xgnokii
 %{_libdir}/xgnokii
 %{_datadir}/xgnokii/xpm
-%{_datadir}/xgnokii/help
 %{_desktopdir}/gnokii.desktop
 %{_desktopdir}/xgnokii.desktop
 %{_pixmapsdir}/*
@@ -262,12 +261,12 @@ fi
 
 %files -n libgnokii
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libgnokii.so.*.*
+%attr(755,root,root) %{_libdir}/libgnokii.so.*.*.*
+%attr(755,root,root) %ghost %{_libdir}/libgnokii.so.?
 
 %files -n libgnokii-devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libgnokii.so
-%attr(755,root,root) %{_libdir}/libgnokii.so.4
 %{_libdir}/libgnokii.la
 %{_includedir}/*.h
 %{_includedir}/%{name}
