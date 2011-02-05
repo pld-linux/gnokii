@@ -287,14 +287,14 @@ fi
 %attr(2750,root,logs) %dir /var/log/smsd
 %attr(2750,root,logs) %dir /var/log/archive/smsd
 
-%files -n gnokii-smsd-mysql
+%files smsd-mysql
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/smsd/libsmsd_mysql.so
 
-%files -n gnokii-smsd-pgsql
+%files smsd-pgsql
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/smsd/libsmsd_pq.so
 
-%files -n gnokii-smsd-file
+%files smsd-file
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/smsd/libsmsd_file.so
