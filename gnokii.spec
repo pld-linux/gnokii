@@ -13,13 +13,13 @@
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
-Version:	0.6.29
-Release:	3
+Version:	0.6.30
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	http://www.gnokii.org/download/gnokii/%{name}-%{version}.tar.bz2
-# Source0-md5:	6111e0158a1129062bda6420db67c313
+# Source0-md5:	c90137d403febbc16712d64f0eb196de
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Source3:	%{name}.smsd.config
@@ -151,6 +151,18 @@ PostgreSQL plugin for gnokii-smsd.
 
 %description smsd-pgsql -l pl.UTF-8
 Wtyczka PostgreSQL dla gnokii-smsd.
+
+%package smsd-sqlite
+Summary:	SQLite plugin for gnokii-smsd
+Summary(pl.UTF-8):	Wtyczka SQLite dla gnokii-smsd
+Group:		Daemons
+Requires:	gnokii-smsd = %{epoch}:%{version}-%{release}
+
+%description smsd-sqlite
+SQLite plugin for gnokii-smsd.
+
+%description smsd-sqlite -l pl.UTF-8
+Wtyczka SQLite dla gnokii-smsd.
 
 %package smsd-file
 Summary:	file plugin for gnokii-smsd
@@ -294,6 +306,10 @@ fi
 %files smsd-pgsql
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/smsd/libsmsd_pq.so
+
+%files smsd-sqlite
+%defattr(644,root,root,755)
+%attr(755,root,root) %{_libdir}/smsd/libsmsd_sqlite.so
 
 %files smsd-file
 %defattr(644,root,root,755)
