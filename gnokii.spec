@@ -13,13 +13,13 @@
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
-Version:	0.6.30
+Version:	0.6.31
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
 Source0:	http://www.gnokii.org/download/gnokii/%{name}-%{version}.tar.bz2
-# Source0-md5:	c90137d403febbc16712d64f0eb196de
+# Source0-md5:	d9627f4a1152d3ea7806df4532850d5f
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Source3:	%{name}.smsd.config
@@ -195,7 +195,6 @@ rm -rf autom4te.cache
 	%{!?with_irda:--disable-irda} \
 	%{!?with_bluetooth:--disable-bluetooth} \
 	--enable-smsd \
-	--enable-security \
 	%{?debug:--enable-fulldebug} \
 	%{!?with_pcsc:--disable-libpcsclite}
 #	%{!?debug:--disable-debug} \
@@ -212,6 +211,11 @@ install -d $RPM_BUILD_ROOT/etc/{sysconfig,rc.d/init.d,logrotate.d} \
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
+
+cd xgnokii
+%{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+cd ..
 
 install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
