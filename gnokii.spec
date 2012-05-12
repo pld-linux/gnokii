@@ -9,7 +9,7 @@
 %bcond_without	usb		# build without USB support (for DKU2 cables)
 %bcond_without	pcsc		# build without PC/SC Lite support (for Smart Card readers)
 %bcond_without	x11		# build without x11
-#
+
 Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
@@ -212,22 +212,20 @@ install -d $RPM_BUILD_ROOT/etc/{sysconfig,rc.d/init.d,logrotate.d} \
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-cd xgnokii
-%{__make} install \
+%{__make} -C xgnokii install \
 	DESTDIR=$RPM_BUILD_ROOT
-cd ..
 
-install Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
+cp -p Docs/sample/gnokiirc $RPM_BUILD_ROOT%{_sysconfdir}/gnokiirc
 
 install -d $RPM_BUILD_ROOT%{_datadir}/xgnokii/xpm
-install xgnokii/xpm/* $RPM_BUILD_ROOT%{_datadir}/xgnokii/xpm/
+cp -p xgnokii/xpm/* $RPM_BUILD_ROOT%{_datadir}/xgnokii/xpm
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
-install %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/smsd
-install %{SOURCE4} $RPM_BUILD_ROOT/etc/rc.d/init.d/smsd
+cp -p %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+cp -p %{SOURCE2} $RPM_BUILD_ROOT%{_pixmapsdir}
+cp -p %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/smsd
+install -p %{SOURCE4} $RPM_BUILD_ROOT/etc/rc.d/init.d/smsd
 
-# do not complain about unpackaged files (we package them with %%doc anyway)
+# do not complain about unpackaged files (we package them with %doc anyway)
 rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 rm -f $RPM_BUILD_ROOT%{_libdir}/smsd/*.{la,a}
 
