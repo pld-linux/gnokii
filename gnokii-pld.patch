@@ -1,9 +1,9 @@
---- gnokii-0.6.3/Docs/sample/gnokiirc.orig	2004-07-05 00:04:24.000000000 +0200
-+++ gnokii-0.6.3/Docs/sample/gnokiirc	2004-07-23 14:03:12.077771752 +0200
-@@ -91,7 +91,7 @@
+--- gnokii-0.6.31/Docs/sample/gnokiirc.orig	2011-12-02 15:53:04.000000000 +0100
++++ gnokii-0.6.31/Docs/sample/gnokiirc	2012-05-12 11:20:57.000000000 +0200
+@@ -238,7 +238,7 @@
+ # In particular ensure that mgnokiidev is in this location, with
  # permissions 4750, owned by root, group gnokii.  Ensure you
  # are in the gnokii group and that the group exists...
- [gnokiid]
 -bindir = /usr/local/sbin/
 +bindir = /usr/sbin/
  
