@@ -225,8 +225,8 @@ cp -p %{SOURCE3} $RPM_BUILD_ROOT/etc/sysconfig/smsd
 install -p %{SOURCE4} $RPM_BUILD_ROOT/etc/rc.d/init.d/smsd
 
 # do not complain about unpackaged files (we package them with %doc anyway)
-rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
-rm -f $RPM_BUILD_ROOT%{_libdir}/smsd/*.{la,a}
+%{__rm} -r $RPM_BUILD_ROOT%{_docdir}/%{name}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/smsd/*.{la,a}
 
 %find_lang %{name}
 
