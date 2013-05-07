@@ -30,7 +30,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_bluetooth:BuildRequires:	bluez-libs-devel >= 2.8-2}
 BuildRequires:	flex
-BuildRequires:	gettext-autopoint
+BuildRequires:	gettext-devel
 BuildRequires:	gtk+2-devel >= 2.0
 BuildRequires:	intltool
 %{?with_ical:BuildRequires:	libical-devel}
@@ -181,7 +181,6 @@ Wtyczka obsługi plików dla gnokii-smsd.
 %patch0 -p1
 
 %build
-rm -rf autom4te.cache
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
