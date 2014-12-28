@@ -30,7 +30,7 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 %{?with_bluetooth:BuildRequires:	bluez-libs-devel >= 2.8-2}
 BuildRequires:	flex
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	gtk+2-devel >= 2.0
 BuildRequires:	intltool
 %{?with_ical:BuildRequires:	libical-devel}
