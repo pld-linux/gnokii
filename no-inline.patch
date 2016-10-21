@@ -1,0 +1,22 @@
+--- gnokii-0.6.31/xgnokii/xgnokii.c~	2011-12-02 15:53:04.000000000 +0100
++++ gnokii-0.6.31/xgnokii/xgnokii.c	2016-10-21 21:51:05.865776829 +0200
+@@ -798,7 +798,7 @@
+ }
+ 
+ 
+-inline void GUI_HideAbout(void)
++static void GUI_HideAbout(void)
+ {
+ 	gtk_widget_hide(AboutDialog);
+ }
+--- gnokii-0.6.31/xgnokii/xgnokii_logos.c~	2011-12-02 15:53:04.000000000 +0100
++++ gnokii-0.6.31/xgnokii/xgnokii_logos.c	2016-10-21 21:51:40.220672065 +0200
+@@ -1304,7 +1304,7 @@
+ 	return 0;
+ }
+ 
+-inline void CloseLogosWindow(void)
++static void CloseLogosWindow(void)
+ {
+ 	gtk_widget_hide(GUI_LogosWindow);
+ }
