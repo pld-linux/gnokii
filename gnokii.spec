@@ -14,7 +14,7 @@ Summary:	Linux/Unix tool suite for mobile phones
 Summary(pl.UTF-8):	Linuksowy/uniksowy zestaw narzędzi dla telefonów komórkowych
 Name:		gnokii
 Version:	0.6.31
-Release:	4
+Release:	5
 Epoch:		1
 License:	GPL v2+
 Group:		Applications/Communications
@@ -26,6 +26,7 @@ Source3:	%{name}.smsd.config
 Source4:	%{name}.smsd.init
 Patch0:		%{name}-pld.patch
 Patch1:		no-inline.patch
+Patch2:		%{name}-gcc7.patch
 URL:		http://www.gnokii.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -181,6 +182,7 @@ Wtyczka obsługi plików dla gnokii-smsd.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
