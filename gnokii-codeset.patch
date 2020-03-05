@@ -1,0 +1,62 @@
+From 4dd198d121ca366c9881d022a56394c2e56936d0 Mon Sep 17 00:00:00 2001
+From: Pawel Kot <gnokii@gmail.com>
+Date: Thu, 2 Jan 2020 13:13:45 +0100
+Subject: Add codeset.m4 to m4/ to prevent build failure with gettext >= 0.20
+
+Add codeset.m4 to m4/ as it is missing from gettext distribution from
+version 0.20.
+
+Fixes: https://savannah.nongnu.org/bugs/?57509
+---
+ ChangeLog     |  2 ++
+ m4/codeset.m4 | 25 +++++++++++++++++++++++++
+ 2 files changed, 27 insertions(+)
+ create mode 100644 m4/codeset.m4
+
+#diff --git a/ChangeLog b/ChangeLog
+#index b2016d7f..77c13629 100644
+#--- a/ChangeLog
+#+++ b/ChangeLog
+#@@ -111,6 +111,8 @@
+#  * build system updates
+#     o rename configure.in as configure.ac since the former name is
+#       deprecated                                    (Daniele Forsi)
+#+    o add local copy of codeset.m4 as it is gone from gettext 0.20
+#+      distribution                                      (Paweł Kot)
+#  * pcsc driver updates
+#     o drop support for model=pcsc that was deprecated in libgnokii
+#       0.6.28 and renamed as model=APDU              (Daniele Forsi)
+diff --git a/m4/codeset.m4 b/m4/codeset.m4
+new file mode 100644
+index 00000000..da1b2aef
+--- /dev/null
++++ b/m4/codeset.m4
+@@ -0,0 +1,25 @@
++# codeset.m4 serial 5 (gettext-0.18.2)
++dnl Copyright (C) 2000-2002, 2006, 2008-2014, 2016 Free Software Foundation,
++dnl Inc.
++dnl This file is free software; the Free Software Foundation
++dnl gives unlimited permission to copy and/or distribute it,
++dnl with or without modifications, as long as this notice is preserved.
++
++dnl From Bruno Haible.
++
++AC_DEFUN([AM_LANGINFO_CODESET],
++[
++  AC_CACHE_CHECK([for nl_langinfo and CODESET], [am_cv_langinfo_codeset],
++    [AC_LINK_IFELSE(
++       [AC_LANG_PROGRAM(
++          [[#include <langinfo.h>]],
++          [[char* cs = nl_langinfo(CODESET); return !cs;]])],
++       [am_cv_langinfo_codeset=yes],
++       [am_cv_langinfo_codeset=no])
++    ])
++  if test $am_cv_langinfo_codeset = yes; then
++    AC_DEFINE([HAVE_LANGINFO_CODESET], [1],
++      [Define if you have <langinfo.h> and nl_langinfo(CODESET).])
++  fi
++])
++
+-- 
+cgit v1.2.1
+

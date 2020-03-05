@@ -27,6 +27,7 @@ Source4:	%{name}.smsd.init
 Patch0:		%{name}-pld.patch
 Patch1:		no-inline.patch
 Patch2:		%{name}-gcc7.patch
+Patch3:		%{name}-codeset.patch
 URL:		http://www.gnokii.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -183,6 +184,7 @@ Wtyczka obsługi plików dla gnokii-smsd.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
